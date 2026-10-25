@@ -11,13 +11,29 @@ for(const [lang,w,h] of [['fr',390,844],['es',1280,800],['es',390,844]]){
  await p.click('#btnStart');await p.waitForTimeout(400);await p.screenshot({path:`${SH}/${tag}-menu.png`,fullPage:true});
  // Taller
  await p.click('#goShop');await p.waitForTimeout(200);
- await p.click('[data-buy="lamp"]');await p.click('[data-buy="fan"]');await p.click('[data-sw="lamp"]');await p.fill('#pIn-lamp','6');await p.click('#pOk-lamp');await p.waitForTimeout(150);
+ await p.click('[data-buy="lamp"]');await p.click('[data-buy="fan"]');await p.click('[data-sw="lamp"]');await p.fill('#pIn-lamp','12');await p.click('#pOk-lamp');await p.waitForTimeout(150);
  await p.click('[data-sw="fan"]');await p.fill('#pIn-fan','10');await p.click('#pOk-fan');await p.waitForTimeout(2500);
  const s1=await p.evaluate(()=>({on:Object.keys(window.__CO.S.shop.on),cr:window.__CO.S.cr,alert:(document.querySelector('#shopAlert:not([hidden])')||{}).innerText||''}));
- console.log(tag,'taller tras 6 W + 12 W con 20 W de límite:',JSON.stringify(s1));
+ console.log(tag,'taller tras 12 W + 24 W con 20 W de límite (debe saltar):',JSON.stringify(s1));
  await p.click('#genUp');await p.waitForTimeout(150);await p.click('[data-sw="lamp"]');await p.click('[data-sw="fan"]');await p.waitForTimeout(150);
  const s2=await p.evaluate(()=>({on:Object.keys(window.__CO.S.shop.on),gen:window.__CO.S.shop.gen,load:document.querySelector('.meter-l span').innerText}));
  console.log(tag,'con generador de 50 W:',JSON.stringify(s2));
+ // v1.4: cuadro eléctrico de 500 W
+ await p.evaluate(()=>{const S=window.__CO.S;S.cr=3000;S.shop.gen=6;['heater','compressor','printer3d','robot'].forEach(k=>{S.shop.own[k]=1;S.shop.quiz[k]=1;S.shop.ln[k]='A'});S.shop.on={};window.__CO.openShop()});await p.waitForTimeout(150);
+ await p.click('[data-sw="heater"]');await p.waitForTimeout(100);
+ const a1=await p.evaluate(()=>Object.keys(window.__CO.S.shop.on));
+ await p.click('[data-sw="robot"]');await p.waitForTimeout(100);
+ const a2=await p.evaluate(()=>({on:Object.keys(window.__CO.S.shop.on),alert:document.querySelector('#shopAlert').innerText.slice(0,60)}));
+ await p.click('[data-fu="A"][data-v="32"]');await p.waitForTimeout(100);await p.click('[data-sw="heater"]');await p.waitForTimeout(100);await p.click('[data-sw="robot"]');await p.waitForTimeout(100);await p.click('[data-sw="printer3d"]');await p.waitForTimeout(100);
+ const a3=await p.evaluate(()=>({on:Object.keys(window.__CO.S.shop.on),alert:document.querySelector('#shopAlert').innerText.slice(0,60),hot:window.__CO.S.stats.cableHot}));
+ await p.click('[data-fu="A"][data-v="16"]');await p.click('[data-ln="printer3d"][data-v="B"]');await p.waitForTimeout(100);
+ await p.click('[data-sw="heater"]');await p.click('[data-sw="robot"]');await p.click('[data-sw="printer3d"]');await p.waitForTimeout(100);
+ const a4=await p.evaluate(()=>({on:Object.keys(window.__CO.S.shop.on),load:document.querySelector('.meter-l span').innerText}));
+ await p.evaluate(()=>{const S=window.__CO.S;S.shop.t=Date.now()-3*3.6e6;window.__CO.openShop()});await p.waitForTimeout(100);
+ const pend=await p.evaluate(()=>JSON.stringify(window.__CO.S.shop.pend));const cr0=await p.evaluate(()=>window.__CO.S.cr);
+ await p.screenshot({path:`${SH}/${tag}-taller500.png`,fullPage:true});
+ await p.click('#harvest');await p.waitForTimeout(150);const cr1=await p.evaluate(()=>window.__CO.S.shop.earned);
+ console.log(tag,'500W: heater solo',JSON.stringify(a1),'| +robot en A (fusible 10 A)',JSON.stringify(a2),'| fusible 32 A en cable 16 A con 19 A',JSON.stringify(a3),'| repartido A/B',JSON.stringify(a4),'| 3 h',pend,'recoge',cr1);
  await p.click('[data-skin="or"]');await p.waitForTimeout(150);await p.screenshot({path:`${SH}/${tag}-taller.png`,fullPage:true});
  // Desafíos: resolver el 1 dentro de la pantalla
  await p.evaluate(()=>window.__CO.openPuzzles());await p.waitForTimeout(150);await p.screenshot({path:`${SH}/${tag}-desafios.png`,fullPage:true});

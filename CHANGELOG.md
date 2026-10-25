@@ -3,6 +3,15 @@
 Todo es la **versión 1**, todavía en desarrollo y **sin pruebas con familias reales**.
 Cada evolución suma una cifra: v1.1, v1.2, v1.3…
 
+## v1.4 · beta (25/10/2026)
+- **Capítulo 3 · Mánchester 1843 (Joule):** potencia P = U × I, potencia nominal, efecto Joule, energía E = P × t, kilovatio hora y factura. Nuevo juego «contador de energía» (organizar el día de la cervecería, cazar el derroche) y jefe final en Oxford 1847 con William Thomson.
+- **Capítulo 4 · Nueva York 1884 (Edison y Tesla):** seguridad eléctrica en modo juego: tarjetas rápidas «¿Peligro o no?» con cuenta atrás y combos, arcade «Pánico en Manhattan» (elegir la herramienta correcta para cada avería antes del apagón), fusible y cortocircuito en una casa, toma de tierra y diferencial, la dinamo de Pearl Street y el duelo final.
+- **Tesla, Gran Maestro:** al terminar Nueva York pasa a ser el maestro del jugador, aparece en el panel principal y propone 4 pruebas difíciles (serie + paralelo, fusible + interruptor, resistencias frágiles de 0,5 W, potencia exacta). Anuncia el electromagnetismo.
+- **Taller de 500 W:** red de 24 V, generador de 20 a 500 W (6 niveles), 16 aparatos, cuadro eléctrico con 3 líneas (cable de 1,5 / 2,5 / 6 mm²) y fusibles de 2 a 32 A. Si un fusible es más grande de lo que aguanta el cable, el cable se recalienta. Máquinas productivas que generan cristales en tiempo real (hasta 12 h) con factura de la luz en kWh. Las partidas de la v1.3 se adaptan solas (las potencias se vuelven a calcular).
+- **Ilustraciones nuevas:** motor de retratos rehecho para los 9 personajes: ojos con iris y brillo, cejas y boca según el ánimo (neutral, contento, sorprendido, preocupado, enfadado), pelo en capas con mechones, barbas y bigotes, cuello alto y ropa de época (chaleco, solapas, corbatín, condecoraciones) y luz de contorno del color de cada personaje. Escenarios de Mánchester, Nueva York y Pearl Street con mucho más detalle (tuberías y farol de gas, luna, puente y tren elevado en movimiento, dinamos «Jumbo», volante y cuadro de mandos). Haces de luz, polvo en suspensión y viñeta en todos los escenarios.
+- UX: en el móvil los personajes ya no quedan tapados por el cuadro de diálogo y quien habla se ve más grande; aparatos del taller en 2 columnas; indicador de «continuar» en los diálogos, botones más grandes en pantallas táctiles, vibración corta en el móvil al fallar, corrección de un fallo por el que Lumi a veces salía sin brillo, y de otro que podía saltarse un objetivo si se hacían dos cambios muy seguidos.
+- 7 medallas nuevas.
+
 ## v1.3 · beta (25/10/2026)
 - Taller del Chronotron: generador de 20, 50 y 100 W y 8 aparatos a 12 V. Antes de encender cada uno se calcula P = U × I, y si se supera la potencia salta el fusible general. 4 trajes para Lumi.
 - 8 desafíos de circuitos con 3 estrellas (funciona · pocas piezas · sin quemar nada ni usar pistas). Admiten varias soluciones y Lumi explica el resultado.

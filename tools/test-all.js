@@ -1,7 +1,7 @@
 // Prueba completa en Chromium: recorre todas las pantallas y todos los pasos de todas las misiones
 // en francés y en español, con y sin ayuda en el otro idioma. Busca errores de JavaScript,
 // textos sin traducir, palabras del otro idioma y desbordes de pantalla. Saca capturas.
-// Uso: node tools/test-all.js
+// Uso: node tools/test-all.js  (o una sola configuración: fr-movil, fr-pc, fr-ayuda-movil, es-movil)
 const {chromium} = require('playwright');
 const path = require('path'), fs = require('fs');
 const FILE = 'file://' + path.join(__dirname, '..', 'dist', 'test.html');
@@ -14,7 +14,7 @@ const LEAK = {
 };
 const OK = {
   fr: ['Guten Abend', 'Wunderbar', 'Danke, meine Freunde', 'Herr Ohm', 'Die galvanische Kette', 'Español', 'ESPAÑOL', 'Ja', 'Inès'],
-  es: ['Mon Dieu', 'Magnifique', 'Oh là là', 'Vite', 'Académie des sciences', 'Académie', 'monsieur', 'Monsieur', 'Adieu, mes amis', 'en dérivation',
+  es: ['une las', 'K2 une', 'Mon Dieu', 'Magnifique', 'Oh là là', 'Vite', 'Académie des sciences', 'Académie', 'monsieur', 'Monsieur', 'Adieu, mes amis', 'en dérivation',
        'Ampère', 'André-Marie', 'Die galvanische Kette', 'Court-Circuit', 'Chronotron', 'Français', 'CHRONO', 'Royal Society', 'François Arago', 'FRANÇAIS', 'Inès'],
 };
 function leaks(text, lang) {
@@ -30,6 +30,7 @@ function leaks(text, lang) {
     for (const alt of (lang === 'fr' ? [false, true] : [false])) {
       for (const vp of (alt ? [{w: 390, h: 844, n: 'movil'}] : lang === 'fr' ? [{w: 390, h: 844, n: 'movil'}, {w: 1280, h: 800, n: 'pc'}] : [{w: 390, h: 844, n: 'movil'}])) {
         const tag = `${lang}${alt ? '-ayuda' : ''}-${vp.n}`;
+        if (process.argv[2] && process.argv[2] !== tag) continue; // node tools/test-all.js fr-movil → solo esa configuración
         const ctx = await browser.newContext({viewport: {width: vp.w, height: vp.h}, deviceScaleFactor: 1});
         await ctx.addInitScript(([l, a]) => {
           localStorage.setItem('chrono-ohm-v1', JSON.stringify({name: 'Inès', introSeen: false, settings: {lang: l, alt: a, narr: false, music: false, sfx: false}}));
@@ -107,7 +108,7 @@ function leaks(text, lang) {
     }
   }
   await browser.close();
-  fs.writeFileSync(path.join(SHOTS, 'informe.json'), JSON.stringify(report, null, 1));
+  fs.writeFileSync(path.join(SHOTS, `informe${process.argv[2] ? '-' + process.argv[2] : ''}.json`), JSON.stringify(report, null, 1));
   console.log('pasos renderizados:', report.steps);
   console.log('errores JS:', report.errors.length); [...new Set(report.errors)].slice(0, 15).forEach(e => console.log('  ', e));
   console.log('sin traducir:', Object.keys(report.miss).length); Object.keys(report.miss).slice(0, 30).forEach(e => console.log('  ', e));

@@ -1,7 +1,7 @@
 // Verifica cada desafío con una solución de referencia (debe aprobar y caber en el máximo de piezas)
 // y con montajes erróneos típicos (deben suspender).
 const {chromium}=require('playwright');const path=require('path');
-const W=e=>({t:'wire',e}),SW=e=>({t:'sw',e,on:true}),RES=(e,R)=>({t:'res',e,R,Pmax:5}),FU=(e,Ir)=>({t:'fuse',e,Ir});
+const W=e=>({t:'wire',e}),SW=e=>({t:'sw',e,on:true}),RES=(e,R)=>({t:'res',e,R,Pmax:5}),FU=(e,Ir)=>({t:'fuse',e,Ir}),RP=(e,R,Pmax)=>({t:'res',e,R,Pmax});
 const LOOP=['h:1,0','h:2,0','h:3,0','h:4,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,0','v:1,1','v:1,2'];
 const CASES={
  p1:{ok:[['h:1,1','h:2,1','h:3,1','h:4,1','h:1,2','h:2,2','h:3,2','h:4,2'].map(W)],bad:[['h:1,1','h:2,1','h:3,1','h:4,1'].map(W)]},
@@ -14,7 +14,12 @@ const CASES={
  p6:{ok:[[FU('h:2,3',.5)]],bad:[[FU('h:2,3',2)],[FU('h:2,3',.2)],[W('h:2,3')]]},
  p7:{ok:[[RES('h:2,3',47),RES('h:3,3',47)]],bad:[[RES('h:2,3',47),W('h:3,3')],[RES('h:2,3',220),RES('h:3,3',470)]]},
  p8:{ok:[['v:1,0','h:1,0','h:3,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,2','v:3,1','h:2,1','h:1,1','v:4,2'].map(W)],
-     bad:[[...['v:1,0','h:1,0','h:3,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,2'].map(W)]]}};
+     bad:[[...['v:1,0','h:1,0','h:3,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,2'].map(W)]]},
+ m1:{ok:[['v:1,0','h:1,0','h:3,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,2','h:1,1','v:2,1','h:3,2'].map(W)],
+     bad:[['v:1,0','h:1,0','h:3,0','v:5,0','v:5,1','v:5,2','h:4,3','h:3,3','h:2,3','h:1,3','v:1,2'].map(W)]},
+ m2:{ok:[[FU('h:1,0',.5),SW('v:5,0')]],bad:[[FU('h:1,0',.2),SW('v:5,0')],[FU('h:1,0',2),SW('v:5,0')],[SW('h:1,0'),FU('v:5,0',.5)]]},
+ m3:{ok:[[RP('h:2,3',22,.5),RP('h:3,3',22,.5)]],bad:[[RP('h:2,3',47,.5),W('h:3,3')],[RP('h:2,3',22,.5),W('h:3,3')],[RP('h:2,3',47,.5),RP('h:3,3',22,.5)]]},
+ m4:{ok:[[RP('h:3,0',33,2),RP('h:3,1',33,2),W('v:3,0'),W('v:4,0')]],bad:[[RP('h:3,0',22,2)],[RP('h:3,0',10,2)],[RP('h:3,0',100,2),RP('h:3,1',22,2),W('v:3,0'),W('v:4,0')]]}};
 (async()=>{const b=await chromium.launch();const p=await b.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  await p.goto('file://'+path.join(__dirname,'..','dist','test.html'));await p.waitForTimeout(300);
  const res=await p.evaluate(CASES=>{const C=window.__CO;const out=[];
