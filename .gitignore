@@ -1,0 +1,6 @@
+node_modules/
+dist/
+shots*/
+i18n/dict.json
+i18n/review.json
+*.log

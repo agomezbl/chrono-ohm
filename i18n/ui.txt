@@ -1,0 +1,663 @@
+# Textos de interfaz de Chrono-Ohm.   clave.idioma = texto
+# {x} = valor que pone el juego. Las claves .1 / .n son singular / plural.
+
+# ---------- Pantalla de título ----------
+lang.aria.fr = Langue du jeu
+lang.aria.es = Idioma del juego
+title.kicker.fr = Physique-chimie · Intensité · Résistance · Loi d'Ohm
+title.kicker.es = Física y química · Intensidad · Resistencia · Ley de Ohm
+title.tag.fr = Le voleur d'électricité
+title.tag.es = El ladrón de electricidad
+title.name.fr = Ton prénom
+title.name.es = Tu nombre
+title.namePh.fr = Écris ton prénom
+title.namePh.es = Escribe tu nombre
+title.player.fr = Partie de :
+title.player.es = Partida de:
+btn.play.fr = Jouer
+btn.play.es = Jugar
+btn.change.fr = Changer
+btn.change.es = Cambiar
+
+# ---------- Ajustes ----------
+set.title.fr = Réglages
+set.title.es = Ajustes
+set.lang.fr = Langue
+set.lang.es = Idioma
+set.alt.fr = Aide en espagnol
+set.alt.es = Ayuda en francés
+set.altHelp.fr = (affiche aussi la traduction en petit)
+set.altHelp.es = (muestra también la traducción en pequeño)
+set.narr.fr = Narrateur automatique
+set.narr.es = Narrador automático
+set.narrHelp.fr = (lit les dialogues et les questions)
+set.narrHelp.es = (lee los diálogos y las preguntas)
+set.noVoice.fr = (aucune voix française installée sur cet appareil)
+set.noVoice.es = (este aparato no tiene ninguna voz en español instalada)
+set.music.fr = Musique
+set.music.es = Música
+set.sfx.fr = Effets sonores
+set.sfx.es = Efectos de sonido
+set.reset.fr = Effacer la progression
+set.reset.es = Borrar el progreso
+set.resetSure.fr = Sûr ? Appuie encore
+set.resetSure.es = ¿Seguro? Pulsa otra vez
+set.resetDone.fr = Progression effacée.
+set.resetDone.es = Progreso borrado.
+btn.close.fr = Fermer
+btn.close.es = Cerrar
+
+# ---------- Cabecera y menú principal ----------
+head.xpTo.fr = {xp} XP · encore {left} XP pour devenir {rank}
+head.xpTo.es = {xp} XP · faltan {left} XP para ser {rank}
+head.crystals.fr = Cristaux
+head.crystals.es = Cristales
+head.sound.fr = Son
+head.sound.es = Sonido
+rank.0.fr = Novice
+rank.0.es = Aprendiz
+rank.1.fr = Stagiaire
+rank.1.es = Ayudante
+rank.2.fr = Analyste
+rank.2.es = Analista
+rank.3.fr = Spécialiste
+rank.3.es = Especialista
+rank.4.fr = Génie
+rank.4.es = Genio
+rank.5.fr = Légende du Temps
+rank.5.es = Leyenda del Tiempo
+rank.new.fr = NOUVEAU GRADE
+rank.new.es = NUEVO RANGO
+hub.k.fr = Atelier temporel
+hub.k.es = Taller del tiempo
+hub.chronotron.fr = Le Chronotron
+hub.chronotron.es = El Chronotron
+hub.allDone.fr = Tu as terminé tous les chapitres disponibles !
+hub.allDone.es = ¡Has terminado todos los capítulos disponibles!
+hub.soon.fr = Le Chronotron se recharge pour voyager à {place} en {year}. Ce chapitre arrive dans la prochaine mise à jour ! En attendant, essaie le labo libre.
+hub.soon.es = El Chronotron se está recargando para viajar a {place} en {year}. ¡Este capítulo llega en la próxima actualización! Mientras, prueba el laboratorio libre.
+hub.next.fr = Prochaine destination :
+hub.next.es = Próximo destino:
+hub.travel.fr = Voyager
+hub.travel.es = Viajar
+btn.continue.fr = Continuer
+btn.continue.es = Continuar
+hub.timeline.fr = Chronologie
+hub.timeline.es = Línea del tiempo
+hub.soonTag.fr = Bientôt
+hub.soonTag.es = Próximamente
+hub.locked.fr = Verrouillé
+hub.locked.es = Bloqueado
+hub.missions.fr = {d}/{n} missions
+hub.missions.es = {d}/{n} misiones
+notes.title.fr = Carnet de labo
+notes.title.es = Cuaderno de laboratorio
+hub.notesSub.fr = Lois, astuces et histoire
+hub.notesSub.es = Leyes, trucos e historia
+hub.pages.fr = {n} / {t} pages
+hub.pages.es = {n} / {t} páginas
+sand.title.fr = Labo libre
+sand.title.es = Laboratorio libre
+hub.sandSub.fr = Monte ce que tu veux
+hub.sandSub.es = Monta lo que quieras
+hub.sandText.fr = Toutes les pièces, sans limite. Fais griller des lampes, provoque des courts-circuits, expérimente.
+hub.sandText.es = Todas las piezas, sin límites. Funde lámparas, provoca cortocircuitos, experimenta.
+skills.title.fr = Compétences
+skills.title.es = Competencias
+hub.skillsSub.fr = Tes progrès et tes médailles
+hub.skillsSub.es = Tu progreso y tus medallas
+hub.skillsText.fr = {ok} / {n} compétences maîtrisées · {m} médailles
+hub.skillsText.es = {ok} / {n} competencias dominadas · {m} medallas
+credits.link.fr = Crédits et confidentialité
+credits.link.es = Créditos y privacidad
+toast.soon.fr = Ce chapitre arrive dans la prochaine mise à jour.
+toast.soon.es = Este capítulo llega en la próxima actualización.
+toast.prevChapter.fr = Termine le chapitre précédent pour voyager ici.
+toast.prevChapter.es = Termina el capítulo anterior para viajar aquí.
+toast.prevMission.fr = Termine d'abord la mission précédente.
+toast.prevMission.es = Termina primero la misión anterior.
+chap.k.fr = Chapitre {n} · {era}
+chap.k.es = Capítulo {n} · {era}
+btn.workshop.fr = Atelier
+btn.workshop.es = Taller
+
+# ---------- Cuaderno ----------
+notes.sub.fr = Tout ce que tu découvres pendant l'aventure
+notes.sub.es = Todo lo que vas descubriendo en la aventura
+notes.tab.loi.fr = Lois et formules
+notes.tab.loi.es = Leyes y fórmulas
+notes.tab.astuce.fr = Astuces
+notes.tab.astuce.es = Trucos
+notes.tab.hist.fr = Histoire
+notes.tab.hist.es = Historia
+notes.locked.fr = Page à découvrir pendant l'aventure.
+notes.locked.es = Página por descubrir en la aventura.
+note.cat.loi.fr = Loi et formule
+note.cat.loi.es = Ley y fórmula
+note.cat.astuce.fr = Astuce de Lumi
+note.cat.astuce.es = Truco de Lumi
+note.cat.hist.fr = Histoire
+note.cat.hist.es = Historia
+note.x.loi.fr = En clair
+note.x.loi.es = Dicho fácil
+note.x.astuce.fr = Lumi
+note.x.astuce.es = Lumi
+note.x.hist.fr = Anecdote
+note.x.hist.es = Anécdota
+note.new.fr = Nouveau dans le carnet
+note.new.es = Nuevo en el cuaderno
+btn.listen.fr = Écouter
+btn.listen.es = Escuchar
+btn.noted.fr = Noté !
+btn.noted.es = ¡Anotado!
+
+# ---------- Competencias ----------
+skills.sub.fr = Ce que tu maîtrises déjà du programme
+skills.sub.es = Lo que ya dominas del temario
+skills.tries.1.fr = {n} essai
+skills.tries.1.es = {n} intento
+skills.tries.n.fr = {n} essais
+skills.tries.n.es = {n} intentos
+skills.noData.fr = pas encore de données
+skills.noData.es = aún sin datos
+skills.ok.fr = Maîtrisé
+skills.ok.es = Dominado
+skills.mid.fr = En progrès
+skills.mid.es = En progreso
+skills.low.fr = À revoir
+skills.low.es = A reforzar
+skills.none.fr = Pas de données
+skills.none.es = Sin datos
+skills.medals.fr = Médailles
+skills.medals.es = Medallas
+tile.correct.fr = bonnes réponses
+tile.correct.es = respuestas correctas
+tile.acc.fr = précision
+tile.acc.es = precisión
+tile.labs.fr = expériences
+tile.labs.es = experimentos
+tile.time.fr = temps de jeu
+tile.time.es = tiempo de juego
+tile.burns.fr = choses grillées
+tile.burns.es = cosas quemadas
+tile.shorts.fr = courts-circuits
+tile.shorts.es = cortocircuitos
+ach.unlocked.fr = MÉDAILLE DÉBLOQUÉE
+ach.unlocked.es = MEDALLA DESBLOQUEADA
+
+# ---------- Diálogos y viaje ----------
+talk.hint.fr = Clic · Espace · Entrée
+talk.hint.es = Clic · Espacio · Intro
+talk.hintTouch.fr = Touche l'écran pour continuer
+talk.hintTouch.es = Toca la pantalla para seguir
+talk.skip.fr = Passer la scène
+talk.skip.es = Saltar escena
+travel.k.fr = Chronotron · Destination
+travel.k.es = Chronotron · Destino
+
+# ---------- Misión: botones y resultados ----------
+btn.quit.fr = Quitter
+btn.quit.es = Salir
+btn.quitSure.fr = Confirmer ?
+btn.quitSure.es = ¿Seguro?
+btn.hint.fr = Indice
+btn.hint.es = Pista
+btn.restart.fr = Recommencer
+btn.restart.es = Empezar de nuevo
+btn.validate.fr = Valider
+btn.validate.es = Comprobar
+btn.nextQ.fr = Question suivante
+btn.nextQ.es = Siguiente pregunta
+btn.retry.fr = Réessayer
+btn.retry.es = Reintentar
+btn.endChapter.fr = Terminer le chapitre
+btn.endChapter.es = Terminar el capítulo
+end.mission.fr = Mission accomplie
+end.mission.es = Misión cumplida
+end.chapter.fr = Chapitre terminé
+end.chapter.es = Capítulo completado
+end.crystals.1.fr = cristal
+end.crystals.1.es = cristal
+end.crystals.n.fr = cristaux
+end.crystals.n.es = cristales
+end.errors.1.fr = erreur
+end.errors.1.es = error
+end.errors.n.fr = erreurs
+end.errors.n.es = errores
+end.hints.1.fr = indice
+end.hints.1.es = pista
+end.hints.n.fr = indices
+end.hints.n.es = pistas
+end.backTimeline.fr = Retour à la chronologie
+end.backTimeline.es = Volver a la línea del tiempo
+end.backList.fr = Liste des missions
+end.backList.es = Lista de misiones
+stars.aria.fr = {n} étoiles sur 3
+stars.aria.es = {n} estrellas de 3
+page.book.fr = Le Grand Livre de l'Électricité
+page.book.es = El Gran Libro de la Electricidad
+page.got.fr = Page récupérée
+page.got.es = Página recuperada
+
+# ---------- Preguntas ----------
+q.kind.q.fr = QUESTION
+q.kind.q.es = PREGUNTA
+q.kind.predict.fr = PRÉDICTION
+q.kind.predict.es = PREDICCIÓN
+q.kind.calc.fr = CALCUL
+q.kind.calc.es = CÁLCULO
+q.kind.guided.fr = CALCUL GUIDÉ
+q.kind.guided.es = CÁLCULO GUIADO
+q.altTitle.fr = Voir la question en espagnol
+q.altTitle.es = Ver la pregunta en francés
+q.right.fr = Bonne réponse :
+q.right.es = Respuesta correcta:
+q.answer.fr = Réponse :
+q.answer.es = Respuesta:
+fb.ok.fr = CORRECT !
+fb.ok.es = ¡CORRECTO!
+fb.bad.fr = ERREUR
+fb.bad.es = FALLO
+fb.hyp.fr = HYPOTHÈSE NOTÉE
+fb.hyp.es = HIPÓTESIS ANOTADA
+fb.notYet.fr = PAS ENCORE
+fb.notYet.es = TODAVÍA NO
+fb.retry.fr = Vérifie le calcul et les unités. Il te reste un essai.
+fb.retry.es = Revisa el cálculo y las unidades. Te queda un intento.
+msg.number.fr = Écris un nombre.
+msg.number.es = Escribe un número.
+msg.wrongMA.fr = Ce n'est pas ça. Rappel : mA = A × 1000.
+msg.wrongMA.es = No es eso. Recuerda: mA = A × 1000.
+msg.wrongRead.fr = Ce n'est pas ça. Regarde bien l'écran de l'appareil.
+msg.wrongRead.es = No es eso. Mira bien la pantalla del aparato.
+aria.answer.fr = Ta réponse
+aria.answer.es = Tu respuesta
+calc.result.fr = Résultat
+calc.result.es = Resultado
+calc.resultHelp.fr = avec son unité
+calc.resultHelp.es = con su unidad
+boss.progress.fr = Question {k} sur {n}
+boss.progress.es = Pregunta {k} de {n}
+boss.noLives.fr = PLUS DE VIES
+boss.noLives.es = SIN VIDAS
+boss.laugh.fr = Le Baron ricane… mais tu peux réessayer !
+boss.laugh.es = El Barón se ríe… ¡pero puedes volver a intentarlo!
+boss.win.fr = Victoire
+boss.win.es = Victoria
+
+# ---------- Código de colores ----------
+colors.k.fr = Code des couleurs
+colors.k.es = Código de colores
+colors.kind.fr = CODE DES COULEURS · {k}/{n}
+colors.kind.es = CÓDIGO DE COLORES · {k}/{n}
+colors.q.fr = Quelle est la valeur de cette résistance ?
+colors.q.es = ¿Qué valor tiene esta resistencia?
+colors.aria.fr = Résistance avec des bagues de couleur
+colors.aria.es = Resistencia con bandas de colores
+colors.perfect.fr = Parfait ! Tu lis les résistances comme dans un vrai labo.
+colors.perfect.es = ¡Perfecto! Ya lees resistencias como en un laboratorio de verdad.
+colors.tip.fr = Relis l'astuce du carnet : « Ne Mangez Rien Ou Je Vous Brûle… »
+colors.tip.es = Repasa el truco del cuaderno: «Nunca Me Rompas Nada…»
+colors.zeros.1.fr = {n} zéro
+colors.zeros.1.es = {n} cero
+colors.zeros.n.fr = {n} zéros
+colors.zeros.n.es = {n} ceros
+color.gold.fr = or
+color.gold.es = oro
+
+# ---------- Laboratorio ----------
+lab.k.fr = Expérience
+lab.k.es = Experimento
+lab.done.fr = Expérience réussie !
+lab.done.es = ¡Experimento superado!
+lab.aria.fr = Paillasse de laboratoire
+lab.aria.es = Banco de laboratorio
+lab.tools.fr = Outils
+lab.tools.es = Herramientas
+tool.select.fr = Main
+tool.select.es = Mano
+tool.erase.fr = Gomme
+tool.erase.es = Goma
+lab.none.fr = Il ne reste plus de pièces de ce type.
+lab.none.es = No quedan piezas de este tipo.
+lab.locked.fr = Cette pièce fait partie du montage : on ne peut pas l'enlever.
+lab.locked.es = Esta pieza es del montaje: no se puede quitar.
+lab.fuseHS.fr = FUSIBLE HS
+lab.fuseHS.es = FUSIBLE ROTO
+insp.wire.fr = Fais glisser d'un point à un autre pour tirer des fils.
+insp.wire.es = Arrastra de un punto a otro para tender cables.
+insp.select.fr = Touche une pièce pour voir ses données et la régler.
+insp.select.es = Toca una pieza para ver sus datos y ajustarla.
+insp.erase.fr = Touche une pièce pour l'enlever.
+insp.erase.es = Toca una pieza para quitarla.
+insp.place.fr = Touche un trou entre deux points pour placer la pièce.
+insp.place.es = Toca un hueco entre dos puntos para colocar la pieza.
+insp.fuseBlown.fr = Fusible fondu
+insp.fuseBlown.es = Fusible fundido
+insp.ampFuse.fr = Fusible interne fondu
+insp.ampFuse.es = Fusible interno fundido
+insp.burnt.fr = Grillé
+insp.burnt.es = Quemado
+btn.replace.fr = Remplacer
+btn.replace.es = Reemplazar
+insp.tension.fr = Tension
+insp.tension.es = Tensión
+insp.pmax.fr = Puissance max
+insp.pmax.es = Potencia máxima
+insp.lampNom.fr = Tension nominale {u} V · intensité nominale {i} A
+insp.lampNom.es = Tensión nominal {u} V · intensidad nominal {i} A
+insp.rating.fr = Calibre {v} A
+insp.rating.es = Calibre {v} A
+btn.open.fr = Ouvrir
+btn.open.es = Abrir
+btn.flip.fr = Inverser les bornes
+btn.flip.es = Invertir bornes
+insp.ampTerm.fr = Borne rouge = A (entrée du courant) · borne noire = COM
+insp.ampTerm.es = Borne rojo = A (entrada de la corriente) · borne negro = COM
+insp.voltTerm.fr = Borne rouge = V · borne noire = COM
+insp.voltTerm.es = Borne rojo = V · borne negro = COM
+btn.remove.fr = Retirer
+btn.remove.es = Quitar
+alert.lamp.fr = **{lab} a grillé !** Elle reçoit trop de tension (surtension).
+alert.lamp.es = **¡{lab} se ha fundido!** Recibe demasiada tensión (sobretensión).
+alert.res.fr = **{lab} a brûlé.** Trop de puissance pour cette résistance.
+alert.res.es = **{lab} se ha quemado.** Demasiada potencia para esta resistencia.
+alert.motor.fr = **{lab} a brûlé.** Trop d'intensité.
+alert.motor.es = **{lab} se ha quemado.** Demasiada intensidad.
+alert.fuse.fr = **Le fusible {lab} a fondu.** Il a coupé le circuit et l'a protégé.
+alert.fuse.es = **El fusible {lab} se ha fundido.** Ha cortado el circuito y lo ha protegido.
+alert.amp.fr = **Le fusible de l'ampèremètre a fondu !** Plus de 10 A le traversaient. Est-il en dérivation, ou y a-t-il un court-circuit ? Un ampèremètre se branche toujours EN SÉRIE.
+alert.amp.es = **¡Se ha fundido el fusible del amperímetro!** Lo atravesaban más de 10 A. ¿Está en paralelo o hay un cortocircuito? Un amperímetro se conecta siempre EN SERIE.
+alert.short.fr = **COURT-CIRCUIT !** Le courant passe par un chemin sans résistance. Les fils chauffent…
+alert.short.es = **¡CORTOCIRCUITO!** La corriente pasa por un camino sin resistencia. Los cables se calientan…
+alert.genburn.fr = **La pile est détruite par le court-circuit.** Enlève le fil qui fait le pont, puis appuie sur « Remplacer ».
+alert.genburn.es = **La pila se ha destruido por el cortocircuito.** Quita el cable que hace de puente y pulsa «Reemplazar».
+graph.k.fr = Caractéristique U = f(I)
+graph.k.es = Característica U = f(I)
+graph.aria.fr = Graphique de U en fonction de I
+graph.aria.es = Gráfica de U en función de I
+btn.record.fr = Enregistrer la mesure
+btn.record.es = Registrar la medida
+graph.points.1.fr = {n} point
+graph.points.1.es = {n} punto
+graph.points.n.fr = {n} points
+graph.points.n.es = {n} puntos
+graph.noRead.fr = Les appareils ne mesurent rien : vérifie le circuit.
+graph.noRead.es = Los aparatos no miden: revisa el circuito.
+graph.dup.fr = Tu as déjà ce point : change la tension du générateur.
+graph.dup.es = Ya tienes ese punto: cambia la tensión del generador.
+
+# ---------- Laboratorio libre ----------
+sand.k.fr = Banc d'essai
+sand.k.es = Banco de pruebas
+sand.text.fr = Toutes les pièces, sans limite. Touche une pièce pour changer sa valeur. Ici, tu vois U, I et P de chaque composant.
+sand.text.es = Todas las piezas, sin límite. Toca una pieza para cambiar su valor. Aquí ves U, I y P de cada componente.
+sand.clear.fr = Tout effacer
+sand.clear.es = Borrar todo
+sand.demo.fr = Exemple
+sand.demo.es = Ejemplo
+sand.ideas.fr = Idées
+sand.ideas.es = Ideas
+sand.idea1.fr = Deux lampes en série, puis en dérivation : laquelle brille le plus ?
+sand.idea1.es = Dos lámparas en serie y luego en paralelo: ¿cuándo brillan más?
+sand.idea2.fr = Trouve la résistance qui fait briller normalement une lampe de 6 V avec 12 V.
+sand.idea2.es = Busca la resistencia que hace brillar normal una lámpara de 6 V con 12 V.
+sand.idea3.fr = Mets un fusible de 0,5 A et provoque un court-circuit.
+sand.idea3.es = Pon un fusible de 0,5 A y provoca un cortocircuito.
+
+# ---------- Créditos ----------
+credits.title.fr = Crédits et confidentialité
+credits.title.es = Créditos y privacidad
+credits.made.fr = Chrono-Ohm, une aventure pour apprendre l'électricité au collège. Simulateur de circuits, histoires et exercices originaux.
+credits.made.es = Chrono-Ohm, una aventura para aprender electricidad en secundaria. Simulador de circuitos, historias y ejercicios originales.
+credits.fontsH.fr = Polices de caractères
+credits.fontsH.es = Tipografías
+credits.ofl.fr = Ces polices sont distribuées sous licence SIL Open Font License 1.1 et sont incluses dans le jeu.
+credits.ofl.es = Estas tipografías se distribuyen con licencia SIL Open Font License 1.1 y van incluidas en el juego.
+credits.soundH.fr = Musique et sons
+credits.soundH.es = Música y sonidos
+credits.sound.fr = Composés par le jeu lui-même, en direct, avec le synthétiseur du navigateur.
+credits.sound.es = Los compone el propio juego, en directo, con el sintetizador del navegador.
+credits.privH.fr = Confidentialité
+credits.privH.es = Privacidad
+credits.priv.fr = Le jeu ne crée pas de compte, ne contient pas de publicité et n'envoie aucune donnée personnelle. La progression et le prénom restent uniquement sur cet appareil ; le narrateur ne prononce jamais le prénom.
+credits.priv.es = El juego no crea cuentas, no tiene publicidad y no envía ningún dato personal. El progreso y el nombre se quedan solo en este aparato; el narrador nunca pronuncia el nombre.
+
+# ================= v1.3 =================
+# ---------- Menú ----------
+hub.shopSub.fr = Dépense tes cristaux
+hub.shopSub.es = Gasta tus cristales
+hub.shopText.fr = Générateur : {w} W utilisés sur {c} W. Équipe et décore ton atelier.
+hub.shopText.es = Generador: {w} W en uso de {c} W. Equipa y decora tu taller.
+hub.pzSub.fr = Circuits à résoudre, 3 étoiles
+hub.pzSub.es = Circuitos para resolver, 3 estrellas
+hub.pzText.fr = {s} / {t} étoiles. Plusieurs solutions possibles : trouve la plus élégante.
+hub.pzText.es = {s} / {t} estrellas. Hay varias soluciones: busca la más elegante.
+hub.revSub.fr = Le Baron attaque ta mémoire
+hub.revSub.es = El Barón ataca tu memoria
+hub.revReady.fr = 5 questions sur ce qui te résiste le plus. Récompense doublée une fois par jour.
+hub.revReady.es = 5 preguntas sobre lo que más te cuesta. Premio doble una vez al día.
+hub.revDone.fr = Anomalie du jour réparée ! Tu peux t'entraîner encore.
+hub.revDone.es = ¡Anomalía de hoy reparada! Puedes seguir practicando.
+hub.revLocked.fr = Termine d'abord les premières missions du chapitre 1.
+hub.revLocked.es = Termina antes las primeras misiones del capítulo 1.
+
+# ---------- Taller ----------
+shop.title.fr = Atelier du Chronotron
+shop.title.es = Taller del Chronotron
+shop.sub.fr = Ton générateur, tes appareils, ton style
+shop.sub.es = Tu generador, tus aparatos, tu estilo
+shop.aria.fr = L'atelier et ses appareils
+shop.aria.es = El taller y sus aparatos
+shop.tip.fr = Chaque appareil fonctionne sous {u} V et consomme une puissance [[P = U × I]], en watts (W). Ton générateur donne au maximum {c} W : si tu dépasses, le fusible général saute !
+shop.tip.es = Cada aparato funciona a {u} V y consume una potencia [[P = U × I]], en vatios (W). Tu generador da como máximo {c} W: si te pasas, ¡salta el fusible general!
+shop.empty.fr = Atelier vide : achète ton premier appareil.
+shop.empty.es = Taller vacío: compra tu primer aparato.
+shop.load.fr = Puissance totale
+shop.load.es = Potencia total
+shop.gen.fr = Générateur
+shop.gen.es = Generador
+shop.genLv.fr = Niveau {l} · {w} W maximum
+shop.genLv.es = Nivel {l} · {w} W como máximo
+shop.genUp.fr = Passer à {w} W
+shop.genUp.es = Subir a {w} W
+shop.genMax.fr = Niveau maximal atteint
+shop.genMax.es = Nivel máximo alcanzado
+shop.buy.fr = Acheter
+shop.buy.es = Comprar
+shop.on.fr = Allumer
+shop.on.es = Encender
+shop.off.fr = Éteindre
+shop.off.es = Apagar
+shop.q.fr = Avant de l'allumer : quelle est sa puissance ? [[P = U × I]] = {u} × {i} = ?
+shop.q.es = Antes de encenderlo: ¿qué potencia tiene? [[P = U × I]] = {u} × {i} = ?
+shop.qOk.fr = Exact ! +2 cristaux
+shop.qOk.es = ¡Exacto! +2 cristales
+shop.qBad.fr = Presque : P = {u} × {i} = [[{p} W]].
+shop.qBad.es = Casi: P = {u} × {i} = [[{p} W]].
+shop.blown.fr = **Le fusible général a sauté !** P totale = {p} W, mais le générateur ne donne que {c} W. Éteins un appareil ou améliore le générateur.
+shop.blown.es = **¡Ha saltado el fusible general!** P total = {p} W, pero el generador solo da {c} W. Apaga un aparato o mejora el generador.
+shop.skins.fr = Tenues de Lumi
+shop.skins.es = Trajes de Lumi
+shop.wear.fr = Mettre
+shop.wear.es = Ponérselo
+shop.wearing.fr = Portée
+shop.wearing.es = Puesto
+skin.cuivre.fr = Cuivre
+skin.cuivre.es = Cobre
+skin.or.fr = Or
+skin.or.es = Oro
+skin.neon.fr = Néon
+skin.neon.es = Neón
+skin.vapeur.fr = Vapeur
+skin.vapeur.es = Vapor
+dev.garland.fr = Guirlande lumineuse
+dev.garland.es = Guirnalda de luces
+dev.lamp.fr = Lampe d'établi
+dev.lamp.es = Lámpara de banco
+dev.radio.fr = Radio à lampes
+dev.radio.es = Radio de válvulas
+dev.fan.fr = Ventilateur
+dev.fan.es = Ventilador
+dev.neon.fr = Enseigne néon
+dev.neon.es = Letrero de neón
+dev.console.fr = Console temporelle
+dev.console.es = Consola temporal
+dev.coffee.fr = Machine à café
+dev.coffee.es = Cafetera
+dev.tesla.fr = Bobine de Tesla
+dev.tesla.es = Bobina de Tesla
+
+# ---------- Desafíos ----------
+pz.title.fr = Défis de circuits
+pz.title.es = Desafíos de circuitos
+pz.intro.fr = Chaque défi accepte plusieurs solutions. Une étoile s'il fonctionne, une autre avec peu de pièces, la troisième sans rien griller et sans indice.
+pz.intro.es = Cada desafío admite varias soluciones. Una estrella si funciona, otra con pocas piezas y la tercera sin quemar nada y sin pistas.
+pz.k.fr = Défi {n}
+pz.k.es = Desafío {n}
+pz.s1.fr = Le circuit fonctionne
+pz.s1.es = El circuito funciona
+pz.s2.fr = {n} pièces au maximum (tu en as posé {now})
+pz.s2.es = {n} piezas como máximo (llevas {now})
+pz.s3.fr = Rien de grillé, aucun indice
+pz.s3.es = Nada quemado y sin pistas
+pz.again.fr = Retenter pour 3 étoiles
+pz.again.es = Reintentar a por 3 estrellas
+pz.next.fr = Défi suivant
+pz.next.es = Siguiente desafío
+pz.list.fr = Liste des défis
+pz.list.es = Lista de desafíos
+pz.lockPrev.fr = Réussis d'abord le défi précédent.
+pz.lockPrev.es = Supera antes el desafío anterior.
+pz.lockMission.fr = Se débloque après la mission « {m} ».
+pz.lockMission.es = Se desbloquea tras la misión «{m}».
+pz.p1.t.fr = Lumière à distance
+pz.p1.t.es = Luz a distancia
+pz.p1.g.fr = Allume L1 normalement. La lampe est loin du générateur : tire les fils.
+pz.p1.g.es = Enciende L1 con brillo normal. La lámpara está lejos del generador: tiende los cables.
+pz.p1.h1.fr = Il faut une boucle complète : de la borne + du générateur jusqu'à la lampe, puis retour à la borne −.
+pz.p1.h1.es = Hace falta un bucle completo: del borne + del generador hasta la lámpara, y vuelta al borne −.
+pz.p1.h2.fr = Le chemin le plus court : 4 fils sur la rangée du générateur en haut, 4 fils en bas.
+pz.p1.h2.es = El camino más corto: 4 cables por la fila de arriba del generador y 4 por la de abajo.
+pz.p1.w.fr = La distance ne change rien : des fils presque sans résistance transportent le courant, et toute la tension arrive à la lampe.
+pz.p1.w.es = La distancia no cambia nada: los cables, casi sin resistencia, llevan la corriente y toda la tensión llega a la lámpara.
+pz.p2.t.fr = Un interrupteur pour deux
+pz.p2.t.es = Un interruptor para dos
+pz.p2.g.fr = Avec 12 V, L1 et L2 (6 V) doivent briller normalement, et un seul interrupteur doit les éteindre toutes les deux.
+pz.p2.g.es = Con 12 V, L1 y L2 (de 6 V) deben brillar con normalidad, y un solo interruptor debe apagar las dos.
+pz.p2.h1.fr = Deux lampes de 6 V avec 12 V : il faut qu'elles se partagent la tension. En série, chacune reçoit 6 V.
+pz.p2.h1.es = Dos lámparas de 6 V con 12 V: tienen que repartirse la tensión. En serie, cada una recibe 6 V.
+pz.p2.h2.fr = En série, il n'y a qu'un seul chemin : l'interrupteur peut se placer n'importe où dans la boucle.
+pz.p2.h2.es = En serie solo hay un camino: el interruptor puede ir en cualquier punto del bucle.
+pz.p2.w.fr = En série, la tension se partage (6 V + 6 V = 12 V) et un seul trou coupe tout : un interrupteur suffit pour tout le circuit.
+pz.p2.w.es = En serie, la tensión se reparte (6 V + 6 V = 12 V) y un solo hueco lo corta todo: basta un interruptor para todo el circuito.
+pz.p3.t.fr = Côte à côte
+pz.p3.t.es = Lado a lado
+pz.p3.g.fr = Avec 6 V, L1 et L2 (6 V) doivent briller normalement toutes les deux.
+pz.p3.g.es = Con 6 V, L1 y L2 (de 6 V) deben brillar las dos con normalidad.
+pz.p3.h1.fr = En série, chaque lampe n'aurait que 3 V. Chacune doit recevoir les 6 V du générateur.
+pz.p3.h1.es = En serie, cada lámpara solo tendría 3 V. Cada una debe recibir los 6 V del generador.
+pz.p3.h2.fr = Relie les bornes du haut entre elles, et les bornes du bas entre elles : c'est un montage [[en dérivation]].
+pz.p3.h2.es = Conecta entre sí los bornes de arriba, y también los de abajo: es un montaje [[en paralelo]].
+pz.p3.w.fr = En dérivation, chaque branche reçoit toute la tension du générateur. C'est comme ça que sont branchées les lampes d'une maison.
+pz.p3.w.es = En paralelo, cada rama recibe toda la tensión del generador. Así están conectadas las lámparas de una casa.
+pz.p4.t.fr = Chacune son interrupteur
+pz.p4.t.es = Cada una con su interruptor
+pz.p4.g.fr = L1 et L2 brillent normalement avec 6 V, et chaque interrupteur éteint une seule lampe, pas l'autre.
+pz.p4.g.es = L1 y L2 brillan con normalidad con 6 V, y cada interruptor apaga una sola lámpara, no la otra.
+pz.p4.h1.fr = Un interrupteur placé sur le fil commun éteint tout. Il faut qu'il soit dans la branche de sa lampe.
+pz.p4.h1.es = Un interruptor en el cable común lo apaga todo. Tiene que estar en la rama de su lámpara.
+pz.p4.h2.fr = Fais passer le fil commun par la rangée du haut, puis descends vers chaque lampe à travers un interrupteur.
+pz.p4.h2.es = Lleva el cable común por la fila de arriba y baja hasta cada lámpara pasando por un interruptor.
+pz.p4.w.fr = Chaque branche d'une dérivation est indépendante : ouvrir l'une ne coupe pas les autres. Ce sont les interrupteurs de chaque pièce d'une maison.
+pz.p4.w.es = Cada rama de un circuito en paralelo es independiente: abrir una no corta las demás. Son los interruptores de cada habitación de una casa.
+pz.p5.t.fr = Sauver la lampe (encore)
+pz.p5.t.es = Salvar la lámpara (otra vez)
+pz.p5.g.fr = Le générateur donne 9 V, mais L1 est une lampe de 6 V · 0,3 A. Fais-la briller normalement.
+pz.p5.g.es = El generador da 9 V, pero L1 es una lámpara de 6 V · 0,3 A. Haz que brille con normalidad.
+pz.p5.h1.fr = La résistance doit prendre 9 − 6 = 3 V avec I = 0,3 A. R = U ÷ I.
+pz.p5.h1.es = La resistencia debe quedarse 9 − 6 = 3 V con I = 0,3 A. R = U ÷ I.
+pz.p5.h2.fr = 3 ÷ 0,3 = 10 Ω. Sélectionne la résistance et choisis sa valeur.
+pz.p5.h2.es = 3 ÷ 0,3 = 10 Ω. Selecciona la resistencia y elige su valor.
+pz.p5.w.fr = R = (9 − 6) ÷ 0,3 = [[10 Ω]]. Astuce : deux résistances de 22 Ω côte à côte valent environ 11 Ω et marchent aussi, mais avec plus de pièces.
+pz.p5.w.es = R = (9 − 6) ÷ 0,3 = [[10 Ω]]. Truco: dos resistencias de 22 Ω en paralelo valen unos 11 Ω y también funcionan, pero con más piezas.
+pz.p6.t.fr = Le bon fusible
+pz.p6.t.es = El fusible adecuado
+pz.p6.g.fr = Protège le circuit avec un fusible : la lampe doit briller, et le fusible doit être le plus petit calibre qui ne fond pas.
+pz.p6.g.es = Protege el circuito con un fusible: la lámpara debe brillar, y el fusible debe ser el calibre más pequeño que no se funda.
+pz.p6.h1.fr = La lampe consomme 0,3 A. Un fusible de 0,2 A fondrait tout de suite.
+pz.p6.h1.es = La lámpara consume 0,3 A. Un fusible de 0,2 A se fundiría enseguida.
+pz.p6.h2.fr = Sélectionne le fusible et choisis le calibre juste au-dessus de 0,3 A.
+pz.p6.h2.es = Selecciona el fusible y elige el calibre justo por encima de 0,3 A.
+pz.p6.w.fr = Un fusible de [[0,5 A]] laisse passer les 0,3 A normaux mais coupe vite en cas de problème. Un fusible de 2 A laisserait chauffer les fils bien plus longtemps.
+pz.p6.w.es = Un fusible de [[0,5 A]] deja pasar los 0,3 A normales pero corta enseguida si hay un problema. Uno de 2 A dejaría que los cables se calentaran mucho más tiempo.
+pz.p7.t.fr = Viser 0,064 A
+pz.p7.t.es = Apuntar a 0,064 A
+pz.p7.g.fr = Remplis les deux trous pour que l'ampèremètre A1 affiche environ 0,064 A (entre 0,059 et 0,068 A).
+pz.p7.g.es = Rellena los dos huecos para que el amperímetro A1 marque unos 0,064 A (entre 0,059 y 0,068 A).
+pz.p7.h1.fr = Il faut R = U ÷ I = 6 ÷ 0,064 ≈ 94 Ω. Aucune résistance seule ne vaut 94 Ω.
+pz.p7.h1.es = Hace falta R = U ÷ I = 6 ÷ 0,064 ≈ 94 Ω. Ninguna resistencia sola vale 94 Ω.
+pz.p7.h2.fr = En série, les résistances s'additionnent : 47 + 47 = ?
+pz.p7.h2.es = En serie, las resistencias se suman: 47 + 47 = ?
+pz.p7.w.fr = En série, les résistances s'ajoutent : 47 + 47 = [[94 Ω]], donc I = 6 ÷ 94 ≈ 0,064 A.
+pz.p7.w.es = En serie, las resistencias se suman: 47 + 47 = [[94 Ω]], así que I = 6 ÷ 94 ≈ 0,064 A.
+pz.p8.t.fr = Trois lampes, 12 V
+pz.p8.t.es = Tres lámparas, 12 V
+pz.p8.g.fr = Avec 12 V, fais briller normalement L1 et L2 (6 V) et L3 (12 V).
+pz.p8.g.es = Con 12 V, haz que brillen con normalidad L1 y L2 (de 6 V) y L3 (de 12 V).
+pz.p8.h1.fr = L1 et L2 doivent se partager les 12 V. L3, elle, a besoin des 12 V entiers.
+pz.p8.h1.es = L1 y L2 tienen que repartirse los 12 V. L3, en cambio, necesita los 12 V enteros.
+pz.p8.h2.fr = Mets L1 et L2 en série sur la grande boucle, puis branche L3 en dérivation directement sur le générateur.
+pz.p8.h2.es = Pon L1 y L2 en serie en el bucle grande, y conecta L3 en paralelo directamente al generador.
+pz.p8.w.fr = Un montage mixte : la branche L1 + L2 en série reçoit 12 V (6 V chacune), et la branche L3 reçoit aussi 12 V. C'est ainsi qu'on combine des appareils de tensions différentes.
+pz.p8.w.es = Un montaje mixto: la rama L1 + L2 en serie recibe 12 V (6 V cada una) y la rama L3 también recibe 12 V. Así se combinan aparatos de tensiones distintas.
+
+# ---------- Anomalías ----------
+rev.title.fr = Anomalies temporelles
+rev.title.es = Anomalías temporales
+rev.baron1.fr = Ha, ha ! J'ai brouillé tes souvenirs. Voyons si tu sais encore…
+rev.baron1.es = ¡Ja, ja! He revuelto tus recuerdos. Veamos si todavía sabes…
+rev.baron2.fr = Et celle-ci, tu t'en souviens ?
+rev.baron2.es = Y esta, ¿la recuerdas?
+rev.finish.fr = Voir le résultat
+rev.finish.es = Ver el resultado
+rev.done.fr = Anomalie réparée
+rev.done.es = Anomalía reparada
+rev.win.fr = Le Baron n'a rien pu effacer. Ta mémoire est solide !
+rev.win.es = El Barón no ha podido borrar nada. ¡Tu memoria es sólida!
+rev.keep.fr = Chaque erreur revient plus tard pour que tu la retiennes. Continue !
+rev.keep.es = Cada fallo volverá más adelante para que lo retengas. ¡Sigue así!
+rev.bonus.fr = bonus du jour inclus
+rev.bonus.es = incluye el premio del día
+rev.days.fr = jours d'entraînement ce mois-ci
+rev.days.es = días de práctica este mes
+rev.back.fr = Retour à l'atelier
+rev.back.es = Volver al taller
+
+# ---------- Medallas nuevas ----------
+ach.shop1.n.fr = Premier achat
+ach.shop1.n.es = Primera compra
+ach.shop1.d.fr = Acheter un appareil pour l'atelier
+ach.shop1.d.es = Comprar un aparato para el taller
+ach.gen3.n.fr = Centrale électrique
+ach.gen3.n.es = Central eléctrica
+ach.gen3.d.fr = Générateur au niveau maximal
+ach.gen3.d.es = Generador al nivel máximo
+ach.pz1.n.fr = Premier défi
+ach.pz1.n.es = Primer desafío
+ach.pz1.d.fr = Réussir un défi de circuits
+ach.pz1.d.es = Superar un desafío de circuitos
+ach.pz3s.n.fr = Élégance
+ach.pz3s.n.es = Elegancia
+ach.pz3s.d.fr = Trois défis avec 3 étoiles
+ach.pz3s.d.es = Tres desafíos con 3 estrellas
+ach.pzall.n.fr = Maîtrise des circuits
+ach.pzall.n.es = Maestría en circuitos
+ach.pzall.d.fr = Réussir tous les défis
+ach.pzall.d.es = Superar todos los desafíos
+ach.anom5.n.fr = Mémoire d'acier
+ach.anom5.n.es = Memoria de acero
+ach.anom5.d.fr = Réparer 5 anomalies temporelles
+ach.anom5.d.es = Reparar 5 anomalías temporales
+credits.version.fr = Version {v} · bêta en cours de test
+credits.version.es = Versión {v} · beta en pruebas

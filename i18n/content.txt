@@ -1,0 +1,462 @@
+# Traducciones de contenido de Chrono-Ohm.
+# Formato:  id.idioma = texto      (id = número del inventario i18n/worksheet.json)
+# Si falta un idioma, se usa el texto original (cuando está en ese idioma).
+# Marcas: [[término]] = palabra clave resaltada · **negrita** · {N} = nombre del jugador (solo como vocativo,
+# para que la voz pregrabada pueda omitirlo).
+
+# ---------- Introducción ----------
+c0001.fr = Paris, aujourd'hui. C'est la Nuit des musées. Au Musée des sciences, la dernière salle est encore ouverte.
+c0002.fr = Dans une vitrine repose le Grand Livre de l'Électricité : chaque page a été écrite par un savant qui a changé le monde.
+c0003.fr = Bonsoir. Belle nuit pour visiter un musée, n'est-ce pas ? Permettez-moi de me présenter : Baron Court-Circuit.
+c0003.es = Buenas noches. Bonita noche para visitar un museo, ¿verdad? Permítame presentarme: Barón Court-Circuit.
+c0004.fr = Ce livre renferme toutes les découvertes électriques. Si j'arrache ses pages dans le passé… personne ne les aura jamais faites !
+c0005.fr = Le monde retournera aux bougies. Et je serai le seul à maîtriser l'électricité. Ha, ha, ha !
+c0006.fr = Le Baron saute dans un anneau lumineux et disparaît. Les lumières du musée clignotent. Les téléphones s'éteignent.
+c0007.fr = Bip ! Allô ? Système Lumi activé ! Je suis l'assistante du Chronotron numéro 2. Ce bandit a volé le numéro 1 !
+c0008.fr = Chaque page qu'il arrache efface une découverte. Si on ne l'arrête pas, l'[[intensité]], la [[résistance]] et la loi d'Ohm… vont disparaître.
+c0008.es = Cada página que arranca borra un descubrimiento. Si no lo detenemos, la [[intensidad]], la [[resistencia]] y la ley de Ohm… desaparecerán.
+c0009.fr = J'ai besoin de quelqu'un qui a l'œil pour les circuits. Tu veux bien m'aider, {N} ? Parfait ! Monte dans le Chronotron.
+c0009.es = Necesito a alguien con buen ojo para los circuitos. ¿Me ayudas, {N}? ¡Perfecto! Sube al Chronotron.
+c0010.fr = Premier arrêt : Paris, 1820. Allons trouver André-Marie Ampère. Accroche-toi bien !
+
+# ---------- Capítulos, épocas, páginas ----------
+c0011.es = París
+c0012.fr = Paris, septembre 1820
+c0013.es = La corriente
+c0014.fr = Le courant et l'intensité
+c0015.es = Página 1 · La intensidad
+c0186.es = Colonia
+c0187.fr = Cologne, 1826-1827
+c0188.es = La resistencia
+c0189.fr = Les résistances et la loi d'Ohm
+c0190.es = Página 2 · La ley de Ohm
+c0326.es = Mánchester
+c0327.fr = Manchester, 1843
+c0328.es = La potencia
+c0329.fr = Puissance, énergie et effet Joule
+c0330.es = Nueva York
+c0331.fr = New York, 1884
+c0332.es = La seguridad
+c0333.fr = Edison, Tesla, fusibles et courts-circuits
+c0334.es = El Vórtice
+c0335.fr = Hors du temps
+c0336.es = El Barón
+c0337.fr = Le duel final
+
+# ---------- Capítulo 1: diálogos ----------
+c0017.fr = Paris, septembre 1820. Un laboratoire rempli de piles, de boussoles et de montagnes de papiers.
+c0018.fr = Mon Dieu ! Qui êtes-vous ? Et qu'est-ce que c'est que cette… ampoule sur pattes ?
+c0018.es = ¡Mon Dieu! ¿Quiénes sois? ¿Y qué es esa… bombilla con patas?
+c0019.fr = Bip ! Je suis Lumi. Nous venons du futur pour vous aider, monsieur Ampère. N'est-ce pas, {N} ?
+c0019.es = ¡Bip! Soy Lumi. Venimos del futuro para ayudarle, monsieur Ampère. ¿Verdad, {N}?
+c0020.fr = M'aider ? Un homme en chapeau haut-de-forme est entré hier soir et a emporté mes notes. Dans une semaine, je dois présenter mes expériences à l'Académie des sciences.
+c0021.fr = Ørsted, un Danois, vient de découvrir qu'un [[courant électrique]] fait bouger l'aiguille d'une boussole. Je veux comprendre ce courant : le mesurer, le dompter.
+c0021.es = Ørsted, un danés, acaba de descubrir que una [[corriente eléctrica]] mueve la aguja de una brújula. Yo quiero entender esa corriente: medirla, domarla.
+c0022.fr = Pour ça, il faut commencer par la base. {N}, sur l'établi il y a un circuit à moitié monté. Termine-le !
+c0023.fr = Choisis l'outil « Fil » et fais glisser d'un point doré à un autre pour tirer des fils.
+c0023.es = Elige la herramienta «Cable» y arrastra de un punto dorado a otro para tender cables.
+c0029.fr = Magnifique ! Cette lumière… et ces petits points qui courent dans les fils !
+c0029.es = ¡Magnifique! Esa luz… ¡y esos puntitos que corren por los hilos!
+c0030.fr = C'est le sens conventionnel du courant : il sort par le + de la pile et revient par le −. Maintenant, un interrupteur pour le contrôler.
+c0047.fr = Voir le courant, c'est bien. Mais un savant doit MESURER. Combien de courant passe ? J'appellerai cela… son [[intensité]].
+c0047.es = Ver la corriente está bien. Pero un científico necesita MEDIR. ¿Cuánta corriente pasa? Lo llamaré… su [[intensidad]].
+c0048.fr = Joli nom ! Dans le futur, on la mesure avec un [[ampèremètre]]. Et l'unité sera… l'ampère. En votre honneur.
+c0048.es = ¡Buen nombre! En el futuro se mide con un [[amperímetro]]. Y la unidad será… el amperio. En su honor.
+c0049.fr = En mon honneur ? Oh là là… Vite, montrez-moi comment on l'utilise.
+c0049.es = ¿En mi honor? Oh là là… Vite, enséñenme cómo se usa.
+c0073.fr = Bonsoir, chers savants ! Quel joli petit appareil. Un conseil d'ami : branchez l'ampèremètre en dérivation, sur la lampe ! Il mesurera bien mieux.
+c0073.es = ¡Buenas noches, queridos científicos! Qué aparatito tan bonito. Un consejo de amigo: ¡conectad el amperímetro en paralelo con la lámpara! Medirá mucho mejor.
+c0074.fr = C'est vous, le voleur de mes notes ? Sortez de mon laboratoire !
+c0075.fr = Ha, ha. Essayez donc, vous verrez…
+c0076.fr = C'est un piège, j'en suis sûre. Mais les scientifiques vérifient les choses. Prenons un ampèremètre de rechange et faisons l'essai… avec prudence.
+c0090.fr = Bah ! Cette fois, vous avez eu de la chance. Mais l'Académie se moquera de vous, Ampère !
+c0091.fr = Il est parti. Bravo, {N} : maintenant, tu sais pourquoi un ampèremètre se branche TOUJOURS en série.
+c0093.fr = J'ai un doute. Si la lampe brille, elle « consomme » peut-être du courant. Alors, après la lampe, il devrait en rester moins… non ?
+c0094.fr = Beaucoup de gens le pensent. Avant de mesurer : à ton avis, {N} ?
+c0116.fr = Le courant ne s'use pas : il circule ! Comme l'eau dans un moulin : elle fait tourner la roue, mais elle ne disparaît pas. Quelle belle idée !
+c0118.fr = Et si le chemin se sépare en deux ? Comme une rivière qui entoure une île.
+c0119.fr = C'est un circuit [[en dérivation]]. Le point où les fils se séparent s'appelle un [[nœud]]. Montons-en un avec deux lampes différentes.
+c0119.es = Eso es un circuito [[en paralelo]] (en Francia lo llaman «en dérivation»). El punto donde se separan los cables es un [[nudo]]. Montemos uno con dos lámparas diferentes.
+c0144.fr = Académie des sciences, 18 septembre 1820. Les plus grands savants de France attendent.
+c0145.fr = Monsieur Ampère, l'Académie vous écoute. On dit que vous apportez des idées nouvelles sur le courant.
+c0146.fr = (du fond de la salle) Balivernes ! Qu'il réponde donc à nos questions, s'il est si malin !
+c0147.fr = {N}, le Baron a rempli la salle de questions pièges. Ampère a besoin de toi : trois vies, six questions.
+c0181.fr = Bravo, monsieur Ampère ! Voilà qui ouvre une science nouvelle.
+c0182.fr = Je l'appellerai l'[[électrodynamique]]. Et je n'y serais pas arrivé sans mes amis du futur.
+c0182.es = La llamaré [[electrodinámica]]. Y no lo habría logrado sin mis amigos del futuro.
+c0183.fr = Grrr ! Ce n'est pas fini ! Je pars à Cologne… et là-bas, personne ne sauvera ce professeur de mathématiques !
+c0184.fr = Page 1 récupérée ! L'ampère existe de nouveau dans le futur.
+c0185.fr = Adieu, mes amis. Si un jour une unité porte mon nom… je saurai qui remercier.
+
+# ---------- Capítulo 2: diálogos ----------
+c0192.fr = Cologne, 1826. Le lycée des jésuites. Par la fenêtre, on voit la cathédrale inachevée, avec une grue en bois tout en haut de la tour.
+c0192.es = Colonia, 1826. El colegio de los jesuitas. Por la ventana se ve la catedral, sin terminar, con una grúa de madera en lo alto de la torre.
+c0193.fr = Guten Abend. Je suis Georg Simon Ohm, professeur de mathématiques et de physique. Depuis des années, je mesure des courants avec des fils de longueurs et d'épaisseurs différentes…
+c0194.fr = Les fils longs et fins laissent passer moins de courant. Mais mes piles s'épuisent et mes mesures dansent. Et maintenant, un baron à monocle raconte dans toute la ville que je suis fou.
+c0195.fr = Vous n'êtes pas fou, professeur ! Ce que vous étudiez s'appelle la [[résistance]]. {N}, montrons-lui comment elle freine le courant.
+c0195.es = ¡No está loco, profesor! Lo que usted estudia se llama [[resistencia]]. {N}, enseñémosle cómo frena la corriente.
+c0221.fr = Et ces petites rayures de couleur sur vos résistances ?
+c0222.fr = Dans le futur, les résistances sont si petites qu'on ne peut pas écrire le nombre dessus. Alors on le peint en couleurs. C'est un code secret !
+c0223.fr = Wunderbar ! Un code comme ceux des espions. Mes élèves adoreraient.
+c0223.es = ¡Wunderbar! Un código como los de los espías. A mis alumnos les encantaría.
+c0225.fr = Mon idée, la voici : si j'augmente la tension, l'intensité augmente… toujours dans la même proportion. Mais il me faut des mesures propres pour le prouver.
+c0226.fr = Pour ça, au lieu de piles qui s'épuisent, on va utiliser un générateur réglable. Mesure U et I pour plusieurs tensions et place chaque point sur le graphique.
+c0227.fr = Ja ! Moi, j'ai utilisé un thermocouple : deux métaux, l'un dans l'eau bouillante et l'autre dans la glace. Très stable !
+c0227.es = ¡Ja! Yo usé un termopar: dos metales, uno en agua hirviendo y otro en hielo. ¡Muy estable!
+c0243.fr = Je le vois clairement ! La tension est égale à la résistance multipliée par l'intensité. Je l'écrirai dans mon livre : « Die galvanische Kette ».
+c0244.fr = Dans le futur, tous les élèves du monde l'étudient. Elle s'appelle… la loi d'Ohm !
+c0273.fr = J'ai un problème : cette lampe est prévue pour 6 V, mais mon générateur donne 12 V. Si je la branche directement…
+c0274.fr = Elle grillerait ! Avec votre loi, on peut la sauver : on ajoute une résistance en série qui prend les volts en trop.
+c0274.es = ¡Se fundiría! Con su ley podemos salvarla: añadimos una resistencia en serie que se quede con los voltios que sobran.
+c0292.fr = Berlin, 1827. Le ministère de l'Éducation de Prusse.
+c0293.fr = Herr Ohm, on nous a dit que votre livre est rempli de fantaisies mathématiques.
+c0294.fr = Exactement, Excellence ! Le courant dépend de la couleur du fil et de la lune ! Sa « loi » est une absurdité !
+c0295.fr = Je peux le démontrer… mais le Baron a préparé des questions pièges.
+c0296.fr = {N}, prouve au ministre que la loi d'Ohm fonctionne. Sept questions, trois vies.
+c0322.fr = Impressionnant. Herr Ohm, vos chiffres ne mentent pas.
+c0323.fr = NOOON ! Mon plan parfait ! Très bien… je pars en Angleterre ! Là-bas, un brasseur s'amuse avec la chaleur et l'électricité !
+c0324.fr = Danke, meine Freunde. Au début, personne ne me croira, je le sais. Mais en 1841, la Royal Society me remettra la médaille Copley. Maintenant, je suis patient.
+c0325.fr = Page 2 récupérée ! Prochain arrêt : Manchester, 1843… dès que le Chronotron aura fini de se recharger.
+
+# ---------- Personajes ----------
+c0435.fr = Assistante du Chronotron
+c0437.fr = Paris · 1820
+c0439.fr = Cologne · 1827
+c0440.fr = Baron Court-Circuit
+c0441.fr = Voleur d'électricité
+c0442.fr = Le ministre Altenstein
+c0443.fr = Berlin · 1827
+
+# ---------- Laboratorios: objetivos (goal) y ayudas (goal-help, hint) ----------
+c0024.es = Enciende la lámpara
+c0025.es = Completa el circuito para encender L1
+c0026.fr = Remplis les deux trous avec des fils
+c0027.fr = Il y a deux trous dans le circuit : un à droite et un en bas.
+c0028.fr = Avec l'outil « Fil », fais glisser entre les deux points de chaque trou.
+c0028.es = Con la herramienta «Cable», arrastra entre los dos puntos de cada hueco.
+c0032.es = Coloca el interruptor K en el hueco
+c0033.fr = Place l'interrupteur dans le trou du bas
+c0034.es = Abre K: la lámpara debe apagarse
+c0035.fr = Avec la « Main », touche K pour l'ouvrir
+c0035.es = Con la «Mano», toca K para abrirlo
+c0036.es = Vuelve a cerrar K
+c0037.fr = Touche-le encore pour le fermer
+c0038.fr = Choisis « Interrupteur » et touche le trou entre les deux points du bas.
+c0038.es = Elige «Interruptor» y toca el hueco entre los dos puntos de abajo.
+c0039.fr = Avec l'outil « Main », une touche sur l'interrupteur l'ouvre ou le ferme.
+c0039.es = Con la herramienta «Mano», un toque sobre el interruptor lo abre o lo cierra.
+c0051.es = Conecta el amperímetro en serie, en el hueco
+c0052.fr = Place l'ampèremètre dans le trou du haut
+c0053.es = Lectura positiva (si no, invierte los bornes)
+c0054.fr = Si c'est négatif, sélectionne-le et inverse ses bornes
+c0055.es = Anota la intensidad: I = ? A
+c0056.fr = Écris la valeur affichée sur l'écran
+c0057.fr = Choisis « Ampèremètre » et touche le trou entre les deux points en haut à droite.
+c0057.es = Elige «Amperímetro» y toca el hueco entre los dos puntos de arriba a la derecha.
+c0058.fr = Le point rouge est la borne A : le courant doit entrer par là. Si l'écran affiche « − », touche l'ampèremètre et appuie sur « Inverser les bornes ».
+c0058.es = El punto rojo es el borne A: la corriente debe entrar por ahí. Si la pantalla marca «−», toca el amperímetro y pulsa «Invertir bornes».
+c0059.fr = Écris avec une virgule ou un point, comme tu préfères : 0,1 ou 0.1.
+c0078.es = Conecta el amperímetro en paralelo, en los bornes de L1
+c0079.fr = Fais un pont sous L1 : deux fils vers le bas et l'ampèremètre entre les deux
+c0080.es = Ahora, conecta un amperímetro correctamente: en serie
+c0081.fr = Efface le pont, efface le fil bleu en pointillés en haut à gauche et mets un ampèremètre à sa place
+c0082.fr = Descends un fil depuis chaque borne de L1 (les deux points de chaque côté de la lampe) jusqu'à la rangée du bas, et mets l'ampèremètre entre les deux.
+c0083.fr = Ensuite, avec la gomme, efface l'ampèremètre grillé, les fils du pont et le fil bleu en pointillés en haut à gauche. Le nouvel ampèremètre va dans ce trou.
+c0101.es = Tres medidas
+c0102.es = Coloca los 3 amperímetros en los 3 huecos
+c0103.fr = Un avant L1, un entre les lampes et un à la fin
+c0104.es = Las tres lecturas positivas
+c0105.fr = Inverse celui qui affiche une valeur négative
+c0106.es = ¿Cuánto vale la intensidad en todas partes? I = ? A
+c0107.fr = Écris la valeur commune
+c0108.fr = Les trous sont en haut à gauche, à droite et en bas.
+c0109.fr = En bas, le courant revient de droite à gauche : cet ampèremètre affichera une valeur négative. Sélectionne-le et appuie sur « Inverser les bornes ».
+c0109.es = Abajo la corriente vuelve de derecha a izquierda: ese amperímetro saldrá negativo. Selecciónalo y pulsa «Invertir bornes».
+c0121.es = Mide I en la rama principal
+c0122.fr = Ampèremètre dans le trou en haut à gauche
+c0123.es = Mide I1 en la rama de L1
+c0124.fr = Ampèremètre sous L1
+c0125.es = Mide I2 en la rama de L2
+c0126.fr = Ampèremètre sous L2
+c0128.fr = Intensité dans la branche de L1
+c0130.fr = Intensité dans la branche de L2
+c0131.es = I (rama principal) = ? A
+c0132.fr = Intensité totale
+c0133.fr = Trois trous : en haut à gauche (branche principale), sous L1 et sous L2.
+c0134.fr = Compare : combien font I1 + I2 ?
+c0148.es = Las preguntas de la Académie
+c0197.es = Sustituye el cable azul discontinuo (abajo) por una resistencia
+c0198.fr = Efface-le avec la gomme et place une résistance à sa place
+c0199.es = Elige R para que L1 apenas brille
+c0200.fr = Sélectionne la résistance et essaie des valeurs
+c0201.es = Elige el valor que deja pasar más corriente
+c0202.fr = Quelle résistance freine le moins ?
+c0203.es = Con esta resistencia, I = ? A
+c0204.fr = Lis l'ampèremètre A1
+c0205.fr = Utilise la gomme sur le fil bleu en pointillés du bas. Puis choisis « Résistance » et touche ce trou.
+c0205.es = Usa la goma sobre el cable azul discontinuo de abajo. Luego elige «Resistencia» y toca ese hueco.
+c0206.fr = Avec la « Main », touche la résistance : tu verras les valeurs 10, 47, 100 et 470 Ω.
+c0206.es = Con la «Mano», toca la resistencia: verás los valores 10, 47, 100 y 470 Ω.
+c0207.fr = Plus la résistance est petite, plus le courant passe.
+c0229.es = Registra al menos 5 puntos diferentes
+c0230.fr = Change la tension du générateur G et appuie sur « Enregistrer » à chaque fois
+c0230.es = Cambia la tensión del generador G y pulsa «Registrar» cada vez
+c0231.es = Con uno de tus puntos, calcula R = U ÷ I. R = ? Ω
+c0232.fr = Divise la tension par l'intensité d'un point
+c0233.fr = Touche le générateur G et déplace le curseur. Puis appuie sur « Enregistrer la mesure ».
+c0233.es = Toca el generador G y mueve el deslizador. Luego pulsa «Registrar la medida».
+c0234.fr = Choisis des tensions différentes : 2 V, 4 V, 6 V, 8 V, 10 V…
+c0235.fr = Exemple : si U = 6 V et I = 0,06 A, alors R = 6 ÷ 0,06.
+c0264.es = Prevé: I = U ÷ R = ? mA
+c0265.fr = Calcule 9 ÷ 470 et convertis en mA (× 1000)
+c0266.es = Compruébalo con el amperímetro (en serie)
+c0267.fr = Place-le dans le trou
+c0268.es = La medida confirma tu previsión
+c0269.fr = Compare l'écran avec ton calcul
+c0270.fr = 9 ÷ 470 = 0,019… A. Pour passer en mA, multiplie par 1000.
+c0271.fr = Le trou est en haut à droite.
+c0284.es = Añade una resistencia en serie en el hueco
+c0285.fr = Place la résistance en bas
+c0286.es = L1 debe brillar normalmente
+c0287.fr = Choisis la bonne valeur de R
+c0288.fr = Place la résistance dans le trou du bas.
+c0289.fr = Avec 47 Ω, la lampe brille peu ; avec 10 Ω, trop. Laquelle est entre les deux et se rapproche le plus de 20 Ω ?
+c0290.fr = Si elle grille, sélectionne-la et appuie sur « Remplacer ».
+c0290.es = Si se funde, selecciónala y pulsa «Reemplazar».
+c0297.es = Las preguntas del ministro
+
+# ---------- Preguntas, opciones y explicaciones ----------
+c0040.es = Interruptor [[abierto]]: ¿qué pasa?
+c0041.es = El circuito está abierto: la corriente ya no circula
+c0042.es = La corriente circula más despacio
+c0043.es = Solo funciona la mitad del circuito
+c0044.es = La lámpara brilla más
+c0045.fr = Un interrupteur ouvert coupe la boucle : le circuit est ouvert et le courant ne circule plus nulle part.
+c0045.es = Un interruptor abierto corta el bucle: el circuito queda abierto y la corriente deja de circular en todo el circuito.
+c0060.es = ¿Cómo se conecta un [[amperímetro]]?
+c0061.es = En serie, dentro del bucle
+c0062.es = En paralelo, en los bornes de la lámpara
+c0063.es = En lugar del generador
+c0064.es = No hay ninguna regla
+c0065.fr = L'[[ampèremètre]] se branche [[en série]] : on ouvre le circuit et on le place dedans, pour que tout le courant le traverse.
+c0065.es = El [[amperímetro]] se conecta [[en serie]]: se abre el circuito y se mete dentro, para que toda la corriente lo atraviese.
+c0066.es = 0,25 A = ¿cuántos [[mA]]?
+c0069.es = 2500 mA
+c0071.fr = 1 A = 1000 mA, donc 0,25 × 1000 = [[250 mA]].
+c0071.es = 1 A = 1000 mA, así que 0,25 × 1000 = [[250 mA]].
+c0084.es = ¿Por qué se ha [[fundido]] el fusible del amperímetro?
+c0085.es = Casi no tiene resistencia: en paralelo, provoca un cortocircuito
+c0086.es = La lámpara era demasiado potente
+c0087.es = El generador estaba al revés
+c0088.es = El amperímetro era demasiado viejo
+c0089.fr = Un ampèremètre n'a presque pas de résistance. En dérivation, tout le courant passe par lui au lieu de passer par la lampe : c'est un court-circuit.
+c0089.es = Un amperímetro casi no tiene resistencia. En paralelo, la corriente pasa toda por él en lugar de por la lámpara: es un cortocircuito.
+c0095.es = Antes de la lámpara, I = 0,1 A. [[Después]] de la lámpara, la intensidad es…
+c0096.es = La misma: 0,1 A
+c0097.es = Menor
+c0098.es = Mayor
+c0099.es = Nula
+c0100.fr = On va le vérifier avec trois ampèremètres.
+c0110.es = ¿Qué dice la [[ley de unicidad]] de la intensidad?
+c0111.es = En un circuito en serie, la intensidad es la misma en todos los puntos
+c0112.es = En un circuito en serie, la intensidad disminuye después de cada lámpara
+c0113.es = En un circuito en paralelo, la intensidad es la misma en todas partes
+c0114.es = La intensidad siempre es de 1 A
+c0115.fr = « Dans un circuit en série, l'intensité du courant est la même en tout point. »
+c0115.es = «En un circuito en serie, la intensidad de la corriente es la misma en todos los puntos».
+c0135.es = Paralelo: I = 0,8 A e I1 = 0,3 A. ¿Cuánto vale [[I2]]?
+c0136.fr = Loi des nœuds : I = I1 + I2, donc I2 = I − I1 = 0,8 − 0,3 = [[0,5 A]].
+c0136.es = Ley de los nudos: I = I1 + I2, así que I2 = I − I1 = 0,8 − 0,3 = [[0,5 A]].
+c0137.es = ¿Qué relación es correcta en un circuito [[en paralelo]]?
+c0142.fr = [[Loi d'additivité des intensités]] : le courant principal est la somme des courants des branches.
+c0142.es = [[Ley de los nudos]]: la corriente principal es la suma de las corrientes de las ramas.
+c0154.fr = On divise par 1000 : 250 ÷ 1000 = 0,25 A.
+c0155.es = La corriente entra en el amperímetro por el borne…
+c0156.es = A (o mA)
+c0160.fr = Il entre par A (ou mA) et sort par COM.
+c0161.es = Circuito en serie: I1 = 0,2 A. ¿Cuánto vale I3 más adelante?
+c0166.fr = En série, l'intensité est la même en tout point.
+c0167.es = Paralelo: I1 = 0,15 A, I2 = 0,35 A. I = ? A
+c0169.es = Un amperímetro conectado en paralelo provoca…
+c0170.es = un cortocircuito
+c0171.es = una medida perfecta
+c0172.es = una tensión nula en todas partes
+c0173.es = nada especial
+c0174.fr = Il n'a presque pas de résistance : c'est un court-circuit.
+c0175.es = Un nudo es…
+c0176.es = un punto donde se unen al menos tres cables
+c0177.es = el centro de un cable
+c0178.es = el borne + del generador
+c0179.es = un interruptor
+c0180.fr = Dans un nœud, au moins trois fils se rejoignent : c'est là que le courant se partage.
+c0208.es = En un circuito en serie, si [[aumentamos]] la resistencia, la intensidad…
+c0209.es = disminuye
+c0210.es = aumenta
+c0211.es = no cambia
+c0212.es = se vuelve negativa
+c0213.fr = Une résistance plus grande freine davantage le courant : l'intensité [[diminue]].
+c0213.es = Una resistencia mayor frena más la corriente: la intensidad [[disminuye]].
+c0214.es = La unidad de la resistencia es…
+c0215.es = el ohmio (Ω)
+c0216.es = el amperio (A)
+c0217.es = el voltio (V)
+c0218.es = el vatio (W)
+c0219.fr = La résistance se mesure en [[ohms]], symbole Ω (oméga).
+c0219.es = La resistencia se mide en [[ohmios]], símbolo Ω (omega).
+c0236.es = La característica U = f(I) de un conductor óhmico es…
+c0237.es = una recta que pasa por el origen
+c0238.es = una curva que sube cada vez más deprisa
+c0239.es = una recta horizontal
+c0240.es = un círculo
+c0241.fr = U et I sont proportionnelles : le graphique est une droite qui passe par l'origine.
+c0245.es = Por un conductor óhmico de R = 220 Ω circula una intensidad I = 0,03 A. Calcula la tensión U.
+c0254.fr = U = R × I = 220 × 0,03 = [[6,6 V]].
+c0254.es = U = R × I = 220 × 0,03 = [[6,6 V]].
+c0255.es = Un generador de 12 V alimenta una resistencia de 400 Ω. Calcula la intensidad I.
+c0262.fr = I = U ÷ R = 12 ÷ 400 = [[0,03 A]] = 30 mA.
+c0262.es = I = U ÷ R = 12 ÷ 400 = [[0,03 A]] = 30 mA.
+c0275.es = Lámpara de 6 V · 0,3 A, generador de 12 V. La resistencia debe quedarse con 12 − 6 = 6 V, con I = 0,3 A. Calcula R.
+c0282.fr = R = U ÷ I = 6 ÷ 0,3 = [[20 Ω]]. Il n'y a pas de 20 Ω dans la boîte : on choisit la plus proche, 22 Ω.
+c0282.es = R = U ÷ I = 6 ÷ 0,3 = [[20 Ω]]. En la caja no hay de 20 Ω: elegimos la más cercana, 22 Ω.
+c0298.fr = L'ohm, Ω.
+c0298.es = El ohmio, Ω.
+c0305.es = La característica de un conductor óhmico es…
+c0306.es = una recta que pasa por el origen
+c0307.es = una curva en U
+c0308.es = una parábola
+c0309.fr = Une droite qui passe par l'origine : U et I sont proportionnelles.
+c0310.es = marrón · negro · rojo =
+c0311.es = 1000 Ω
+c0315.fr = 1, 0 et deux zéros : 1 000 Ω.
+c0316.es = U no cambia. Si R se multiplica por 2, I queda…
+c0317.es = dividida entre 2
+c0318.es = multiplicada por 2
+c0319.es = igual
+c0320.es = nula
+c0321.fr = I = U ÷ R : si R double, I est divisée par 2.
+
+# ---------- Cuaderno: títulos, ley (b) y comentario de Lumi (extra) ----------
+c0338.es = El circuito debe estar cerrado
+c0339.es = La corriente solo circula si el bucle está **cerrado**: desde el generador, a través de los dipolos, y de vuelta al generador. Un solo hueco y todo se para.
+c0340.fr = Pense à un circuit de petites voitures : s'il manque un morceau de piste, plus rien ne roule.
+c0340.es = Piensa en un circuito de coches de juguete: si falta un trozo de pista, nada se mueve.
+c0341.es = El sentido convencional de la corriente
+c0342.es = Fuera del generador, la corriente va del borne **+** al borne **−**. En el laboratorio, los puntitos luminosos siguen ese sentido.
+c0343.fr = Astuce : « le courant sort par le plus ». Sur le symbole de la pile, le + est le grand trait.
+c0343.es = Truco: «la corriente sale por el más». En el símbolo de la pila, el + es la raya larga.
+c0345.es = Se representa con la letra **I**. Su unidad es el **amperio (A)**. A menudo se usa el **miliamperio**: **1 A = 1000 mA**, así que 0,25 A = 250 mA.
+c0346.fr = Astuce : pour passer de A en mA, la virgule saute de 3 chiffres vers la droite.
+c0346.es = Truco: para pasar de A a mA, la coma salta 3 cifras a la derecha.
+c0348.es = El amperímetro se conecta **en serie**, dentro del bucle. La corriente entra por el borne **A** (o **mA**) y sale por el borne **COM**. Si la pantalla muestra un signo −, se invierten los cables.
+c0349.fr = Pour le brancher, il faut ouvrir le circuit et placer l'ampèremètre dedans, comme un maillon de plus dans une chaîne.
+c0349.es = Para conectarlo hay que abrir el circuito y meter el amperímetro dentro, como un eslabón más de la cadena.
+c0350.fr = Le piège du Baron
+c0350.es = La trampa del Barón
+c0351.es = Un amperímetro casi **no tiene resistencia**. Conectado **en paralelo**, provoca un **cortocircuito**: una corriente enorme lo atraviesa y se funde su fusible.
+c0352.fr = Retiens : un ampèremètre, jamais en dérivation ! Toujours en série.
+c0352.es = Recuerda: un amperímetro, ¡nunca en paralelo! Siempre en serie.
+c0354.es = **En un circuito en serie, la intensidad de la corriente es la misma en todos los puntos.** I = I1 = I2 = I3. ¡La corriente no se «gasta» al atravesar una lámpara!
+c0355.fr = La lampe ne consomme pas le courant : le courant circule, comme l'eau dans un circuit fermé.
+c0356.es = Ley de adición de intensidades
+c0357.es = **En un circuito en paralelo, la intensidad en la rama principal es igual a la suma de las intensidades en las ramas derivadas.** I = I1 + I2. Todo lo que llega a un nudo vuelve a salir.
+c0358.fr = En dérivation, le courant se partage : I = I1 + I2. Tout ce qui entre dans un nœud en ressort.
+c0358.es = En paralelo, la corriente se reparte: I = I1 + I2. Todo lo que entra en un nudo, sale.
+c0360.es = Imagina la corriente como agua en tuberías: el generador es una bomba, la intensidad es el caudal y las resistencias son tuberías estrechas.
+c0361.fr = Les résistances sont comme des tuyaux étroits : elles freinent l'eau. Plus le tuyau est étroit, plus le débit est faible.
+c0361.es = Las resistencias son como tuberías estrechas: frenan el agua. Cuanto más estrecha la tubería, menor el caudal.
+c0362.es = Una resistencia **se opone al paso de la corriente**. Su unidad es el **ohmio (Ω)**. En serie, cuanto mayor es R, menor es la intensidad I.
+c0363.fr = Une résistance freine le courant. Elle se mesure en ohms (Ω). Plus de résistance = moins d'intensité.
+c0364.fr = 1ʳᵉ bague = 1ᵉʳ chiffre, 2ᵉ bague = 2ᵉ chiffre, 3ᵉ bague = nombre de zéros. noir 0 · marron 1 · rouge 2 · orange 3 · jaune 4 · vert 5 · bleu 6 · violet 7 · gris 8 · blanc 9. Ex. : marron-noir-rouge = 1 0 00 = 1 000 Ω.
+c0364.es = 1.ª banda = 1.ª cifra, 2.ª banda = 2.ª cifra, 3.ª banda = número de ceros. negro 0 · marrón 1 · rojo 2 · naranja 3 · amarillo 4 · verde 5 · azul 6 · violeta 7 · gris 8 · blanco 9. Ej.: marrón-negro-rojo = 1 0 00 = 1000 Ω.
+c0365.fr = Pour retenir l'ordre : « **N**e **M**angez **R**ien **O**u **J**e **V**ous **B**rûle **V**otre **G**rande **B**arbe » (noir, marron, rouge, orange, jaune, vert, bleu, violet, gris, blanc).
+c0365.es = Para recordar el orden: «**N**unca **M**e **R**ompas **N**ada, **A**sí **V**amos **A** **V**er **G**ente **B**uena» (negro, marrón, rojo, naranja, amarillo, verde, azul, violeta, gris, blanco).
+c0366.es = La característica de un conductor óhmico
+c0367.es = Se dibuja U en función de I. Para un **conductor óhmico**, se obtiene una **recta que pasa por el origen**: U e I son **proporcionales**.
+c0368.fr = Si tu traces U en fonction de I et que tu obtiens une droite qui passe par l'origine, c'est un conducteur ohmique.
+c0370.es = **La tensión U entre los bornes de un conductor óhmico es igual al producto de su resistencia R por la intensidad I de la corriente que lo atraviesa: U = R × I** (U en V, R en Ω, I en A). Por tanto, también I = U ÷ R y R = U ÷ I.
+c0371.fr = Astuce du triangle : écris U en haut et R · I en bas. Cache la lettre que tu cherches : ce qui reste te donne la formule.
+c0373.es = U arriba, R e I abajo. Tapa lo que buscas: U = R × I, I = U ÷ R, R = U ÷ I. **¡Cuidado: I siempre en amperios!** 20 mA = 0,020 A.
+c0374.fr = Attention ! Dans la formule, I est toujours en ampères. Si on te donne des mA, divise par 1000 avant de calculer.
+c0376.es = Si el generador da más que la tensión nominal, se añade una resistencia en serie. Se «queda» con la tensión que sobra: R = (U − Un) ÷ In.
+c0377.fr = La résistance en série prend les volts en trop.
+c0378.es = André-Marie Ampère (1775-1836)
+c0379.es = En septiembre de 1820, una semana después de conocer el experimento de Ørsted (una corriente mueve una brújula), Ampère presenta en la Académie des sciences sus descubrimientos sobre las corrientes. Fue él quien popularizó las expresiones «corriente eléctrica» y «tensión».
+c0380.fr = Il était célèbre pour ses distractions : on raconte qu'un jour, il a écrit des équations au dos d'un fiacre… qui est reparti avec ses calculs. L'ampère porte son nom depuis 1881.
+c0381.es = Georg Simon Ohm (1789-1854)
+c0382.fr = Professeur au lycée des jésuites de Cologne, Ohm publie en 1827 « Die galvanische Kette ». Ses idées sont d'abord mal accueillies et il quitte son poste. Quatorze ans plus tard, la Royal Society de Londres lui remet la médaille Copley.
+c0382.es = Profesor en el colegio de los jesuitas de Colonia, Ohm publica en 1827 «Die galvanische Kette». Al principio sus ideas son mal recibidas y deja su puesto. Catorce años después, la Royal Society de Londres le entrega la medalla Copley.
+c0383.fr = Pour avoir des mesures stables, Ohm a remplacé les piles (qui s'épuisaient) par un thermocouple : deux métaux soudés, l'un dans l'eau bouillante et l'autre dans la glace. Ingénieux !
+c0384.es = 1881: las unidades oficiales
+c0385.es = En el Congreso Internacional de Electricistas de París (1881), los científicos adoptan oficialmente el voltio, el amperio y el ohmio, en honor de Volta, Ampère y Ohm.
+c0386.fr = C'est pour ça qu'on dit volts, ampères et ohms.
+
+# ---------- Competencias ----------
+c0387.es = La intensidad de la corriente: unidad amperio (A), 1 A = 1000 mA
+c0388.fr = L'intensité : ampères et milliampères
+c0389.es = Conectar un amperímetro en serie (bornes A o mA y COM)
+c0390.fr = Brancher l'ampèremètre en série
+c0391.es = Ley de unicidad de la intensidad en un circuito en serie
+c0392.fr = Loi d'unicité de l'intensité en série
+c0393.es = Ley de adición de intensidades (ley de los nudos)
+c0394.fr = Loi des nœuds en dérivation
+c0395.es = La resistencia: unidad ohmio (Ω), efecto sobre la intensidad
+c0396.fr = La résistance et son effet
+c0397.es = Leer el código de colores de una resistencia
+c0398.fr = Code des couleurs
+c0399.es = Ley de Ohm: U = R × I
+c0400.fr = Loi d'Ohm
+c0401.es = Característica de un conductor óhmico
+c0402.fr = La caractéristique
+c0403.es = La potencia: P = U × I (vatio)
+c0404.fr = La puissance
+c0405.es = La energía: E = P × t (julio, kWh)
+c0406.fr = L'énergie
+c0407.es = El efecto Joule
+c0408.fr = L'effet Joule
+c0409.es = Cortocircuito, fusible y seguridad eléctrica
+c0410.fr = Sécurité électrique
+
+# ---------- Medallas (nombres epicenos) ----------
+c0411.fr = Allumer la première lampe
+c0412.es = Huele a quemado
+c0413.fr = Faire griller une lampe ou une résistance
+c0414.es = ¡Cortocircuito!
+c0415.fr = Provoquer un court-circuit (et comprendre pourquoi)
+c0416.fr = Complice d'Ampère
+c0416.es = Cómplice de Ampère
+c0417.fr = Terminer le chapitre de Paris 1820
+c0418.fr = Complice d'Ohm
+c0418.es = Cómplice de Ohm
+c0419.fr = Terminer le chapitre de Cologne 1827
+c0420.es = Sin fallos
+c0421.fr = Terminer un chapitre avec toutes les étoiles
+c0422.es = Cuaderno bien lleno
+c0423.fr = Débloquer 10 pages du carnet
+c0424.es = Ojo de lince
+c0425.fr = Code des couleurs sans une seule erreur
+c0426.es = 50 respuestas correctas
+c0427.fr = 50 bonnes réponses au total
+c0428.fr = Esprit scientifique
+c0428.es = Mente científica
+c0429.fr = Réussir 10 expériences
+c0430.fr = Touche-à-tout
+c0430.es = Manitas
+c0431.fr = Essayer le labo libre
+c0432.fr = Fidèle au poste
+c0432.es = Constancia
+c0433.fr = Jouer 3 jours de suite
+
+# ---------- Componentes y colores ----------
+c0447.es = Generador
+c0455.es = negro
+c0456.es = marrón
+c0457.es = rojo
+c0458.es = naranja
+c0459.es = amarillo
+c0460.es = verde
+c0461.es = azul
+c0462.es = violeta
+c0463.es = gris
+c0464.es = blanco
+c0445.fr = Académie des sciences
+c0394.es = Ley de los nudos en paralelo

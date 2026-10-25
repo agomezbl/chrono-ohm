@@ -1,0 +1,4266 @@
+[
+ {
+  "id": "c0001",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "París, hoy. Noche de los museos. En el Museo de las Ciencias, la última sala sigue abierta.",
+  "ctx": [
+   "intro.0.nar"
+  ]
+ },
+ {
+  "id": "c0002",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "En una vitrina descansa el Gran Libro de la Electricidad: cada página la escribió un sabio que cambió el mundo.",
+  "ctx": [
+   "intro.1.nar"
+  ]
+ },
+ {
+  "id": "c0003",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Buenas noches, joven. Permítame presentarme: Barón Court-Circuit.",
+  "ctx": [
+   "intro.4.baron"
+  ]
+ },
+ {
+  "id": "c0004",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Este libro guarda todos los descubrimientos eléctricos. Si arranco sus páginas en el pasado… ¡nadie los habrá hecho jamás!",
+  "ctx": [
+   "intro.5.baron"
+  ]
+ },
+ {
+  "id": "c0005",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "El mundo volverá a las velas. Y yo seré el único que domine la electricidad. ¡Ja, ja, ja!",
+  "ctx": [
+   "intro.6.baron"
+  ]
+ },
+ {
+  "id": "c0006",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "El Barón salta dentro de un anillo luminoso y desaparece. Las luces del museo parpadean. Los móviles se apagan.",
+  "ctx": [
+   "intro.8.nar"
+  ]
+ },
+ {
+  "id": "c0007",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Bip! ¿Hola? ¡Sistema Lumi activado! Soy la asistente del Chronotron número 2. ¡Ese bandido ha robado el número 1!",
+  "ctx": [
+   "intro.10.lumi"
+  ]
+ },
+ {
+  "id": "c0008",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Cada página que arranca borra un descubrimiento. Si no lo detenemos, la «intensité», la «résistance» y la ley de Ohm… desaparecerán.",
+  "ctx": [
+   "intro.11.lumi"
+  ]
+ },
+ {
+  "id": "c0009",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Necesito a alguien con buen ojo para los circuitos. ¿{N}? Perfecto. Sube al Chronotron.",
+  "ctx": [
+   "intro.12.lumi"
+  ]
+ },
+ {
+  "id": "c0010",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Primera parada: París, 1820. Vamos a buscar a André-Marie Ampère. ¡Agárrate fuerte!",
+  "ctx": [
+   "intro.13.lumi"
+  ]
+ },
+ {
+  "id": "c0011",
+  "kind": "place",
+  "src": "fr",
+  "text": "Paris",
+  "ctx": [
+   "c1.place"
+  ]
+ },
+ {
+  "id": "c0012",
+  "kind": "era",
+  "src": "es",
+  "text": "París, septiembre de 1820",
+  "ctx": [
+   "c1.era"
+  ]
+ },
+ {
+  "id": "c0013",
+  "kind": "chapter-title",
+  "src": "fr",
+  "text": "Le courant",
+  "ctx": [
+   "c1.title"
+  ]
+ },
+ {
+  "id": "c0014",
+  "kind": "chapter-sub",
+  "src": "es",
+  "text": "La corriente y la intensidad",
+  "ctx": [
+   "c1.sub"
+  ]
+ },
+ {
+  "id": "c0015",
+  "kind": "page",
+  "src": "fr",
+  "text": "Page 1 · L'intensité",
+  "ctx": [
+   "c1.page"
+  ]
+ },
+ {
+  "id": "c0016",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Premier circuit",
+  "ctx": [
+   "c1.1-1.t",
+   "ach.lab1"
+  ],
+  "pair": "Primer circuito"
+ },
+ {
+  "id": "c0017",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "París, septiembre de 1820. Un laboratorio lleno de pilas, brújulas y montañas de papeles.",
+  "ctx": [
+   "c1.1-1.s1.talk.0.nar"
+  ]
+ },
+ {
+  "id": "c0018",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Mon Dieu ! ¿Quiénes sois? ¿Y qué es esa… bombilla con patas?",
+  "ctx": [
+   "c1.1-1.s1.talk.1.ampere"
+  ]
+ },
+ {
+  "id": "c0019",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Bip! Soy Lumi, y él es {N}, mi ingeniero. Venimos del futuro para ayudarle, monsieur Ampère.",
+  "ctx": [
+   "c1.1-1.s1.talk.2.lumi"
+  ]
+ },
+ {
+  "id": "c0020",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¿Ayudarme? Un hombre con sombrero de copa entró anoche y se llevó mis notas. Dentro de una semana debo presentar mis experimentos en la Académie des sciences.",
+  "ctx": [
+   "c1.1-1.s1.talk.3.ampere"
+  ]
+ },
+ {
+  "id": "c0021",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Ørsted, un danés, acaba de descubrir que una «courant électrique» mueve la aguja de una brújula. Yo quiero entender esa corriente: medirla, domarla.",
+  "ctx": [
+   "c1.1-1.s1.talk.4.ampere"
+  ]
+ },
+ {
+  "id": "c0022",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Para eso hay que empezar por lo básico. {N}, en el banco de trabajo hay un circuito a medio montar. ¡Complétalo!",
+  "ctx": [
+   "c1.1-1.s1.talk.5.lumi"
+  ]
+ },
+ {
+  "id": "c0023",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Elige la herramienta «Fil» y arrastra de un punto dorado a otro para tender cables.",
+  "ctx": [
+   "c1.1-1.s1.talk.6.lumi"
+  ]
+ },
+ {
+  "id": "c0024",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Allume la lampe",
+  "ctx": [
+   "c1.1-1.s2.lab.title"
+  ],
+  "pair": "Enciende la lámpara"
+ },
+ {
+  "id": "c0025",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Complète le circuit pour allumer L1",
+  "ctx": [
+   "c1.1-1.s2.lab.g0"
+  ]
+ },
+ {
+  "id": "c0026",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Rellena los dos huecos con cables",
+  "ctx": [
+   "c1.1-1.s2.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0027",
+  "kind": "hint",
+  "src": "es",
+  "text": "Hay dos huecos en el circuito: uno a la derecha y otro abajo.",
+  "ctx": [
+   "c1.1-1.s2.lab.h0"
+  ]
+ },
+ {
+  "id": "c0028",
+  "kind": "hint",
+  "src": "es",
+  "text": "Con la herramienta «Fil», arrastra entre los dos puntos de cada hueco.",
+  "ctx": [
+   "c1.1-1.s2.lab.h1"
+  ]
+ },
+ {
+  "id": "c0029",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Magnifique ! Esa luz… ¡y esos puntitos que corren por los hilos!",
+  "ctx": [
+   "c1.1-1.s5.talk.0.ampere"
+  ]
+ },
+ {
+  "id": "c0030",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Es el sentido convencional de la corriente: sale del + de la pila y vuelve por el −. Ahora, un interruptor para controlarla.",
+  "ctx": [
+   "c1.1-1.s5.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0031",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "L'interrupteur",
+  "ctx": [
+   "c1.1-1.s6.lab.title"
+  ],
+  "pair": "El interruptor"
+ },
+ {
+  "id": "c0032",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Place l'interrupteur K dans le trou",
+  "ctx": [
+   "c1.1-1.s6.lab.g0"
+  ]
+ },
+ {
+  "id": "c0033",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Coloca el interruptor en el hueco de abajo",
+  "ctx": [
+   "c1.1-1.s6.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0034",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Ouvre K : la lampe doit s'éteindre",
+  "ctx": [
+   "c1.1-1.s6.lab.g1"
+  ]
+ },
+ {
+  "id": "c0035",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Con la «Main», toca K para abrirlo",
+  "ctx": [
+   "c1.1-1.s6.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0036",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Referme K",
+  "ctx": [
+   "c1.1-1.s6.lab.g2"
+  ]
+ },
+ {
+  "id": "c0037",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Vuelve a tocarlo para cerrarlo",
+  "ctx": [
+   "c1.1-1.s6.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0038",
+  "kind": "hint",
+  "src": "es",
+  "text": "Elige «Interrupteur» y toca el hueco entre los dos puntos de abajo.",
+  "ctx": [
+   "c1.1-1.s6.lab.h0"
+  ]
+ },
+ {
+  "id": "c0039",
+  "kind": "hint",
+  "src": "es",
+  "text": "Con la herramienta «Main», un toque sobre el interruptor lo abre o lo cierra.",
+  "ctx": [
+   "c1.1-1.s6.lab.h1"
+  ]
+ },
+ {
+  "id": "c0040",
+  "kind": "question",
+  "src": "fr",
+  "text": "Interrupteur [[ouvert]] : que se passe-t-il ?",
+  "ctx": [
+   "c1.1-1.s7.qcm"
+  ],
+  "pair": "Interruptor abierto: ¿qué pasa?"
+ },
+ {
+  "id": "c0041",
+  "kind": "option",
+  "src": "fr",
+  "text": "Le circuit est ouvert : le courant ne circule plus",
+  "ctx": [
+   "c1.1-1.s7.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0042",
+  "kind": "option",
+  "src": "fr",
+  "text": "Le courant circule plus lentement",
+  "ctx": [
+   "c1.1-1.s7.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0043",
+  "kind": "option",
+  "src": "fr",
+  "text": "Seule la moitié du circuit fonctionne",
+  "ctx": [
+   "c1.1-1.s7.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0044",
+  "kind": "option",
+  "src": "fr",
+  "text": "La lampe brille plus fort",
+  "ctx": [
+   "c1.1-1.s7.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0045",
+  "kind": "explain",
+  "src": "es",
+  "text": "Un interruptor abierto corta la boucle: el circuito queda abierto y la corriente deja de circular en todo el circuito.",
+  "ctx": [
+   "c1.1-1.s7.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0046",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "L'ampèremètre",
+  "ctx": [
+   "c1.1-2.t"
+  ],
+  "pair": "El amperímetro"
+ },
+ {
+  "id": "c0047",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Ver la corriente está bien. Pero un científico necesita MEDIR. ¿Cuánta corriente pasa? Lo llamaré… su «intensité».",
+  "ctx": [
+   "c1.1-2.s0.talk.0.ampere"
+  ]
+ },
+ {
+  "id": "c0048",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Buen nombre! En el futuro se mide con un «ampèremètre». Y la unidad será… el ampère. En su honor.",
+  "ctx": [
+   "c1.1-2.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0049",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¿En mi honor? Oh là là… Vite, enséñenme cómo se usa.",
+  "ctx": [
+   "c1.1-2.s0.talk.2.ampere"
+  ]
+ },
+ {
+  "id": "c0050",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Mesure l'intensité",
+  "ctx": [
+   "c1.1-2.s3.lab.title"
+  ],
+  "pair": "Mide la intensidad"
+ },
+ {
+  "id": "c0051",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Branche l'ampèremètre en série, dans le trou",
+  "ctx": [
+   "c1.1-2.s3.lab.g0"
+  ]
+ },
+ {
+  "id": "c0052",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Coloca el amperímetro en el hueco de arriba",
+  "ctx": [
+   "c1.1-2.s3.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0053",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Lecture positive (sinon : inverse les bornes)",
+  "ctx": [
+   "c1.1-2.s3.lab.g1"
+  ]
+ },
+ {
+  "id": "c0054",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Si sale negativo, selecciónalo e inviértelo",
+  "ctx": [
+   "c1.1-2.s3.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0055",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Note l'intensité : I = ? A",
+  "ctx": [
+   "c1.1-2.s3.lab.g2"
+  ]
+ },
+ {
+  "id": "c0056",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Escribe el valor que marca la pantalla",
+  "ctx": [
+   "c1.1-2.s3.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0057",
+  "kind": "hint",
+  "src": "es",
+  "text": "Elige «Ampèremètre» y toca el hueco entre los dos puntos de arriba a la derecha.",
+  "ctx": [
+   "c1.1-2.s3.lab.h0"
+  ]
+ },
+ {
+  "id": "c0058",
+  "kind": "hint",
+  "src": "es",
+  "text": "El punto rojo es la borne A: la corriente debe entrar por ahí. Si la pantalla marca «−», toca el amperímetro y pulsa «Inverser les bornes».",
+  "ctx": [
+   "c1.1-2.s3.lab.h1"
+  ]
+ },
+ {
+  "id": "c0059",
+  "kind": "hint",
+  "src": "es",
+  "text": "Escribe con coma o con punto, como prefieras: 0,1 o 0.1.",
+  "ctx": [
+   "c1.1-2.s3.lab.h2"
+  ]
+ },
+ {
+  "id": "c0060",
+  "kind": "question",
+  "src": "fr",
+  "text": "Comment branche-t-on un [[ampèremètre]] ?",
+  "ctx": [
+   "c1.1-2.s4.qcm"
+  ],
+  "pair": "¿Cómo se conecta un amperímetro?"
+ },
+ {
+  "id": "c0061",
+  "kind": "option",
+  "src": "fr",
+  "text": "En série, dans la boucle",
+  "ctx": [
+   "c1.1-2.s4.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0062",
+  "kind": "option",
+  "src": "fr",
+  "text": "En dérivation, aux bornes de la lampe",
+  "ctx": [
+   "c1.1-2.s4.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0063",
+  "kind": "option",
+  "src": "fr",
+  "text": "À la place du générateur",
+  "ctx": [
+   "c1.1-2.s4.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0064",
+  "kind": "option",
+  "src": "fr",
+  "text": "Il n'y a pas de règle",
+  "ctx": [
+   "c1.1-2.s4.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0065",
+  "kind": "explain",
+  "src": "es",
+  "text": "El «ampèremètre» se conecta «en série»: se abre el circuito y se mete dentro, para que toda la corriente lo atraviese.",
+  "ctx": [
+   "c1.1-2.s4.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0066",
+  "kind": "question",
+  "src": "fr",
+  "text": "0,25 A = combien de [[mA]] ?",
+  "ctx": [
+   "c1.1-2.s5.qcm"
+  ],
+  "pair": "0,25 A son ¿cuántos mA?"
+ },
+ {
+  "id": "c0067",
+  "kind": "option",
+  "src": "fr",
+  "text": "250 mA",
+  "ctx": [
+   "c1.1-2.s5.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0068",
+  "kind": "option",
+  "src": "fr",
+  "text": "25 mA",
+  "ctx": [
+   "c1.1-2.s5.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0069",
+  "kind": "option",
+  "src": "fr",
+  "text": "2 500 mA",
+  "ctx": [
+   "c1.1-2.s5.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0070",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,025 mA",
+  "ctx": [
+   "c1.1-2.s5.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0071",
+  "kind": "explain",
+  "src": "es",
+  "text": "1 A = 1000 mA, así que 0,25 × 1000 = «250 mA».",
+  "ctx": [
+   "c1.1-2.s5.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0072",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Le piège du Baron",
+  "ctx": [
+   "c1.1-3.t"
+  ],
+  "pair": "La trampa del Barón"
+ },
+ {
+  "id": "c0073",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Buenas noches, señores científicos! Qué aparatito tan bonito. Un consejo de amigo: ¡conectad el amperímetro en derivación, sobre la lámpara! Medirá mucho mejor.",
+  "ctx": [
+   "c1.1-3.s0.talk.1.baron"
+  ]
+ },
+ {
+  "id": "c0074",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¿Es usted el ladrón de mis notas? ¡Fuera de mi laboratorio!",
+  "ctx": [
+   "c1.1-3.s0.talk.2.ampere"
+  ]
+ },
+ {
+  "id": "c0075",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Ja, ja. Pruébelo y verá…",
+  "ctx": [
+   "c1.1-3.s0.talk.3.baron"
+  ]
+ },
+ {
+  "id": "c0076",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Es una trampa, estoy segura. Pero los científicos comprobamos las cosas. Usemos un amperímetro de repuesto y hagamos la prueba… con cuidado.",
+  "ctx": [
+   "c1.1-3.s0.talk.4.lumi"
+  ]
+ },
+ {
+  "id": "c0077",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Expérience interdite",
+  "ctx": [
+   "c1.1-3.s1.lab.title"
+  ],
+  "pair": "Experimento prohibido"
+ },
+ {
+  "id": "c0078",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Branche l'ampèremètre en dérivation, aux bornes de L1",
+  "ctx": [
+   "c1.1-3.s1.lab.g0"
+  ]
+ },
+ {
+  "id": "c0079",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Haz un puente por debajo de L1: dos cables hacia abajo y el amperímetro entre ellos",
+  "ctx": [
+   "c1.1-3.s1.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0080",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Maintenant, branche un ampèremètre correctement : en série",
+  "ctx": [
+   "c1.1-3.s1.lab.g1"
+  ]
+ },
+ {
+  "id": "c0081",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Borra el puente, borra el cable azul discontinuo de arriba a la izquierda y pon ahí un amperímetro",
+  "ctx": [
+   "c1.1-3.s1.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0082",
+  "kind": "hint",
+  "src": "es",
+  "text": "Baja un cable desde cada borne de L1 (los dos puntos a los lados de la lámpara) hasta la fila de abajo, y pon el amperímetro entre ellos.",
+  "ctx": [
+   "c1.1-3.s1.lab.h0"
+  ]
+ },
+ {
+  "id": "c0083",
+  "kind": "hint",
+  "src": "es",
+  "text": "Después, con la goma, borra el amperímetro quemado, los cables del puente y el cable azul discontinuo de arriba a la izquierda. En ese hueco va el amperímetro nuevo.",
+  "ctx": [
+   "c1.1-3.s1.lab.h1"
+  ]
+ },
+ {
+  "id": "c0084",
+  "kind": "question",
+  "src": "fr",
+  "text": "Pourquoi le fusible de l'ampèremètre a-t-il [[fondu]] ?",
+  "ctx": [
+   "c1.1-3.s3.qcm"
+  ],
+  "pair": "¿Por qué se fundió el fusible del amperímetro?"
+ },
+ {
+  "id": "c0085",
+  "kind": "option",
+  "src": "fr",
+  "text": "Il n'a presque pas de résistance : en dérivation, il crée un court-circuit",
+  "ctx": [
+   "c1.1-3.s3.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0086",
+  "kind": "option",
+  "src": "fr",
+  "text": "La lampe était trop puissante",
+  "ctx": [
+   "c1.1-3.s3.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0087",
+  "kind": "option",
+  "src": "fr",
+  "text": "Le générateur était à l'envers",
+  "ctx": [
+   "c1.1-3.s3.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0088",
+  "kind": "option",
+  "src": "fr",
+  "text": "L'ampèremètre était trop vieux",
+  "ctx": [
+   "c1.1-3.s3.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0089",
+  "kind": "explain",
+  "src": "es",
+  "text": "Un amperímetro casi no tiene resistencia. En derivación, la corriente pasa toda por él en lugar de por la lámpara: es un cortocircuito.",
+  "ctx": [
+   "c1.1-3.s3.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0090",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Bah! Esta vez habéis tenido suerte. ¡Pero la Académie se reirá de usted, Ampère!",
+  "ctx": [
+   "c1.1-3.s4.talk.0.baron"
+  ]
+ },
+ {
+  "id": "c0091",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Se ha ido. Bien hecho, {N}: ahora sabes por qué un amperímetro va SIEMPRE en serie.",
+  "ctx": [
+   "c1.1-3.s4.talk.2.lumi"
+  ]
+ },
+ {
+  "id": "c0092",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "L'intensité ne s'use pas",
+  "ctx": [
+   "c1.1-4.t"
+  ],
+  "pair": "La corriente no se gasta"
+ },
+ {
+  "id": "c0093",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Tengo una duda. Si la lámpara brilla, quizá «gasta» corriente. Entonces, después de la lámpara, debería quedar menos… ¿no?",
+  "ctx": [
+   "c1.1-4.s0.talk.0.ampere"
+  ]
+ },
+ {
+  "id": "c0094",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Mucha gente lo piensa. Antes de medir: ¿tú qué crees, {N}?",
+  "ctx": [
+   "c1.1-4.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0095",
+  "kind": "question",
+  "src": "fr",
+  "text": "Avant la lampe, I = 0,1 A. [[Après]] la lampe, l'intensité est…",
+  "ctx": [
+   "c1.1-4.s1.qcm"
+  ],
+  "pair": "Antes de la lámpara I = 0,1 A. Después de la lámpara, la intensidad es…"
+ },
+ {
+  "id": "c0096",
+  "kind": "option",
+  "src": "fr",
+  "text": "La même : 0,1 A",
+  "ctx": [
+   "c1.1-4.s1.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0097",
+  "kind": "option",
+  "src": "fr",
+  "text": "Plus petite",
+  "ctx": [
+   "c1.1-4.s1.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0098",
+  "kind": "option",
+  "src": "fr",
+  "text": "Plus grande",
+  "ctx": [
+   "c1.1-4.s1.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0099",
+  "kind": "option",
+  "src": "fr",
+  "text": "Nulle",
+  "ctx": [
+   "c1.1-4.s1.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0100",
+  "kind": "explain",
+  "src": "es",
+  "text": "Vamos a comprobarlo con tres amperímetros.",
+  "ctx": [
+   "c1.1-4.s1.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0101",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Trois mesures",
+  "ctx": [
+   "c1.1-4.s2.lab.title"
+  ],
+  "pair": "Tres medidas"
+ },
+ {
+  "id": "c0102",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Place les 3 ampèremètres dans les 3 trous",
+  "ctx": [
+   "c1.1-4.s2.lab.g0"
+  ]
+ },
+ {
+  "id": "c0103",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Uno antes de L1, uno entre las lámparas y uno al final",
+  "ctx": [
+   "c1.1-4.s2.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0104",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Les trois lectures positives",
+  "ctx": [
+   "c1.1-4.s2.lab.g1"
+  ]
+ },
+ {
+  "id": "c0105",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Invierte el que marque negativo",
+  "ctx": [
+   "c1.1-4.s2.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0106",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Que vaut l'intensité partout ? I = ? A",
+  "ctx": [
+   "c1.1-4.s2.lab.g2"
+  ]
+ },
+ {
+  "id": "c0107",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Escribe el valor común",
+  "ctx": [
+   "c1.1-4.s2.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0108",
+  "kind": "hint",
+  "src": "es",
+  "text": "Los huecos están arriba a la izquierda, a la derecha y abajo.",
+  "ctx": [
+   "c1.1-4.s2.lab.h0"
+  ]
+ },
+ {
+  "id": "c0109",
+  "kind": "hint",
+  "src": "es",
+  "text": "Abajo la corriente vuelve de derecha a izquierda: ese amperímetro saldrá negativo. Selecciónalo y pulsa «Inverser les bornes».",
+  "ctx": [
+   "c1.1-4.s2.lab.h1"
+  ]
+ },
+ {
+  "id": "c0110",
+  "kind": "question",
+  "src": "fr",
+  "text": "Quelle est la [[loi d'unicité]] de l'intensité ?",
+  "ctx": [
+   "c1.1-4.s5.qcm"
+  ],
+  "pair": "¿Cuál es la ley de unicidad de la intensidad?"
+ },
+ {
+  "id": "c0111",
+  "kind": "option",
+  "src": "fr",
+  "text": "Dans un circuit en série, l'intensité est la même en tout point",
+  "ctx": [
+   "c1.1-4.s5.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0112",
+  "kind": "option",
+  "src": "fr",
+  "text": "Dans un circuit en série, l'intensité diminue après chaque lampe",
+  "ctx": [
+   "c1.1-4.s5.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0113",
+  "kind": "option",
+  "src": "fr",
+  "text": "Dans un circuit en dérivation, l'intensité est la même partout",
+  "ctx": [
+   "c1.1-4.s5.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0114",
+  "kind": "option",
+  "src": "fr",
+  "text": "L'intensité est toujours de 1 A",
+  "ctx": [
+   "c1.1-4.s5.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0115",
+  "kind": "explain",
+  "src": "es",
+  "text": "«Dans un circuit en série, l'intensité du courant est la même en tout point.»",
+  "ctx": [
+   "c1.1-4.s5.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0116",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡La corriente no se gasta: circula! Como el agua en un molino: mueve la rueda, pero no desaparece. ¡Qué idea tan bella!",
+  "ctx": [
+   "c1.1-4.s6.talk.0.ampere"
+  ]
+ },
+ {
+  "id": "c0117",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "La loi des nœuds",
+  "ctx": [
+   "c1.1-5.t"
+  ],
+  "pair": "La ley de los nudos"
+ },
+ {
+  "id": "c0118",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¿Y si el camino se divide en dos? Como un río que rodea una isla.",
+  "ctx": [
+   "c1.1-5.s0.talk.0.ampere"
+  ]
+ },
+ {
+  "id": "c0119",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Eso es un circuito «en dérivation». El punto donde se separan los cables es un «nœud». Montemos uno con dos lámparas diferentes.",
+  "ctx": [
+   "c1.1-5.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0120",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Partage du courant",
+  "ctx": [
+   "c1.1-5.s1.lab.title"
+  ],
+  "pair": "Reparto de la corriente"
+ },
+ {
+  "id": "c0121",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Mesure I dans la branche principale",
+  "ctx": [
+   "c1.1-5.s1.lab.g0"
+  ]
+ },
+ {
+  "id": "c0122",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Amperímetro en el hueco de arriba a la izquierda",
+  "ctx": [
+   "c1.1-5.s1.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0123",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Mesure I1 dans la branche de L1",
+  "ctx": [
+   "c1.1-5.s1.lab.g1"
+  ]
+ },
+ {
+  "id": "c0124",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Amperímetro debajo de L1",
+  "ctx": [
+   "c1.1-5.s1.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0125",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Mesure I2 dans la branche de L2",
+  "ctx": [
+   "c1.1-5.s1.lab.g2"
+  ]
+ },
+ {
+  "id": "c0126",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Amperímetro debajo de L2",
+  "ctx": [
+   "c1.1-5.s1.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0127",
+  "kind": "goal",
+  "src": "fr",
+  "text": "I1 = ? A",
+  "ctx": [
+   "c1.1-5.s1.lab.g3"
+  ]
+ },
+ {
+  "id": "c0128",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Intensidad en la rama de L1",
+  "ctx": [
+   "c1.1-5.s1.lab.g3.help"
+  ]
+ },
+ {
+  "id": "c0129",
+  "kind": "goal",
+  "src": "fr",
+  "text": "I2 = ? A",
+  "ctx": [
+   "c1.1-5.s1.lab.g4"
+  ]
+ },
+ {
+  "id": "c0130",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Intensidad en la rama de L2",
+  "ctx": [
+   "c1.1-5.s1.lab.g4.help"
+  ]
+ },
+ {
+  "id": "c0131",
+  "kind": "goal",
+  "src": "fr",
+  "text": "I (branche principale) = ? A",
+  "ctx": [
+   "c1.1-5.s1.lab.g5"
+  ]
+ },
+ {
+  "id": "c0132",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Intensidad total",
+  "ctx": [
+   "c1.1-5.s1.lab.g5.help"
+  ]
+ },
+ {
+  "id": "c0133",
+  "kind": "hint",
+  "src": "es",
+  "text": "Tres huecos: arriba a la izquierda (rama principal), debajo de L1 y debajo de L2.",
+  "ctx": [
+   "c1.1-5.s1.lab.h0"
+  ]
+ },
+ {
+  "id": "c0134",
+  "kind": "hint",
+  "src": "es",
+  "text": "Compara: ¿cuánto suman I1 e I2?",
+  "ctx": [
+   "c1.1-5.s1.lab.h1"
+  ]
+ },
+ {
+  "id": "c0135",
+  "kind": "question",
+  "src": "fr",
+  "text": "Dérivation : I = 0,8 A et I1 = 0,3 A. Que vaut [[I2]] ?",
+  "ctx": [
+   "c1.1-5.s3.num"
+  ],
+  "pair": "Derivación: I = 0,8 A e I1 = 0,3 A. ¿Cuánto vale I2?"
+ },
+ {
+  "id": "c0136",
+  "kind": "explain",
+  "src": "es",
+  "text": "Ley de los nudos: I = I1 + I2, así que I2 = I − I1 = 0,8 − 0,3 = «0,5 A».",
+  "ctx": [
+   "c1.1-5.s3.num.ex"
+  ]
+ },
+ {
+  "id": "c0137",
+  "kind": "question",
+  "src": "fr",
+  "text": "Quelle relation est juste dans un circuit [[en dérivation]] ?",
+  "ctx": [
+   "c1.1-5.s4.qcm"
+  ],
+  "pair": "¿Qué relación es correcta en derivación?"
+ },
+ {
+  "id": "c0138",
+  "kind": "option",
+  "src": "fr",
+  "text": "I = I1 + I2",
+  "ctx": [
+   "c1.1-5.s4.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0139",
+  "kind": "option",
+  "src": "fr",
+  "text": "I = I1 = I2",
+  "ctx": [
+   "c1.1-5.s4.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0140",
+  "kind": "option",
+  "src": "fr",
+  "text": "I1 = I + I2",
+  "ctx": [
+   "c1.1-5.s4.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0141",
+  "kind": "option",
+  "src": "fr",
+  "text": "I = I1 − I2",
+  "ctx": [
+   "c1.1-5.s4.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0142",
+  "kind": "explain",
+  "src": "es",
+  "text": "«Loi d'additivité des intensités»: la corriente principal es la suma de las corrientes de las ramas.",
+  "ctx": [
+   "c1.1-5.s4.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0143",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Devant l'Académie",
+  "ctx": [
+   "c1.1-6.t"
+  ],
+  "pair": "Ante la Académie"
+ },
+ {
+  "id": "c0144",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Académie des sciences, 18 de septiembre de 1820. Los sabios más importantes de Francia esperan.",
+  "ctx": [
+   "c1.1-6.s0.talk.0.nar"
+  ]
+ },
+ {
+  "id": "c0145",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Monsieur Ampère, la Académie le escucha. Dicen que trae ideas nuevas sobre la corriente.",
+  "ctx": [
+   "c1.1-6.s0.talk.1.arago"
+  ]
+ },
+ {
+  "id": "c0146",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "(desde el fondo) ¡Patrañas! ¡Que conteste a nuestras preguntas si es tan listo!",
+  "ctx": [
+   "c1.1-6.s0.talk.2.baron"
+  ]
+ },
+ {
+  "id": "c0147",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "{N}, el Barón ha llenado la sala de preguntas trampa. Ampère necesita tu ayuda: tres vidas, seis preguntas.",
+  "ctx": [
+   "c1.1-6.s0.talk.3.lumi"
+  ]
+ },
+ {
+  "id": "c0148",
+  "kind": "boss-title",
+  "src": "fr",
+  "text": "Les questions de l'Académie",
+  "ctx": [
+   "c1.1-6.s1.boss.title"
+  ]
+ },
+ {
+  "id": "c0149",
+  "kind": "question",
+  "src": "fr",
+  "text": "250 mA = ? A",
+  "ctx": [
+   "c1.1-6.s1.boss.q0"
+  ],
+  "pair": "250 mA son ¿cuántos amperios?"
+ },
+ {
+  "id": "c0150",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,25 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q0.o0"
+  ]
+ },
+ {
+  "id": "c0151",
+  "kind": "option",
+  "src": "fr",
+  "text": "2,5 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q0.o1"
+  ]
+ },
+ {
+  "id": "c0152",
+  "kind": "option",
+  "src": "fr",
+  "text": "25 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q0.o2"
+  ]
+ },
+ {
+  "id": "c0153",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,025 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q0.o3"
+  ]
+ },
+ {
+  "id": "c0154",
+  "kind": "explain",
+  "src": "es",
+  "text": "Se divide entre 1000: 250 ÷ 1000 = 0,25 A.",
+  "ctx": [
+   "c1.1-6.s1.boss.q0.ex"
+  ]
+ },
+ {
+  "id": "c0155",
+  "kind": "question",
+  "src": "fr",
+  "text": "Le courant entre dans l'ampèremètre par la borne…",
+  "ctx": [
+   "c1.1-6.s1.boss.q1"
+  ],
+  "pair": "La corriente entra en el amperímetro por el borne…"
+ },
+ {
+  "id": "c0156",
+  "kind": "option",
+  "src": "fr",
+  "text": "A (ou mA)",
+  "ctx": [
+   "c1.1-6.s1.boss.q1.o0"
+  ]
+ },
+ {
+  "id": "c0157",
+  "kind": "option",
+  "src": "fr",
+  "text": "COM",
+  "ctx": [
+   "c1.1-6.s1.boss.q1.o1"
+  ]
+ },
+ {
+  "id": "c0158",
+  "kind": "option",
+  "src": "fr",
+  "text": "V",
+  "ctx": [
+   "c1.1-6.s1.boss.q1.o2"
+  ]
+ },
+ {
+  "id": "c0159",
+  "kind": "option",
+  "src": "fr",
+  "text": "Ω",
+  "ctx": [
+   "c1.1-6.s1.boss.q1.o3"
+  ]
+ },
+ {
+  "id": "c0160",
+  "kind": "explain",
+  "src": "es",
+  "text": "Entra por A (o mA) y sale por COM.",
+  "ctx": [
+   "c1.1-6.s1.boss.q1.ex"
+  ]
+ },
+ {
+  "id": "c0161",
+  "kind": "question",
+  "src": "fr",
+  "text": "Circuit en série : I1 = 0,2 A. Que vaut I3 plus loin ?",
+  "ctx": [
+   "c1.1-6.s1.boss.q2"
+  ],
+  "pair": "En serie: I1 = 0,2 A. ¿Cuánto vale I3 más adelante?"
+ },
+ {
+  "id": "c0162",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,2 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q2.o0"
+  ]
+ },
+ {
+  "id": "c0163",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,1 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q2.o1"
+  ]
+ },
+ {
+  "id": "c0164",
+  "kind": "option",
+  "src": "fr",
+  "text": "0,4 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q2.o2"
+  ]
+ },
+ {
+  "id": "c0165",
+  "kind": "option",
+  "src": "fr",
+  "text": "0 A",
+  "ctx": [
+   "c1.1-6.s1.boss.q2.o3"
+  ]
+ },
+ {
+  "id": "c0166",
+  "kind": "explain",
+  "src": "es",
+  "text": "En serie la intensidad es la misma en todos los puntos.",
+  "ctx": [
+   "c1.1-6.s1.boss.q2.ex"
+  ]
+ },
+ {
+  "id": "c0167",
+  "kind": "question",
+  "src": "fr",
+  "text": "Dérivation : I1 = 0,15 A, I2 = 0,35 A. I = ? A",
+  "ctx": [
+   "c1.1-6.s1.boss.q3"
+  ],
+  "pair": "Derivación: I1 = 0,15 A, I2 = 0,35 A. ¿I?"
+ },
+ {
+  "id": "c0168",
+  "kind": "explain",
+  "src": "es",
+  "text": "I = I1 + I2 = 0,15 + 0,35 = 0,5 A.",
+  "ctx": [
+   "c1.1-6.s1.boss.q3.ex"
+  ]
+ },
+ {
+  "id": "c0169",
+  "kind": "question",
+  "src": "fr",
+  "text": "Un ampèremètre branché en dérivation provoque…",
+  "ctx": [
+   "c1.1-6.s1.boss.q4"
+  ],
+  "pair": "Un amperímetro en derivación provoca…"
+ },
+ {
+  "id": "c0170",
+  "kind": "option",
+  "src": "fr",
+  "text": "un court-circuit",
+  "ctx": [
+   "c1.1-6.s1.boss.q4.o0"
+  ]
+ },
+ {
+  "id": "c0171",
+  "kind": "option",
+  "src": "fr",
+  "text": "une mesure parfaite",
+  "ctx": [
+   "c1.1-6.s1.boss.q4.o1"
+  ]
+ },
+ {
+  "id": "c0172",
+  "kind": "option",
+  "src": "fr",
+  "text": "une tension nulle partout",
+  "ctx": [
+   "c1.1-6.s1.boss.q4.o2"
+  ]
+ },
+ {
+  "id": "c0173",
+  "kind": "option",
+  "src": "fr",
+  "text": "rien de spécial",
+  "ctx": [
+   "c1.1-6.s1.boss.q4.o3"
+  ]
+ },
+ {
+  "id": "c0174",
+  "kind": "explain",
+  "src": "es",
+  "text": "Casi no tiene resistencia: es un cortocircuito.",
+  "ctx": [
+   "c1.1-6.s1.boss.q4.ex"
+  ]
+ },
+ {
+  "id": "c0175",
+  "kind": "question",
+  "src": "fr",
+  "text": "Un nœud, c'est…",
+  "ctx": [
+   "c1.1-6.s1.boss.q5"
+  ],
+  "pair": "Un nudo es…"
+ },
+ {
+  "id": "c0176",
+  "kind": "option",
+  "src": "fr",
+  "text": "un point où se rejoignent au moins trois fils",
+  "ctx": [
+   "c1.1-6.s1.boss.q5.o0"
+  ]
+ },
+ {
+  "id": "c0177",
+  "kind": "option",
+  "src": "fr",
+  "text": "le milieu d'un fil",
+  "ctx": [
+   "c1.1-6.s1.boss.q5.o1"
+  ]
+ },
+ {
+  "id": "c0178",
+  "kind": "option",
+  "src": "fr",
+  "text": "la borne + du générateur",
+  "ctx": [
+   "c1.1-6.s1.boss.q5.o2"
+  ]
+ },
+ {
+  "id": "c0179",
+  "kind": "option",
+  "src": "fr",
+  "text": "un interrupteur",
+  "ctx": [
+   "c1.1-6.s1.boss.q5.o3"
+  ]
+ },
+ {
+  "id": "c0180",
+  "kind": "explain",
+  "src": "es",
+  "text": "En un nudo se juntan tres cables o más: ahí la corriente se reparte.",
+  "ctx": [
+   "c1.1-6.s1.boss.q5.ex"
+  ]
+ },
+ {
+  "id": "c0181",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Bravo, monsieur Ampère! Esto abre una ciencia nueva.",
+  "ctx": [
+   "c1.1-6.s2.talk.1.arago"
+  ]
+ },
+ {
+  "id": "c0182",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "La llamaré «électrodynamique». Y no lo habría logrado sin mis amigos del futuro.",
+  "ctx": [
+   "c1.1-6.s2.talk.2.ampere"
+  ]
+ },
+ {
+  "id": "c0183",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Grrr! ¡Esto no ha terminado! ¡Me voy a Colonia… y allí nadie salvará a ese profesor de matemáticas!",
+  "ctx": [
+   "c1.1-6.s2.talk.3.baron"
+  ]
+ },
+ {
+  "id": "c0184",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Página 1 recuperada! El amperio vuelve a existir en el futuro.",
+  "ctx": [
+   "c1.1-6.s2.talk.5.lumi"
+  ]
+ },
+ {
+  "id": "c0185",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Adieu, mes amis. Si algún día una unidad lleva mi nombre… sabré a quién dar las gracias.",
+  "ctx": [
+   "c1.1-6.s2.talk.6.ampere"
+  ]
+ },
+ {
+  "id": "c0186",
+  "kind": "place",
+  "src": "fr",
+  "text": "Cologne",
+  "ctx": [
+   "c2.place"
+  ]
+ },
+ {
+  "id": "c0187",
+  "kind": "era",
+  "src": "es",
+  "text": "Colonia, 1826-1827",
+  "ctx": [
+   "c2.era"
+  ]
+ },
+ {
+  "id": "c0188",
+  "kind": "chapter-title",
+  "src": "fr",
+  "text": "La résistance",
+  "ctx": [
+   "c2.title",
+   "note.n_resistance"
+  ],
+  "pair": "La resistencia"
+ },
+ {
+  "id": "c0189",
+  "kind": "chapter-sub",
+  "src": "es",
+  "text": "Resistencias y ley de Ohm",
+  "ctx": [
+   "c2.sub"
+  ]
+ },
+ {
+  "id": "c0190",
+  "kind": "page",
+  "src": "fr",
+  "text": "Page 2 · La loi d'Ohm",
+  "ctx": [
+   "c2.page"
+  ]
+ },
+ {
+  "id": "c0191",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "La résistance freine",
+  "ctx": [
+   "c2.2-1.t"
+  ],
+  "pair": "La resistencia frena"
+ },
+ {
+  "id": "c0192",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Colonia, 1826. El gimnasio de los jesuitas. Por la ventana se ve la catedral, sin terminar, con una grúa de madera en lo alto de la torre.",
+  "ctx": [
+   "c2.2-1.s1.talk.0.nar"
+  ]
+ },
+ {
+  "id": "c0193",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Guten Abend. Soy Georg Simon Ohm, profesor de matemáticas y de física. Llevo años midiendo corrientes con hilos de distintas longitudes y grosores…",
+  "ctx": [
+   "c2.2-1.s1.talk.1.ohm"
+  ]
+ },
+ {
+  "id": "c0194",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Los hilos largos y finos dejan pasar menos corriente. Pero mis pilas se agotan y mis medidas bailan. Y ahora un barón con monóculo va diciendo por toda la ciudad que soy un loco.",
+  "ctx": [
+   "c2.2-1.s1.talk.2.ohm"
+  ]
+ },
+ {
+  "id": "c0195",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡No está loco, profesor! Lo que usted estudia se llama «résistance». {N}, enseñémosle cómo frena la corriente.",
+  "ctx": [
+   "c2.2-1.s1.talk.3.lumi"
+  ]
+ },
+ {
+  "id": "c0196",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Résistance en série",
+  "ctx": [
+   "c2.2-1.s3.lab.title"
+  ],
+  "pair": "Resistencia en serie"
+ },
+ {
+  "id": "c0197",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Remplace le fil bleu en pointillés (en bas) par une résistance",
+  "ctx": [
+   "c2.2-1.s3.lab.g0"
+  ]
+ },
+ {
+  "id": "c0198",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Bórralo con la goma y coloca una resistencia en su lugar",
+  "ctx": [
+   "c2.2-1.s3.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0199",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Choisis R pour que L1 brille à peine",
+  "ctx": [
+   "c2.2-1.s3.lab.g1"
+  ]
+ },
+ {
+  "id": "c0200",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Selecciona la resistencia y prueba valores",
+  "ctx": [
+   "c2.2-1.s3.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0201",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Choisis la valeur qui laisse passer le plus de courant",
+  "ctx": [
+   "c2.2-1.s3.lab.g2"
+  ]
+ },
+ {
+  "id": "c0202",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "¿Qué resistencia frena menos?",
+  "ctx": [
+   "c2.2-1.s3.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0203",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Avec cette résistance, I = ? A",
+  "ctx": [
+   "c2.2-1.s3.lab.g3"
+  ]
+ },
+ {
+  "id": "c0204",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Lee el amperímetro A1",
+  "ctx": [
+   "c2.2-1.s3.lab.g3.help"
+  ]
+ },
+ {
+  "id": "c0205",
+  "kind": "hint",
+  "src": "es",
+  "text": "Usa la goma sobre el cable azul discontinuo de abajo. Luego elige «Résistance» y toca ese hueco.",
+  "ctx": [
+   "c2.2-1.s3.lab.h0"
+  ]
+ },
+ {
+  "id": "c0206",
+  "kind": "hint",
+  "src": "es",
+  "text": "Con la «Main», toca la resistencia: verás los valores 10, 47, 100 y 470 Ω.",
+  "ctx": [
+   "c2.2-1.s3.lab.h1"
+  ]
+ },
+ {
+  "id": "c0207",
+  "kind": "hint",
+  "src": "es",
+  "text": "Cuanto más pequeña la resistencia, más corriente pasa.",
+  "ctx": [
+   "c2.2-1.s3.lab.h2"
+  ]
+ },
+ {
+  "id": "c0208",
+  "kind": "question",
+  "src": "fr",
+  "text": "Dans un circuit en série, si on [[augmente]] la résistance, l'intensité…",
+  "ctx": [
+   "c2.2-1.s4.qcm"
+  ],
+  "pair": "En serie, si aumentamos la resistencia, la intensidad…"
+ },
+ {
+  "id": "c0209",
+  "kind": "option",
+  "src": "fr",
+  "text": "diminue",
+  "ctx": [
+   "c2.2-1.s4.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0210",
+  "kind": "option",
+  "src": "fr",
+  "text": "augmente",
+  "ctx": [
+   "c2.2-1.s4.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0211",
+  "kind": "option",
+  "src": "fr",
+  "text": "ne change pas",
+  "ctx": [
+   "c2.2-1.s4.qcm.o2"
+  ]
+ },
+ {
+  "id": "c0212",
+  "kind": "option",
+  "src": "fr",
+  "text": "devient négative",
+  "ctx": [
+   "c2.2-1.s4.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0213",
+  "kind": "explain",
+  "src": "es",
+  "text": "Una resistencia mayor frena más la corriente: la intensidad «diminue».",
+  "ctx": [
+   "c2.2-1.s4.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0214",
+  "kind": "question",
+  "src": "fr",
+  "text": "L'unité de la résistance est…",
+  "ctx": [
+   "c2.2-1.s5.qcm",
+   "c2.2-6.s1.boss.q0"
+  ],
+  "pair": "La unidad de la resistencia es…"
+ },
+ {
+  "id": "c0215",
+  "kind": "option",
+  "src": "fr",
+  "text": "l'ohm (Ω)",
+  "ctx": [
+   "c2.2-1.s5.qcm.o0",
+   "c2.2-6.s1.boss.q0.o0"
+  ]
+ },
+ {
+  "id": "c0216",
+  "kind": "option",
+  "src": "fr",
+  "text": "l'ampère (A)",
+  "ctx": [
+   "c2.2-1.s5.qcm.o1",
+   "c2.2-6.s1.boss.q0.o2"
+  ]
+ },
+ {
+  "id": "c0217",
+  "kind": "option",
+  "src": "fr",
+  "text": "le volt (V)",
+  "ctx": [
+   "c2.2-1.s5.qcm.o2",
+   "c2.2-6.s1.boss.q0.o1"
+  ]
+ },
+ {
+  "id": "c0218",
+  "kind": "option",
+  "src": "fr",
+  "text": "le watt (W)",
+  "ctx": [
+   "c2.2-1.s5.qcm.o3",
+   "c2.2-6.s1.boss.q0.o3"
+  ]
+ },
+ {
+  "id": "c0219",
+  "kind": "explain",
+  "src": "es",
+  "text": "La resistencia se mide en «ohms», símbolo Ω (omega).",
+  "ctx": [
+   "c2.2-1.s5.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0220",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Le code des couleurs",
+  "ctx": [
+   "c2.2-2.t",
+   "note.n_couleurs"
+  ],
+  "pair": "El código de colores"
+ },
+ {
+  "id": "c0221",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¿Y esas rayitas de colores en sus resistencias?",
+  "ctx": [
+   "c2.2-2.s0.talk.0.ohm"
+  ]
+ },
+ {
+  "id": "c0222",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "En el futuro, las resistencias son tan pequeñas que no se puede escribir el número. Así que se pinta con colores. ¡Es un código secreto!",
+  "ctx": [
+   "c2.2-2.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0223",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Wunderbar! Un código como los de los espías. Mis alumnos lo adorarían.",
+  "ctx": [
+   "c2.2-2.s3.talk.0.ohm"
+  ]
+ },
+ {
+  "id": "c0224",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "La caractéristique",
+  "ctx": [
+   "c2.2-3.t"
+  ],
+  "pair": "La gráfica característica"
+ },
+ {
+  "id": "c0225",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Mi idea es esta: si aumento la tensión, la intensidad aumenta… siempre en la misma proporción. Pero necesito medidas limpias para demostrarlo.",
+  "ctx": [
+   "c2.2-3.s0.talk.0.ohm"
+  ]
+ },
+ {
+  "id": "c0226",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Para eso, en lugar de pilas que se agotan, usaremos un generador regulable. Mide U e I para varias tensiones y apunta cada punto en la gráfica.",
+  "ctx": [
+   "c2.2-3.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0227",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Ja! Yo usé un termopar, dos metales: uno en agua hirviendo y otro en hielo. ¡Muy estable!",
+  "ctx": [
+   "c2.2-3.s0.talk.2.ohm"
+  ]
+ },
+ {
+  "id": "c0228",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Tracer U = f(I)",
+  "ctx": [
+   "c2.2-3.s2.lab.title"
+  ],
+  "pair": "Dibujar U en función de I"
+ },
+ {
+  "id": "c0229",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Enregistre au moins 5 points différents",
+  "ctx": [
+   "c2.2-3.s2.lab.g0"
+  ]
+ },
+ {
+  "id": "c0230",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Mueve la tensión del generador G y pulsa «Enregistrer» cada vez",
+  "ctx": [
+   "c2.2-3.s2.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0231",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Avec un de tes points, calcule R = U ÷ I. R = ? Ω",
+  "ctx": [
+   "c2.2-3.s2.lab.g1"
+  ]
+ },
+ {
+  "id": "c0232",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Divide la tensión entre la intensidad de un punto",
+  "ctx": [
+   "c2.2-3.s2.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0233",
+  "kind": "hint",
+  "src": "es",
+  "text": "Toca el generador G y mueve el deslizador. Luego pulsa «Enregistrer la mesure».",
+  "ctx": [
+   "c2.2-3.s2.lab.h0"
+  ]
+ },
+ {
+  "id": "c0234",
+  "kind": "hint",
+  "src": "es",
+  "text": "Elige tensiones distintas: 2 V, 4 V, 6 V, 8 V, 10 V…",
+  "ctx": [
+   "c2.2-3.s2.lab.h1"
+  ]
+ },
+ {
+  "id": "c0235",
+  "kind": "hint",
+  "src": "es",
+  "text": "Ejemplo: si U = 6 V e I = 0,06 A, entonces R = 6 ÷ 0,06.",
+  "ctx": [
+   "c2.2-3.s2.lab.h2"
+  ]
+ },
+ {
+  "id": "c0236",
+  "kind": "question",
+  "src": "fr",
+  "text": "La caractéristique U = f(I) d'un conducteur ohmique est…",
+  "ctx": [
+   "c2.2-3.s4.qcm"
+  ],
+  "pair": "La característica de un conductor óhmico es…"
+ },
+ {
+  "id": "c0237",
+  "kind": "option",
+  "src": "fr",
+  "text": "une droite qui passe par l'origine",
+  "ctx": [
+   "c2.2-3.s4.qcm.o0"
+  ]
+ },
+ {
+  "id": "c0238",
+  "kind": "option",
+  "src": "fr",
+  "text": "une courbe qui monte de plus en plus vite",
+  "ctx": [
+   "c2.2-3.s4.qcm.o1"
+  ]
+ },
+ {
+  "id": "c0239",
+  "kind": "option",
+  "src": "fr",
+  "text": "une droite horizontale",
+  "ctx": [
+   "c2.2-3.s4.qcm.o2",
+   "c2.2-6.s1.boss.q4.o2"
+  ]
+ },
+ {
+  "id": "c0240",
+  "kind": "option",
+  "src": "fr",
+  "text": "un cercle",
+  "ctx": [
+   "c2.2-3.s4.qcm.o3"
+  ]
+ },
+ {
+  "id": "c0241",
+  "kind": "explain",
+  "src": "es",
+  "text": "U e I son proporcionales: la gráfica es una recta que pasa por el origen.",
+  "ctx": [
+   "c2.2-3.s4.qcm.ex"
+  ]
+ },
+ {
+  "id": "c0242",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "La loi d'Ohm",
+  "ctx": [
+   "c2.2-4.t"
+  ],
+  "pair": "La ley de Ohm"
+ },
+ {
+  "id": "c0243",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Lo veo claro! La tensión es igual a la resistencia multiplicada por la intensidad. Lo escribiré en mi libro: «Die galvanische Kette».",
+  "ctx": [
+   "c2.2-4.s0.talk.0.ohm"
+  ]
+ },
+ {
+  "id": "c0244",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "En el futuro, todos los alumnos del mundo la estudian. Se llama… ¡la ley de Ohm!",
+  "ctx": [
+   "c2.2-4.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0245",
+  "kind": "question",
+  "src": "fr",
+  "text": "Un conducteur ohmique de R = 220 Ω est traversé par I = 0,03 A. Calcule la tension U.",
+  "ctx": [
+   "c2.2-4.s3.calc"
+  ],
+  "pair": "R = 220 Ω, I = 0,03 A. Calcula U."
+ },
+ {
+  "id": "c0246",
+  "kind": "calc-step",
+  "src": "fr",
+  "text": "Formule",
+  "ctx": [
+   "c2.2-4.s3.calc.st0",
+   "c2.2-4.s4.calc.st0",
+   "c2.2-5.s2.calc.st0"
+  ],
+  "pair": "Fórmula"
+ },
+ {
+  "id": "c0247",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = R × I",
+  "ctx": [
+   "c2.2-4.s3.calc.st0.o0"
+  ]
+ },
+ {
+  "id": "c0248",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = R ÷ I",
+  "ctx": [
+   "c2.2-4.s3.calc.st0.o1"
+  ]
+ },
+ {
+  "id": "c0249",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = I ÷ R",
+  "ctx": [
+   "c2.2-4.s3.calc.st0.o2"
+  ]
+ },
+ {
+  "id": "c0250",
+  "kind": "calc-step",
+  "src": "fr",
+  "text": "Calcul",
+  "ctx": [
+   "c2.2-4.s3.calc.st1",
+   "c2.2-4.s4.calc.st1",
+   "c2.2-5.s2.calc.st1"
+  ],
+  "pair": "Cálculo"
+ },
+ {
+  "id": "c0251",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = 220 × 0,03",
+  "ctx": [
+   "c2.2-4.s3.calc.st1.o0"
+  ]
+ },
+ {
+  "id": "c0252",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = 220 ÷ 0,03",
+  "ctx": [
+   "c2.2-4.s3.calc.st1.o1"
+  ]
+ },
+ {
+  "id": "c0253",
+  "kind": "formula",
+  "src": "fr",
+  "text": "U = 0,03 ÷ 220",
+  "ctx": [
+   "c2.2-4.s3.calc.st1.o2"
+  ]
+ },
+ {
+  "id": "c0254",
+  "kind": "explain",
+  "src": "es",
+  "text": "U = R × I = 220 × 0,03 = «6,6 V».",
+  "ctx": [
+   "c2.2-4.s3.calc.ex"
+  ]
+ },
+ {
+  "id": "c0255",
+  "kind": "question",
+  "src": "fr",
+  "text": "Un générateur de 12 V alimente une résistance de 400 Ω. Calcule l'intensité I.",
+  "ctx": [
+   "c2.2-4.s4.calc"
+  ],
+  "pair": "U = 12 V, R = 400 Ω. Calcula I."
+ },
+ {
+  "id": "c0256",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = U ÷ R",
+  "ctx": [
+   "c2.2-4.s4.calc.st0.o0"
+  ]
+ },
+ {
+  "id": "c0257",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = U × R",
+  "ctx": [
+   "c2.2-4.s4.calc.st0.o1"
+  ]
+ },
+ {
+  "id": "c0258",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = R ÷ U",
+  "ctx": [
+   "c2.2-4.s4.calc.st0.o2"
+  ]
+ },
+ {
+  "id": "c0259",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = 12 ÷ 400",
+  "ctx": [
+   "c2.2-4.s4.calc.st1.o0"
+  ]
+ },
+ {
+  "id": "c0260",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = 12 × 400",
+  "ctx": [
+   "c2.2-4.s4.calc.st1.o1"
+  ]
+ },
+ {
+  "id": "c0261",
+  "kind": "formula",
+  "src": "fr",
+  "text": "I = 400 ÷ 12",
+  "ctx": [
+   "c2.2-4.s4.calc.st1.o2"
+  ]
+ },
+ {
+  "id": "c0262",
+  "kind": "explain",
+  "src": "es",
+  "text": "I = U ÷ R = 12 ÷ 400 = «0,03 A» = 30 mA.",
+  "ctx": [
+   "c2.2-4.s4.calc.ex"
+  ]
+ },
+ {
+  "id": "c0263",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Vérification",
+  "ctx": [
+   "c2.2-4.s5.lab.title"
+  ],
+  "pair": "Comprobación"
+ },
+ {
+  "id": "c0264",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Prévois : I = U ÷ R = ? mA",
+  "ctx": [
+   "c2.2-4.s5.lab.g0"
+  ]
+ },
+ {
+  "id": "c0265",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Calcula 9 ÷ 470 y pásalo a mA (× 1000)",
+  "ctx": [
+   "c2.2-4.s5.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0266",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Vérifie avec l'ampèremètre (en série)",
+  "ctx": [
+   "c2.2-4.s5.lab.g1"
+  ]
+ },
+ {
+  "id": "c0267",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Colócalo en el hueco",
+  "ctx": [
+   "c2.2-4.s5.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0268",
+  "kind": "goal",
+  "src": "fr",
+  "text": "La mesure confirme ta prévision",
+  "ctx": [
+   "c2.2-4.s5.lab.g2"
+  ]
+ },
+ {
+  "id": "c0269",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Compara la pantalla con tu cálculo",
+  "ctx": [
+   "c2.2-4.s5.lab.g2.help"
+  ]
+ },
+ {
+  "id": "c0270",
+  "kind": "hint",
+  "src": "es",
+  "text": "9 ÷ 470 = 0,019… A. Para pasar a mA, multiplica por 1000.",
+  "ctx": [
+   "c2.2-4.s5.lab.h0"
+  ]
+ },
+ {
+  "id": "c0271",
+  "kind": "hint",
+  "src": "es",
+  "text": "El hueco está arriba a la derecha.",
+  "ctx": [
+   "c2.2-4.s5.lab.h1"
+  ]
+ },
+ {
+  "id": "c0272",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Protéger la lampe",
+  "ctx": [
+   "c2.2-5.t"
+  ],
+  "pair": "Proteger la lámpara"
+ },
+ {
+  "id": "c0273",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Tengo un problema: esta lámpara es de 6 V, pero mi generador da 12 V. Si la conecto directamente…",
+  "ctx": [
+   "c2.2-5.s0.talk.0.ohm"
+  ]
+ },
+ {
+  "id": "c0274",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Se fundiría! Con tu ley podemos salvarla: añadimos una resistencia en serie que se quede con los voltios que sobran.",
+  "ctx": [
+   "c2.2-5.s0.talk.1.lumi"
+  ]
+ },
+ {
+  "id": "c0275",
+  "kind": "question",
+  "src": "fr",
+  "text": "Lampe 6 V · 0,3 A, générateur 12 V. La résistance doit prendre 12 − 6 = 6 V avec I = 0,3 A. Calcule R.",
+  "ctx": [
+   "c2.2-5.s2.calc"
+  ],
+  "pair": "La resistencia debe quedarse 6 V con I = 0,3 A. Calcula R."
+ },
+ {
+  "id": "c0276",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = U ÷ I",
+  "ctx": [
+   "c2.2-5.s2.calc.st0.o0"
+  ]
+ },
+ {
+  "id": "c0277",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = U × I",
+  "ctx": [
+   "c2.2-5.s2.calc.st0.o1"
+  ]
+ },
+ {
+  "id": "c0278",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = I ÷ U",
+  "ctx": [
+   "c2.2-5.s2.calc.st0.o2"
+  ]
+ },
+ {
+  "id": "c0279",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = 6 ÷ 0,3",
+  "ctx": [
+   "c2.2-5.s2.calc.st1.o0"
+  ]
+ },
+ {
+  "id": "c0280",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = 12 ÷ 0,3",
+  "ctx": [
+   "c2.2-5.s2.calc.st1.o1"
+  ]
+ },
+ {
+  "id": "c0281",
+  "kind": "formula",
+  "src": "fr",
+  "text": "R = 6 × 0,3",
+  "ctx": [
+   "c2.2-5.s2.calc.st1.o2"
+  ]
+ },
+ {
+  "id": "c0282",
+  "kind": "explain",
+  "src": "es",
+  "text": "R = U ÷ I = 6 ÷ 0,3 = «20 Ω». En la caja no hay 20 Ω: elegimos la más cercana, 22 Ω.",
+  "ctx": [
+   "c2.2-5.s2.calc.ex"
+  ]
+ },
+ {
+  "id": "c0283",
+  "kind": "lab-title",
+  "src": "fr",
+  "text": "Sauver la lampe",
+  "ctx": [
+   "c2.2-5.s3.lab.title"
+  ],
+  "pair": "Salvar la lámpara"
+ },
+ {
+  "id": "c0284",
+  "kind": "goal",
+  "src": "fr",
+  "text": "Ajoute une résistance en série dans le trou",
+  "ctx": [
+   "c2.2-5.s3.lab.g0"
+  ]
+ },
+ {
+  "id": "c0285",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Coloca la resistencia abajo",
+  "ctx": [
+   "c2.2-5.s3.lab.g0.help"
+  ]
+ },
+ {
+  "id": "c0286",
+  "kind": "goal",
+  "src": "fr",
+  "text": "L1 doit briller normalement",
+  "ctx": [
+   "c2.2-5.s3.lab.g1"
+  ]
+ },
+ {
+  "id": "c0287",
+  "kind": "goal-help",
+  "src": "es",
+  "text": "Elige el valor de R adecuado",
+  "ctx": [
+   "c2.2-5.s3.lab.g1.help"
+  ]
+ },
+ {
+  "id": "c0288",
+  "kind": "hint",
+  "src": "es",
+  "text": "Coloca la resistencia en el hueco de abajo.",
+  "ctx": [
+   "c2.2-5.s3.lab.h0"
+  ]
+ },
+ {
+  "id": "c0289",
+  "kind": "hint",
+  "src": "es",
+  "text": "Con 47 Ω la lámpara brilla poco; con 10 Ω demasiado. ¿Cuál está en medio y se parece más a 20 Ω?",
+  "ctx": [
+   "c2.2-5.s3.lab.h1"
+  ]
+ },
+ {
+  "id": "c0290",
+  "kind": "hint",
+  "src": "es",
+  "text": "Si se funde, selecciónala y pulsa «Remplacer».",
+  "ctx": [
+   "c2.2-5.s3.lab.h2"
+  ]
+ },
+ {
+  "id": "c0291",
+  "kind": "mission-title",
+  "src": "fr",
+  "text": "Le procès de Berlin",
+  "ctx": [
+   "c2.2-6.t"
+  ],
+  "pair": "El juicio de Berlín"
+ },
+ {
+  "id": "c0292",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Berlín, 1827. El ministerio de Educación de Prusia.",
+  "ctx": [
+   "c2.2-6.s0.talk.0.nar"
+  ]
+ },
+ {
+  "id": "c0293",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Herr Ohm, nos han dicho que su libro está lleno de fantasías matemáticas.",
+  "ctx": [
+   "c2.2-6.s0.talk.1.minister"
+  ]
+ },
+ {
+  "id": "c0294",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Exacto, Excelencia! ¡La corriente depende del color del hilo y de la luna! ¡Su «ley» es un disparate!",
+  "ctx": [
+   "c2.2-6.s0.talk.2.baron"
+  ]
+ },
+ {
+  "id": "c0295",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Puedo demostrarlo… pero el Barón ha preparado preguntas trampa.",
+  "ctx": [
+   "c2.2-6.s0.talk.3.ohm"
+  ]
+ },
+ {
+  "id": "c0296",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "{N}, demuéstrale al ministro que la ley de Ohm funciona. Siete preguntas, tres vidas.",
+  "ctx": [
+   "c2.2-6.s0.talk.4.lumi"
+  ]
+ },
+ {
+  "id": "c0297",
+  "kind": "boss-title",
+  "src": "fr",
+  "text": "Les questions du ministre",
+  "ctx": [
+   "c2.2-6.s1.boss.title"
+  ]
+ },
+ {
+  "id": "c0298",
+  "kind": "explain",
+  "src": "es",
+  "text": "Ohmio, Ω.",
+  "ctx": [
+   "c2.2-6.s1.boss.q0.ex"
+  ]
+ },
+ {
+  "id": "c0299",
+  "kind": "question",
+  "src": "fr",
+  "text": "R = 100 Ω, I = 0,05 A. U = ? V",
+  "ctx": [
+   "c2.2-6.s1.boss.q1"
+  ],
+  "pair": "R = 100 Ω, I = 0,05 A. ¿U?"
+ },
+ {
+  "id": "c0300",
+  "kind": "explain",
+  "src": "es",
+  "text": "U = R × I = 100 × 0,05 = 5 V.",
+  "ctx": [
+   "c2.2-6.s1.boss.q1.ex"
+  ]
+ },
+ {
+  "id": "c0301",
+  "kind": "question",
+  "src": "fr",
+  "text": "U = 6 V, R = 200 Ω. I = ? A",
+  "ctx": [
+   "c2.2-6.s1.boss.q2"
+  ],
+  "pair": "U = 6 V, R = 200 Ω. ¿I en amperios?"
+ },
+ {
+  "id": "c0302",
+  "kind": "explain",
+  "src": "es",
+  "text": "I = U ÷ R = 6 ÷ 200 = 0,03 A.",
+  "ctx": [
+   "c2.2-6.s1.boss.q2.ex"
+  ]
+ },
+ {
+  "id": "c0303",
+  "kind": "question",
+  "src": "fr",
+  "text": "U = 4,5 V, I = 0,15 A. R = ? Ω",
+  "ctx": [
+   "c2.2-6.s1.boss.q3"
+  ],
+  "pair": "U = 4,5 V, I = 0,15 A. ¿R?"
+ },
+ {
+  "id": "c0304",
+  "kind": "explain",
+  "src": "es",
+  "text": "R = U ÷ I = 4,5 ÷ 0,15 = 30 Ω.",
+  "ctx": [
+   "c2.2-6.s1.boss.q3.ex"
+  ]
+ },
+ {
+  "id": "c0305",
+  "kind": "question",
+  "src": "fr",
+  "text": "La caractéristique d'un conducteur ohmique est…",
+  "ctx": [
+   "c2.2-6.s1.boss.q4"
+  ],
+  "pair": "La característica de un conductor óhmico es…"
+ },
+ {
+  "id": "c0306",
+  "kind": "option",
+  "src": "fr",
+  "text": "une droite passant par l'origine",
+  "ctx": [
+   "c2.2-6.s1.boss.q4.o0"
+  ]
+ },
+ {
+  "id": "c0307",
+  "kind": "option",
+  "src": "fr",
+  "text": "une courbe en U",
+  "ctx": [
+   "c2.2-6.s1.boss.q4.o1"
+  ]
+ },
+ {
+  "id": "c0308",
+  "kind": "option",
+  "src": "fr",
+  "text": "une parabole",
+  "ctx": [
+   "c2.2-6.s1.boss.q4.o3"
+  ]
+ },
+ {
+  "id": "c0309",
+  "kind": "explain",
+  "src": "es",
+  "text": "Recta que pasa por el origen: U e I son proporcionales.",
+  "ctx": [
+   "c2.2-6.s1.boss.q4.ex"
+  ]
+ },
+ {
+  "id": "c0310",
+  "kind": "question",
+  "src": "fr",
+  "text": "marron · noir · rouge =",
+  "ctx": [
+   "c2.2-6.s1.boss.q5"
+  ],
+  "pair": "marrón · negro · rojo ="
+ },
+ {
+  "id": "c0311",
+  "kind": "option",
+  "src": "fr",
+  "text": "1 000 Ω",
+  "ctx": [
+   "c2.2-6.s1.boss.q5.o0"
+  ]
+ },
+ {
+  "id": "c0312",
+  "kind": "option",
+  "src": "fr",
+  "text": "102 Ω",
+  "ctx": [
+   "c2.2-6.s1.boss.q5.o1"
+  ]
+ },
+ {
+  "id": "c0313",
+  "kind": "option",
+  "src": "fr",
+  "text": "120 Ω",
+  "ctx": [
+   "c2.2-6.s1.boss.q5.o2"
+  ]
+ },
+ {
+  "id": "c0314",
+  "kind": "option",
+  "src": "fr",
+  "text": "10 Ω",
+  "ctx": [
+   "c2.2-6.s1.boss.q5.o3"
+  ]
+ },
+ {
+  "id": "c0315",
+  "kind": "explain",
+  "src": "es",
+  "text": "1, 0 y dos ceros: 1000 Ω.",
+  "ctx": [
+   "c2.2-6.s1.boss.q5.ex"
+  ]
+ },
+ {
+  "id": "c0316",
+  "kind": "question",
+  "src": "fr",
+  "text": "U ne change pas. Si R est multipliée par 2, I est…",
+  "ctx": [
+   "c2.2-6.s1.boss.q6"
+  ],
+  "pair": "Si U no cambia y R se multiplica por 2, I…"
+ },
+ {
+  "id": "c0317",
+  "kind": "option",
+  "src": "fr",
+  "text": "divisée par 2",
+  "ctx": [
+   "c2.2-6.s1.boss.q6.o0"
+  ]
+ },
+ {
+  "id": "c0318",
+  "kind": "option",
+  "src": "fr",
+  "text": "multipliée par 2",
+  "ctx": [
+   "c2.2-6.s1.boss.q6.o1"
+  ]
+ },
+ {
+  "id": "c0319",
+  "kind": "option",
+  "src": "fr",
+  "text": "inchangée",
+  "ctx": [
+   "c2.2-6.s1.boss.q6.o2"
+  ]
+ },
+ {
+  "id": "c0320",
+  "kind": "option",
+  "src": "fr",
+  "text": "nulle",
+  "ctx": [
+   "c2.2-6.s1.boss.q6.o3"
+  ]
+ },
+ {
+  "id": "c0321",
+  "kind": "explain",
+  "src": "es",
+  "text": "I = U ÷ R: si R se duplica, I se divide entre 2.",
+  "ctx": [
+   "c2.2-6.s1.boss.q6.ex"
+  ]
+ },
+ {
+  "id": "c0322",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Impresionante. Herr Ohm, sus números no mienten.",
+  "ctx": [
+   "c2.2-6.s2.talk.1.minister"
+  ]
+ },
+ {
+  "id": "c0323",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡NOOO! ¡Mi plan perfecto! Muy bien… ¡me voy a Inglaterra! ¡Allí un cervecero está jugando con el calor y la electricidad!",
+  "ctx": [
+   "c2.2-6.s2.talk.2.baron"
+  ]
+ },
+ {
+  "id": "c0324",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "Danke, meine Freunde. Al principio nadie me creerá, lo sé. Pero en 1841 la Royal Society me dará la medalla Copley. Ahora tengo paciencia.",
+  "ctx": [
+   "c2.2-6.s2.talk.4.ohm"
+  ]
+ },
+ {
+  "id": "c0325",
+  "kind": "dialogue",
+  "src": "es",
+  "text": "¡Página 2 recuperada! Próxima parada: Mánchester, 1843… cuando el Chronotron termine de recargarse.",
+  "ctx": [
+   "c2.2-6.s2.talk.5.lumi"
+  ]
+ },
+ {
+  "id": "c0326",
+  "kind": "place",
+  "src": "fr",
+  "text": "Manchester",
+  "ctx": [
+   "c3.place"
+  ]
+ },
+ {
+  "id": "c0327",
+  "kind": "era",
+  "src": "es",
+  "text": "Mánchester, 1843",
+  "ctx": [
+   "c3.era"
+  ]
+ },
+ {
+  "id": "c0328",
+  "kind": "chapter-title",
+  "src": "fr",
+  "text": "La puissance",
+  "ctx": [
+   "c3.title"
+  ]
+ },
+ {
+  "id": "c0329",
+  "kind": "chapter-sub",
+  "src": "es",
+  "text": "Potencia, energía y efecto Joule",
+  "ctx": [
+   "c3.sub"
+  ]
+ },
+ {
+  "id": "c0330",
+  "kind": "place",
+  "src": "fr",
+  "text": "New York",
+  "ctx": [
+   "c4.place"
+  ]
+ },
+ {
+  "id": "c0331",
+  "kind": "era",
+  "src": "es",
+  "text": "Nueva York, 1884",
+  "ctx": [
+   "c4.era"
+  ]
+ },
+ {
+  "id": "c0332",
+  "kind": "chapter-title",
+  "src": "fr",
+  "text": "La sécurité",
+  "ctx": [
+   "c4.title"
+  ]
+ },
+ {
+  "id": "c0333",
+  "kind": "chapter-sub",
+  "src": "es",
+  "text": "Edison, Tesla, fusibles y cortocircuitos",
+  "ctx": [
+   "c4.sub"
+  ]
+ },
+ {
+  "id": "c0334",
+  "kind": "place",
+  "src": "fr",
+  "text": "Le Vortex",
+  "ctx": [
+   "c5.place"
+  ]
+ },
+ {
+  "id": "c0335",
+  "kind": "era",
+  "src": "es",
+  "text": "Fuera del tiempo",
+  "ctx": [
+   "c5.era"
+  ]
+ },
+ {
+  "id": "c0336",
+  "kind": "chapter-title",
+  "src": "fr",
+  "text": "Le Baron",
+  "ctx": [
+   "c5.title"
+  ]
+ },
+ {
+  "id": "c0337",
+  "kind": "chapter-sub",
+  "src": "es",
+  "text": "El duelo final",
+  "ctx": [
+   "c5.sub"
+  ]
+ },
+ {
+  "id": "c0338",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Un circuit doit être fermé",
+  "ctx": [
+   "note.n_circuit"
+  ],
+  "pair": "El circuito debe estar cerrado"
+ },
+ {
+  "id": "c0339",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Le courant ne circule que si la boucle est **fermée** : du générateur, à travers les dipôles, et retour au générateur. Un seul trou et tout s'arrête.",
+  "ctx": [
+   "note.n_circuit.b"
+  ]
+ },
+ {
+  "id": "c0340",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "La corriente solo circula si el camino forma un bucle cerrado. Un solo hueco y todo se apaga.",
+  "ctx": [
+   "note.n_circuit.extra"
+  ]
+ },
+ {
+  "id": "c0341",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Le sens conventionnel du courant",
+  "ctx": [
+   "note.n_sens"
+  ],
+  "pair": "El sentido convencional"
+ },
+ {
+  "id": "c0342",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "À l'extérieur du générateur, le courant va de la borne **+** vers la borne **−**. Dans le labo, les petits points lumineux suivent ce sens.",
+  "ctx": [
+   "note.n_sens.b"
+  ]
+ },
+ {
+  "id": "c0343",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Fuera de la pila, la corriente va del + al −. Los puntitos luminosos del laboratorio siguen ese sentido.",
+  "ctx": [
+   "note.n_sens.extra"
+  ]
+ },
+ {
+  "id": "c0344",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "L'intensité du courant",
+  "ctx": [
+   "note.n_intensite"
+  ],
+  "pair": "La intensidad de la corriente"
+ },
+ {
+  "id": "c0345",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "On la note **I**. Son unité est l'**ampère (A)**. On utilise souvent le **milliampère** : **1 A = 1000 mA**, donc 0,25 A = 250 mA.",
+  "ctx": [
+   "note.n_intensite.b"
+  ]
+ },
+ {
+  "id": "c0346",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Se escribe I y se mide en amperios (A). 1 A = 1000 mA. Truco: para pasar de A a mA, la coma salta 3 cifras a la derecha.",
+  "ctx": [
+   "note.n_intensite.extra"
+  ]
+ },
+ {
+  "id": "c0347",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Brancher l'ampèremètre",
+  "ctx": [
+   "note.n_ampmetre"
+  ],
+  "pair": "Conectar el amperímetro"
+ },
+ {
+  "id": "c0348",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "L'ampèremètre se branche **en série**, dans la boucle. Le courant entre par la borne **A** (ou **mA**) et sort par la borne **COM**. Si l'écran affiche un signe −, on inverse les fils.",
+  "ctx": [
+   "note.n_ampmetre.b"
+  ]
+ },
+ {
+  "id": "c0349",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "El amperímetro va en serie: hay que abrir el circuito y meterlo dentro. Entra por A (o mA) y sale por COM.",
+  "ctx": [
+   "note.n_ampmetre.extra"
+  ]
+ },
+ {
+  "id": "c0350",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Le piège du Barón",
+  "ctx": [
+   "note.n_piege"
+  ],
+  "pair": "La trampa del Barón"
+ },
+ {
+  "id": "c0351",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Un ampèremètre n'a presque **pas de résistance**. Branché en **dérivation**, il crée un **court-circuit** : un courant énorme le traverse et son fusible fond.",
+  "ctx": [
+   "note.n_piege.b"
+  ]
+ },
+ {
+  "id": "c0352",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "El amperímetro casi no tiene resistencia. En derivación provoca un cortocircuito y se funde su fusible. ¡Nunca en derivación!",
+  "ctx": [
+   "note.n_piege.extra"
+  ]
+ },
+ {
+  "id": "c0353",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Loi d'unicité de l'intensité",
+  "ctx": [
+   "note.n_unicite"
+  ],
+  "pair": "Ley de unicidad de la intensidad"
+ },
+ {
+  "id": "c0354",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "**Dans un circuit en série, l'intensité du courant est la même en tout point.** I = I1 = I2 = I3. Le courant ne « s'use » pas en traversant une lampe !",
+  "ctx": [
+   "note.n_unicite.b"
+  ]
+ },
+ {
+  "id": "c0355",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "En serie la intensidad es igual en todos los puntos. La lámpara no gasta corriente: la corriente circula, como el agua en un circuito cerrado.",
+  "ctx": [
+   "note.n_unicite.extra"
+  ]
+ },
+ {
+  "id": "c0356",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Loi d'additivité des intensités",
+  "ctx": [
+   "note.n_noeuds"
+  ],
+  "pair": "Ley de los nudos"
+ },
+ {
+  "id": "c0357",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "**Dans un circuit en dérivation, l'intensité dans la branche principale est égale à la somme des intensités dans les branches dérivées.** I = I1 + I2. Ce qui arrive à un nœud en repart.",
+  "ctx": [
+   "note.n_noeuds.b"
+  ]
+ },
+ {
+  "id": "c0358",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "En derivación, la corriente se reparte: I = I1 + I2. Todo lo que entra en un nudo, sale.",
+  "ctx": [
+   "note.n_noeuds.extra"
+  ]
+ },
+ {
+  "id": "c0359",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "L'image de l'eau",
+  "ctx": [
+   "note.n_eau"
+  ],
+  "pair": "La imagen del agua"
+ },
+ {
+  "id": "c0360",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Imagine le courant comme de l'eau dans des tuyaux : le générateur est une pompe, l'intensité est le débit, les résistances sont des tuyaux étroits.",
+  "ctx": [
+   "note.n_eau.b"
+  ]
+ },
+ {
+  "id": "c0361",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "La pila es una bomba de agua, la intensidad es el caudal y las resistencias son tuberías estrechas que frenan el agua.",
+  "ctx": [
+   "note.n_eau.extra"
+  ]
+ },
+ {
+  "id": "c0362",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Une résistance **s'oppose au passage du courant**. Son unité est l'**ohm (Ω)**. En série, plus R est grande, plus l'intensité I est petite.",
+  "ctx": [
+   "note.n_resistance.b"
+  ]
+ },
+ {
+  "id": "c0363",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Una resistencia frena la corriente. Se mide en ohmios (Ω). Más resistencia = menos intensidad.",
+  "ctx": [
+   "note.n_resistance.extra"
+  ]
+ },
+ {
+  "id": "c0364",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "1ʳᵉ bague = 1ᵉʳ chiffre, 2ᵉ bague = 2ᵉ chiffre, 3ᵉ bague = nombre de zéros. noir 0 · marron 1 · rouge 2 · orange 3 · jaune 4 · vert 5 · bleu 6 · violet 7 · gris 8 · blanc 9. Ex. : marron-noir-rouge = 1 0 00 = 1000 Ω.",
+  "ctx": [
+   "note.n_couleurs.b"
+  ]
+ },
+ {
+  "id": "c0365",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Truco para recordarlo: «Ni Mi Rojo Oso Ama Ver Bailar Violines Grises Blancos» (negro, marrón, rojo, naranja, amarillo, verde, azul, violeta, gris, blanco).",
+  "ctx": [
+   "note.n_couleurs.extra"
+  ]
+ },
+ {
+  "id": "c0366",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "La caractéristique d'un conducteur ohmique",
+  "ctx": [
+   "note.n_caract"
+  ],
+  "pair": "La característica"
+ },
+ {
+  "id": "c0367",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "On trace U en fonction de I. Pour un **conducteur ohmique**, on obtient une **droite qui passe par l'origine** : U et I sont **proportionnelles**.",
+  "ctx": [
+   "note.n_caract.b"
+  ]
+ },
+ {
+  "id": "c0368",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Si dibujas U frente a I y sale una recta que pasa por el origen, es un conductor óhmico.",
+  "ctx": [
+   "note.n_caract.extra"
+  ]
+ },
+ {
+  "id": "c0369",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Loi d'Ohm",
+  "ctx": [
+   "note.n_ohm"
+  ],
+  "pair": "Ley de Ohm"
+ },
+ {
+  "id": "c0370",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "**La tension U aux bornes d'un conducteur ohmique est égale au produit de sa résistance R par l'intensité I du courant qui le traverse : U = R × I** (U en V, R en Ω, I en A). Donc aussi I = U ÷ R et R = U ÷ I.",
+  "ctx": [
+   "note.n_ohm.b"
+  ]
+ },
+ {
+  "id": "c0371",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "U = R × I. Truco del triángulo: escribe U arriba y R · I abajo. Tapa la letra que buscas y lo que queda te da la fórmula.",
+  "ctx": [
+   "note.n_ohm.extra"
+  ]
+ },
+ {
+  "id": "c0372",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Le triangle magique",
+  "ctx": [
+   "note.n_triangle"
+  ],
+  "pair": "El triángulo mágico"
+ },
+ {
+  "id": "c0373",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "U en haut, R et I en bas. Cache ce que tu cherches : U = R × I, I = U ÷ R, R = U ÷ I. **Attention : I toujours en ampères !** 20 mA = 0,020 A.",
+  "ctx": [
+   "note.n_triangle.b"
+  ]
+ },
+ {
+  "id": "c0374",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "¡Ojo! En la fórmula, I siempre en amperios. Si te dan mA, divide entre 1000 antes de calcular.",
+  "ctx": [
+   "note.n_triangle.extra"
+  ]
+ },
+ {
+  "id": "c0375",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Protéger une lampe",
+  "ctx": [
+   "note.n_protege"
+  ],
+  "pair": "Proteger una lámpara"
+ },
+ {
+  "id": "c0376",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Si le générateur donne plus que la tension nominale, on ajoute une résistance en série. Elle « prend » la tension en trop : R = (U − Un) ÷ In.",
+  "ctx": [
+   "note.n_protege.b"
+  ]
+ },
+ {
+  "id": "c0377",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "La resistencia en serie se queda con los voltios que sobran.",
+  "ctx": [
+   "note.n_protege.extra"
+  ]
+ },
+ {
+  "id": "c0378",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "André-Marie Ampère (1775-1836)",
+  "ctx": [
+   "note.h_ampere"
+  ],
+  "pair": "Ampère"
+ },
+ {
+  "id": "c0379",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "En septembre 1820, une semaine après avoir appris l'expérience d'Ørsted (un courant fait bouger une boussole), Ampère présente à l'Académie des sciences ses découvertes sur les courants. C'est lui qui popularise les mots « courant électrique » et « tension ».",
+  "ctx": [
+   "note.h_ampere.b"
+  ]
+ },
+ {
+  "id": "c0380",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Era famoso por despistado: se cuenta que una vez escribió ecuaciones en la parte trasera de un coche de caballos… que se fue con sus cálculos. El amperio lleva su nombre desde 1881.",
+  "ctx": [
+   "note.h_ampere.extra"
+  ]
+ },
+ {
+  "id": "c0381",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "Georg Simon Ohm (1789-1854)",
+  "ctx": [
+   "note.h_ohm"
+  ],
+  "pair": "Ohm"
+ },
+ {
+  "id": "c0382",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Professeur au lycée des jésuites de Cologne, Ohm publie en 1827 « Die galvanische Kette ». Ses idées sont d'abord moquées et il perd son poste. Quatorze ans plus tard, la Royal Society de Londres lui remet la médaille Copley.",
+  "ctx": [
+   "note.h_ohm.b"
+  ]
+ },
+ {
+  "id": "c0383",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Para tener medidas estables, Ohm cambió las pilas (que se agotaban) por un termopar: dos metales soldados, uno en agua hirviendo y otro en hielo. ¡Ingenioso!",
+  "ctx": [
+   "note.h_ohm.extra"
+  ]
+ },
+ {
+  "id": "c0384",
+  "kind": "note-title",
+  "src": "fr",
+  "text": "1881 : les unités officielles",
+  "ctx": [
+   "note.h_unites"
+  ],
+  "pair": "1881: las unidades"
+ },
+ {
+  "id": "c0385",
+  "kind": "note-body",
+  "src": "fr",
+  "text": "Au Congrès international des électriciens de Paris (1881), les savants adoptent officiellement le volt, l'ampère et l'ohm, en l'honneur de Volta, Ampère et Ohm.",
+  "ctx": [
+   "note.h_unites.b"
+  ]
+ },
+ {
+  "id": "c0386",
+  "kind": "note-extra",
+  "src": "es",
+  "text": "Por eso decimos voltios, amperios y ohmios.",
+  "ctx": [
+   "note.h_unites.extra"
+  ]
+ },
+ {
+  "id": "c0387",
+  "kind": "skill",
+  "src": "fr",
+  "text": "L'intensité du courant : unité ampère (A), 1 A = 1000 mA",
+  "ctx": [
+   "skill.intensite"
+  ]
+ },
+ {
+  "id": "c0388",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "La intensidad: amperios y miliamperios",
+  "ctx": [
+   "skill.intensite.short"
+  ]
+ },
+ {
+  "id": "c0389",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Brancher un ampèremètre en série (bornes A ou mA et COM)",
+  "ctx": [
+   "skill.amperemetre"
+  ]
+ },
+ {
+  "id": "c0390",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Conectar el amperímetro en serie",
+  "ctx": [
+   "skill.amperemetre.short"
+  ]
+ },
+ {
+  "id": "c0391",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Loi d'unicité de l'intensité dans un circuit en série",
+  "ctx": [
+   "skill.unicite"
+  ]
+ },
+ {
+  "id": "c0392",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Ley de unicidad de la intensidad en serie",
+  "ctx": [
+   "skill.unicite.short"
+  ]
+ },
+ {
+  "id": "c0393",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Loi d'additivité des intensités (loi des nœuds)",
+  "ctx": [
+   "skill.noeuds"
+  ]
+ },
+ {
+  "id": "c0394",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Ley de los nudos en derivación",
+  "ctx": [
+   "skill.noeuds.short"
+  ]
+ },
+ {
+  "id": "c0395",
+  "kind": "skill",
+  "src": "fr",
+  "text": "La résistance : unité ohm (Ω), effet sur l'intensité",
+  "ctx": [
+   "skill.resistance"
+  ]
+ },
+ {
+  "id": "c0396",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "La resistencia y su efecto",
+  "ctx": [
+   "skill.resistance.short"
+  ]
+ },
+ {
+  "id": "c0397",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Lire le code des couleurs d'une résistance",
+  "ctx": [
+   "skill.couleurs"
+  ]
+ },
+ {
+  "id": "c0398",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Código de colores",
+  "ctx": [
+   "skill.couleurs.short"
+  ]
+ },
+ {
+  "id": "c0399",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Loi d'Ohm : U = R × I",
+  "ctx": [
+   "skill.ohm"
+  ]
+ },
+ {
+  "id": "c0400",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Ley de Ohm",
+  "ctx": [
+   "skill.ohm.short"
+  ]
+ },
+ {
+  "id": "c0401",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Caractéristique d'un conducteur ohmique",
+  "ctx": [
+   "skill.caract"
+  ]
+ },
+ {
+  "id": "c0402",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "La gráfica característica",
+  "ctx": [
+   "skill.caract.short"
+  ]
+ },
+ {
+  "id": "c0403",
+  "kind": "skill",
+  "src": "fr",
+  "text": "La puissance : P = U × I (watt)",
+  "ctx": [
+   "skill.puissance"
+  ]
+ },
+ {
+  "id": "c0404",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "La potencia",
+  "ctx": [
+   "skill.puissance.short"
+  ]
+ },
+ {
+  "id": "c0405",
+  "kind": "skill",
+  "src": "fr",
+  "text": "L'énergie : E = P × t (joule, kWh)",
+  "ctx": [
+   "skill.energie"
+  ]
+ },
+ {
+  "id": "c0406",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "La energía",
+  "ctx": [
+   "skill.energie.short"
+  ]
+ },
+ {
+  "id": "c0407",
+  "kind": "skill",
+  "src": "fr",
+  "text": "L'effet Joule",
+  "ctx": [
+   "skill.joule"
+  ]
+ },
+ {
+  "id": "c0408",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "El efecto Joule",
+  "ctx": [
+   "skill.joule.short"
+  ]
+ },
+ {
+  "id": "c0409",
+  "kind": "skill",
+  "src": "fr",
+  "text": "Court-circuit, fusible et sécurité électrique",
+  "ctx": [
+   "skill.securite"
+  ]
+ },
+ {
+  "id": "c0410",
+  "kind": "skill-short",
+  "src": "es",
+  "text": "Seguridad eléctrica",
+  "ctx": [
+   "skill.securite.short"
+  ]
+ },
+ {
+  "id": "c0411",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Encender la primera lámpara",
+  "ctx": [
+   "ach.lab1.desc"
+  ]
+ },
+ {
+  "id": "c0412",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Ça sent le brûlé",
+  "ctx": [
+   "ach.burn"
+  ]
+ },
+ {
+  "id": "c0413",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Fundir una lámpara o una resistencia",
+  "ctx": [
+   "ach.burn.desc"
+  ]
+ },
+ {
+  "id": "c0414",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Court-circuit !",
+  "ctx": [
+   "ach.short"
+  ]
+ },
+ {
+  "id": "c0415",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Provocar un cortocircuito (y aprender por qué)",
+  "ctx": [
+   "ach.short.desc"
+  ]
+ },
+ {
+  "id": "c0416",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Ami d'Ampère",
+  "ctx": [
+   "ach.c1"
+  ]
+ },
+ {
+  "id": "c0417",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Terminar el capítulo de París 1820",
+  "ctx": [
+   "ach.c1.desc"
+  ]
+ },
+ {
+  "id": "c0418",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Ami d'Ohm",
+  "ctx": [
+   "ach.c2"
+  ]
+ },
+ {
+  "id": "c0419",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Terminar el capítulo de Colonia 1827",
+  "ctx": [
+   "ach.c2.desc"
+  ]
+ },
+ {
+  "id": "c0420",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Sans faute",
+  "ctx": [
+   "ach.stars1"
+  ]
+ },
+ {
+  "id": "c0421",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Terminar un capítulo con todas las estrellas",
+  "ctx": [
+   "ach.stars1.desc"
+  ]
+ },
+ {
+  "id": "c0422",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Carnet bien rempli",
+  "ctx": [
+   "ach.notes10"
+  ]
+ },
+ {
+  "id": "c0423",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Desbloquear 10 páginas del cuaderno",
+  "ctx": [
+   "ach.notes10.desc"
+  ]
+ },
+ {
+  "id": "c0424",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Œil de lynx",
+  "ctx": [
+   "ach.colors"
+  ]
+ },
+ {
+  "id": "c0425",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Código de colores sin un solo fallo",
+  "ctx": [
+   "ach.colors.desc"
+  ]
+ },
+ {
+  "id": "c0426",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "50 bonnes réponses",
+  "ctx": [
+   "ach.q50"
+  ]
+ },
+ {
+  "id": "c0427",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "50 aciertos en total",
+  "ctx": [
+   "ach.q50.desc"
+  ]
+ },
+ {
+  "id": "c0428",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Chercheur",
+  "ctx": [
+   "ach.labs10"
+  ]
+ },
+ {
+  "id": "c0429",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Superar 10 experimentos",
+  "ctx": [
+   "ach.labs10.desc"
+  ]
+ },
+ {
+  "id": "c0430",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Bricoleur",
+  "ctx": [
+   "ach.sand"
+  ]
+ },
+ {
+  "id": "c0431",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Probar el laboratorio libre",
+  "ctx": [
+   "ach.sand.desc"
+  ]
+ },
+ {
+  "id": "c0432",
+  "kind": "ach-name",
+  "src": "fr",
+  "text": "Régulier",
+  "ctx": [
+   "ach.days3"
+  ]
+ },
+ {
+  "id": "c0433",
+  "kind": "ach-desc",
+  "src": "es",
+  "text": "Jugar 3 días seguidos",
+  "ctx": [
+   "ach.days3.desc"
+  ]
+ },
+ {
+  "id": "c0434",
+  "kind": "cast-name",
+  "src": "fr",
+  "text": "Lumi",
+  "ctx": [
+   "cast.lumi"
+  ]
+ },
+ {
+  "id": "c0435",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "Asistente del Chronotron",
+  "ctx": [
+   "cast.lumi.role"
+  ]
+ },
+ {
+  "id": "c0436",
+  "kind": "cast-name",
+  "src": "fr",
+  "text": "André-Marie Ampère",
+  "ctx": [
+   "cast.ampere"
+  ]
+ },
+ {
+  "id": "c0437",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "París · 1820",
+  "ctx": [
+   "cast.ampere.role"
+  ]
+ },
+ {
+  "id": "c0438",
+  "kind": "cast-name",
+  "src": "fr",
+  "text": "Georg Simon Ohm",
+  "ctx": [
+   "cast.ohm"
+  ]
+ },
+ {
+  "id": "c0439",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "Colonia · 1827",
+  "ctx": [
+   "cast.ohm.role"
+  ]
+ },
+ {
+  "id": "c0440",
+  "kind": "cast-name",
+  "src": "es",
+  "text": "Barón Court-Circuit",
+  "ctx": [
+   "cast.baron"
+  ]
+ },
+ {
+  "id": "c0441",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "Ladrón de electricidad",
+  "ctx": [
+   "cast.baron.role"
+  ]
+ },
+ {
+  "id": "c0442",
+  "kind": "cast-name",
+  "src": "es",
+  "text": "El ministro Altenstein",
+  "ctx": [
+   "cast.minister"
+  ]
+ },
+ {
+  "id": "c0443",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "Berlín · 1827",
+  "ctx": [
+   "cast.minister.role"
+  ]
+ },
+ {
+  "id": "c0444",
+  "kind": "cast-name",
+  "src": "fr",
+  "text": "François Arago",
+  "ctx": [
+   "cast.arago"
+  ]
+ },
+ {
+  "id": "c0445",
+  "kind": "cast-role",
+  "src": "es",
+  "text": "Académie des sciences",
+  "ctx": [
+   "cast.arago.role"
+  ]
+ },
+ {
+  "id": "c0446",
+  "kind": "component",
+  "src": "fr",
+  "text": "Fil",
+  "ctx": [
+   "ctype.wire"
+  ],
+  "pair": "Cable"
+ },
+ {
+  "id": "c0447",
+  "kind": "component",
+  "src": "fr",
+  "text": "Générateur",
+  "ctx": [
+   "ctype.gen"
+  ],
+  "pair": "Pila / generador"
+ },
+ {
+  "id": "c0448",
+  "kind": "component",
+  "src": "fr",
+  "text": "Lampe",
+  "ctx": [
+   "ctype.lamp"
+  ],
+  "pair": "Lámpara"
+ },
+ {
+  "id": "c0449",
+  "kind": "component",
+  "src": "fr",
+  "text": "Résistance",
+  "ctx": [
+   "ctype.res"
+  ],
+  "pair": "Resistencia"
+ },
+ {
+  "id": "c0450",
+  "kind": "component",
+  "src": "fr",
+  "text": "Ampèremètre",
+  "ctx": [
+   "ctype.amp"
+  ],
+  "pair": "Amperímetro"
+ },
+ {
+  "id": "c0451",
+  "kind": "component",
+  "src": "fr",
+  "text": "Voltmètre",
+  "ctx": [
+   "ctype.volt"
+  ],
+  "pair": "Voltímetro"
+ },
+ {
+  "id": "c0452",
+  "kind": "component",
+  "src": "fr",
+  "text": "Interrupteur",
+  "ctx": [
+   "ctype.sw"
+  ],
+  "pair": "Interruptor"
+ },
+ {
+  "id": "c0453",
+  "kind": "component",
+  "src": "fr",
+  "text": "Fusible",
+  "ctx": [
+   "ctype.fuse"
+  ],
+  "pair": "Fusible"
+ },
+ {
+  "id": "c0454",
+  "kind": "component",
+  "src": "fr",
+  "text": "Moteur",
+  "ctx": [
+   "ctype.motor"
+  ],
+  "pair": "Motor"
+ },
+ {
+  "id": "c0455",
+  "kind": "color",
+  "src": "fr",
+  "text": "noir",
+  "ctx": [
+   "band.0"
+  ]
+ },
+ {
+  "id": "c0456",
+  "kind": "color",
+  "src": "fr",
+  "text": "marron",
+  "ctx": [
+   "band.1"
+  ]
+ },
+ {
+  "id": "c0457",
+  "kind": "color",
+  "src": "fr",
+  "text": "rouge",
+  "ctx": [
+   "band.2"
+  ]
+ },
+ {
+  "id": "c0458",
+  "kind": "color",
+  "src": "fr",
+  "text": "orange",
+  "ctx": [
+   "band.3"
+  ]
+ },
+ {
+  "id": "c0459",
+  "kind": "color",
+  "src": "fr",
+  "text": "jaune",
+  "ctx": [
+   "band.4"
+  ]
+ },
+ {
+  "id": "c0460",
+  "kind": "color",
+  "src": "fr",
+  "text": "vert",
+  "ctx": [
+   "band.5"
+  ]
+ },
+ {
+  "id": "c0461",
+  "kind": "color",
+  "src": "fr",
+  "text": "bleu",
+  "ctx": [
+   "band.6"
+  ]
+ },
+ {
+  "id": "c0462",
+  "kind": "color",
+  "src": "fr",
+  "text": "violet",
+  "ctx": [
+   "band.7"
+  ]
+ },
+ {
+  "id": "c0463",
+  "kind": "color",
+  "src": "fr",
+  "text": "gris",
+  "ctx": [
+   "band.8"
+  ]
+ },
+ {
+  "id": "c0464",
+  "kind": "color",
+  "src": "fr",
+  "text": "blanc",
+  "ctx": [
+   "band.9"
+  ]
+ }
+]

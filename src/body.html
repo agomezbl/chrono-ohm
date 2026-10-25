@@ -1,0 +1,58 @@
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="redflash"></div>
+<div id="app">
+  <section id="scr-title" class="screen">
+    <div class="title-wrap">
+      <div class="lang-pick" role="group" data-ta="lang.aria">
+        <button class="lang-btn" data-lang="fr" lang="fr">Français</button>
+        <button class="lang-btn" data-lang="es" lang="es">Español</button>
+      </div>
+      <div class="title-lumi" id="titleLumi" aria-hidden="true"></div>
+      <p class="kicker" data-t="title.kicker"></p>
+      <h1 class="logo">CHRONO<span>·</span>OHM</h1>
+      <p class="tag" data-t="title.tag"></p>
+      <div class="name-row" id="nameRow" hidden>
+        <label for="nameIn" data-t="title.name"></label>
+        <input id="nameIn" type="text" maxlength="18" autocomplete="off" data-tp="title.namePh">
+      </div>
+      <button id="btnStart" class="btn primary xl" data-t="btn.play"></button>
+      <p class="who-line" id="whoLine" hidden></p>
+    </div>
+  </section>
+  <section id="scr-talk" class="screen" hidden></section>
+  <section id="scr-travel" class="screen" hidden></section>
+  <section id="scr-hub" class="screen" hidden></section>
+  <section id="scr-play" class="screen" hidden>
+    <div class="play-head">
+      <button id="quitBtn" class="btn sm ghost" data-t="btn.quit"></button>
+      <div class="ph-title" id="phTitle"></div>
+      <div class="ph-right" id="phRight"></div>
+    </div>
+    <article id="stage" class="stage" aria-live="polite"></article>
+  </section>
+</div>
+<div class="modal" id="settings" hidden>
+  <div class="modal-card panel" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <h2 id="setTitle" data-t="set.title"></h2>
+    <div class="name-row"><label for="setName" data-t="title.name"></label><input id="setName" type="text" maxlength="18"></div>
+    <div class="set-lang">
+      <span class="set-l" data-t="set.lang"></span>
+      <div class="lang-pick small" role="group" data-ta="lang.aria">
+        <button class="lang-btn" data-lang="fr" lang="fr">Français</button>
+        <button class="lang-btn" data-lang="es" lang="es">Español</button>
+      </div>
+    </div>
+    <div>
+      <label class="tg-row" for="tAlt"><span><span data-t="set.alt"></span> <span class="es" data-t="set.altHelp"></span></span><input type="checkbox" id="tAlt"></label>
+      <label class="tg-row" for="tNarr"><span><span data-t="set.narr"></span> <span class="es" id="narrHelp" data-t="set.narrHelp"></span></span><input type="checkbox" id="tNarr"></label>
+      <label class="tg-row" for="tMusic"><span data-t="set.music"></span><input type="checkbox" id="tMusic"></label>
+      <label class="tg-row" for="tSfx"><span data-t="set.sfx"></span><input type="checkbox" id="tSfx"></label>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between">
+      <button class="btn sm ghost danger" id="btnReset" data-t="set.reset"></button>
+      <button class="btn primary" id="setClose" data-t="btn.close"></button>
+    </div>
+  </div>
+</div>
+<div id="toast" role="status" hidden></div>
+<div id="achStack" aria-live="polite"></div>
