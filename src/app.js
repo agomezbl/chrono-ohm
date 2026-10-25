@@ -35,7 +35,26 @@ function load(){try{const r=localStorage.getItem(KEY);if(r){const raw=JSON.parse
     if(raw.settings&&raw.settings.es!==undefined&&!raw.settings.lang){s.settings.lang='fr';s.settings.alt=!!raw.settings.es}
     delete s.settings.es;s.v=2;return s}}catch(e){}return clone(DEF)}
 let S=load();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+/* guardado en el aparato: cada cambio importante se escribe al momento; STORE_OK avisa si el navegador no deja guardar (modo privado) */
+let STORE_OK=true,LAST_SAVE=0;
+function save(){try{S.savedAt=Date.now();localStorage.setItem(KEY,JSON.stringify(S));STORE_OK=true;LAST_SAVE=S.savedAt}catch(e){STORE_OK=false}}
+(function(){try{const k='__co_t';localStorage.setItem(k,'1');localStorage.removeItem(k)}catch(e){STORE_OK=false}})();
+/* pide al navegador que no borre los datos por su cuenta (Chrome, Edge, Firefox; Safari lo decide él) */
+function askPersist(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{})}catch(e){}}
+addEventListener('pagehide',()=>save());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save()});
+
+/* ---------- copia de seguridad: un código de texto que se copia y se pega en otro aparato ---------- */
+const B64=(u8)=>{let s='';u8.forEach(b=>s+=String.fromCharCode(b));return btoa(s)};
+const UNB64=(t)=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+async function zip(str,inflate){const CS=inflate?window.DecompressionStream:window.CompressionStream;if(!CS)return null;
+  const st=new Blob([str]).stream().pipeThrough(new CS('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer())}
+async function saveCode(){const json=JSON.stringify(S);let body,tag;try{const z=await zip(new TextEncoder().encode(json));if(z){body=B64(z);tag='Z'}}catch(e){}
+  if(!body){body=B64(new TextEncoder().encode(json));tag='P'}
+  let sum=0;for(const ch of body)sum=(sum*31+ch.charCodeAt(0))>>>0;return `CHRONO1${tag}-${(sum%46656).toString(36).padStart(3,'0')}-${body}`}
+async function readCode(code){const m=String(code).trim().replace(/\s+/g,'').match(/^CHRONO1([ZP])-([0-9a-z]{3})-([A-Za-z0-9+/=]+)$/);if(!m)throw new Error('format');
+  let sum=0;for(const ch of m[3])sum=(sum*31+ch.charCodeAt(0))>>>0;if((sum%46656).toString(36).padStart(3,'0')!==m[2])throw new Error('sum');
+  const raw=UNB64(m[3]);const bytes=m[1]==='Z'?await zip(raw,true):raw;if(!bytes)throw new Error('zip');const o=JSON.parse(new TextDecoder().decode(bytes));
+  if(!o||typeof o!=='object'||!o.settings)throw new Error('data');return o}
 const diffLvl=()=>({cadet:0,ingenieur:1,commandant:2})[S.settings.diff]||0;
 /* grados con nombres epicenos (valen igual para chicas y chicos): [xp, clave de texto, icono] */
 const RANKS=[[0,'rank.0','bolt'],[200,'rank.1','gear'],[500,'rank.2','meter'],[900,'rank.3','book'],[1500,'rank.4','star'],[2400,'rank.5','clock']];
@@ -1157,7 +1176,7 @@ function startReview(){AU.init();markDay();VO.stop();RUN=null;BACK=renderHub;sho
 
 /* ================= Title & intro ================= */
 function paintLangButtons(){$$('.lang-btn').forEach(b=>{const on=b.dataset.lang===L;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))})}
-function renderTitle(){applyStatic();paintLangButtons();const known=!!(S.name&&S.introSeen);$('#titleLumi').innerHTML=portrait('lumi','happy');$('#nameRow').hidden=known;$('#whoLine').hidden=!known;$('#nameIn').value=S.name||'';
+function renderTitle(){applyStatic();paintLangButtons();const known=!!S.name;$('#titleLumi').innerHTML=portrait('lumi','happy');$('#storeWarn').hidden=STORE_OK;$('#nameRow').hidden=known;$('#whoLine').hidden=!known;$('#nameIn').value=S.name||'';
   if(known)$('#whoLine').innerHTML=`${esc(ui('title.player'))} <b>${esc(S.name)}</b> · <button class="linkbtn" id="chgName">${esc(ui('btn.change'))}</button>`;const c=$('#chgName');if(c)c.onclick=()=>{$('#nameRow').hidden=false;$('#whoLine').hidden=true;$('#nameIn').focus()};show('title')}
 const INTRO=[
   {w:'nar',t:'París, hoy. Noche de los museos. En el Museo de las Ciencias, la última sala sigue abierta.'},
@@ -1177,7 +1196,7 @@ async function playIntro(){AU.init();AU.startMusic();await talk(INTRO,{scene:'mu
 
 /* ================= Settings ================= */
 function openSettings(){const m=$('#settings');applyStatic();paintLangButtons();$('#setName').value=S.name;$('#tNarr').checked=S.settings.narr;$('#tMusic').checked=S.settings.music;$('#tSfx').checked=S.settings.sfx;$('#tAlt').checked=!!S.settings.alt;
-  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');m.hidden=false;$('#setClose').focus()}
+  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;m.hidden=false;$('#setClose').focus()}
 function closeSettings(){S.name=($('#setName').value||'').trim()||S.name;save();$('#settings').hidden=true;refreshAfterChange()}
 /* repinta lo que se ve detrás (menús, o el título); durante una misión los cambios se ven en la siguiente pantalla */
 function refreshAfterChange(){applyStatic();paintLangButtons();if(!$('#scr-hub').hidden)rerender();else if(!$('#scr-title').hidden)renderTitle()}
@@ -1188,10 +1207,22 @@ $('#tNarr').onchange=e=>{S.settings.narr=e.target.checked;if(!S.settings.narr)VO
 $('#tMusic').onchange=e=>{AU.init();AU.setMusic(e.target.checked);save()};
 $('#tSfx').onchange=e=>{AU.init();AU.setSfx(e.target.checked);save()};
 $('#tAlt').onchange=e=>{S.settings.alt=e.target.checked;save()};
+function paintSaveInfo(){const el=$('#saveInfo');if(!el)return;if(!STORE_OK){el.textContent=ui('save.noStore');el.className='save-info bad';return}
+  const t=S.savedAt?new Date(S.savedAt):null;el.className='save-info';el.textContent=t?ui('save.ok',{t:t.toLocaleString(L==='es'?'es-ES':'fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}):ui('save.none')}
+$('#bkCopy').onclick=async()=>{save();const code=await saveCode();const box=$('#bkCode');box.value=code;box.hidden=false;box.select();
+  try{await navigator.clipboard.writeText(code);toast(ui('save.copied'))}catch(e){toast(ui('save.copyManual'))}};
+$('#bkFile').onclick=async()=>{save();const code=await saveCode();try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([code],{type:'text/plain'}));
+  a.download=`chrono-ohm-${(S.name||'partida').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]+/g,'-')||'partida'}-${dayStr()}.txt`;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}catch(e){toast(ui('save.copyManual'))}};
+let restoreArm=null;
+async function tryRestore(code){let o;try{o=await readCode(code)}catch(e){$('#bkMsg').textContent=ui('save.badCode');AU.play('bad');return}
+  if(restoreArm!==code){restoreArm=code;$('#bkMsg').textContent=ui('save.confirm',{n:o.name||'—',xp:o.xp||0});$('#bkRestore').textContent=ui('save.confirmBtn');return}
+  restoreArm=null;S=merge(DEF,o);save();AU.play('unlock');$('#settings').hidden=true;toast(ui('save.restored',{n:S.name||''}));if(S.settings.lang&&LANGS[S.settings.lang])setLang(S.settings.lang);renderTitle()}
+$('#bkRestore').onclick=()=>{const box=$('#bkIn');if(box.hidden){box.hidden=false;box.focus();$('#bkMsg').textContent=ui('save.pasteHelp');return}tryRestore(box.value)};
+$('#bkLoad').onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const txt=await f.text();$('#bkIn').hidden=false;$('#bkIn').value=txt.trim();restoreArm=null;tryRestore(txt)};
 let resetArm=false;$('#btnReset').onclick=e=>{if(!resetArm){resetArm=true;e.currentTarget.textContent=ui('set.resetSure');setTimeout(()=>{resetArm=false;$('#btnReset').textContent=ui('set.reset')},3500);return}
   const keep={name:S.name,settings:S.settings,introSeen:S.introSeen};S=Object.assign(clone(DEF),keep);save();resetArm=false;$('#btnReset').textContent=ui('set.reset');$('#settings').hidden=true;toast(ui('set.resetDone'));renderHub()};
 $('#setClose').onclick=closeSettings;$('#settings').addEventListener('click',e=>{if(e.target.id==='settings')closeSettings()});
-$('#btnStart').onclick=()=>{markDay();const nm=($('#nameIn').value||'').trim();if(!$('#nameRow').hidden)S.name=nm||S.name||'';S.settings.lang=L;save();AU.init();AU.play('power');
+$('#btnStart').onclick=()=>{askPersist();markDay();const nm=($('#nameIn').value||'').trim();if(!$('#nameRow').hidden)S.name=nm||S.name||'';S.settings.lang=L;save();AU.init();AU.play('power');
   if(!S.introSeen)playIntro();else{if(S.settings.music)AU.startMusic();STAR.warp=6;setTimeout(()=>STAR.warp=0,700);renderHub();checkAch()}};
 $('#nameIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#btnStart').click()});
 let quitArm=false;$('#quitBtn').onclick=e=>{if(!quitArm){quitArm=true;e.currentTarget.textContent=ui('btn.quitSure');setTimeout(()=>{quitArm=false;const q=$('#quitBtn');if(q)q.textContent=ui('btn.quit')},3000);return}

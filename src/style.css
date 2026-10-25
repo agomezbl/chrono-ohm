@@ -418,3 +418,11 @@ svg[data-tool=select] .hit,svg[data-tool=erase] .hit{cursor:pointer}svg[data-too
 .rev-head{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;align-items:center;padding:10px 14px;margin-bottom:12px;border-color:rgba(199,125,255,.5)}
 .rev-p .portrait{width:100%;height:auto}.rev-head b{color:#c77dff;font:700 14px var(--f-display);letter-spacing:.05em}
 #app{overflow-x:clip}
+/* v1.3: guardado y copia de seguridad */
+.store-warn{max-width:42ch;color:var(--bad);border:1px solid var(--bad);border-radius:8px;padding:8px 12px;font-size:15px}
+.backup{display:grid;gap:8px;padding-top:4px;border-top:1px solid var(--line)}
+.backup h3{font:700 15px var(--f-display);letter-spacing:.08em;text-transform:uppercase}
+.backup .small{font-size:14px;color:var(--ink-dim)}
+.save-info{font:14px var(--f-mono);color:var(--ok)}.save-info.bad{color:var(--bad)}
+.bk-row{display:flex;gap:8px;flex-wrap:wrap}
+.bk-code{width:100%;font:12px var(--f-mono);background:#0a0e18;color:var(--ink);border:1px solid var(--line-2);border-radius:6px;padding:8px;resize:vertical;word-break:break-all}

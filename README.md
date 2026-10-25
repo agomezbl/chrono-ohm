@@ -39,6 +39,7 @@ python3 tools/build.py         # dist/index.html → copiar a index.html (la pá
 node tools/test-all.js         # errores, textos sin traducir, mezclas de idioma, desbordes
 node tools/test-puzzles.js     # cada desafío: solución de referencia aprueba, errores típicos suspenden
 node tools/test-taller.js      # Taller, desafíos y anomalías de punta a punta
+node tools/test-guardado.js    # guardado, código de copia, restaurar en otro aparato, modo privado
 ```
 
 ## Reglas de los textos

@@ -15,6 +15,7 @@
         <label for="nameIn" data-t="title.name"></label>
         <input id="nameIn" type="text" maxlength="18" autocomplete="off" data-tp="title.namePh">
       </div>
+      <p class="store-warn" id="storeWarn" data-t="save.noStore" hidden></p>
       <button id="btnStart" class="btn primary xl" data-t="btn.play"></button>
       <p class="who-line" id="whoLine" hidden></p>
     </div>
@@ -48,6 +49,20 @@
       <label class="tg-row" for="tMusic"><span data-t="set.music"></span><input type="checkbox" id="tMusic"></label>
       <label class="tg-row" for="tSfx"><span data-t="set.sfx"></span><input type="checkbox" id="tSfx"></label>
     </div>
+    <section class="backup" aria-labelledby="bkTitle">
+      <h3 id="bkTitle" data-t="save.title"></h3>
+      <p class="save-info" id="saveInfo"></p>
+      <p class="small" data-t="save.help"></p>
+      <div class="bk-row">
+        <button class="btn sm" id="bkCopy" data-t="save.copy"></button>
+        <button class="btn sm ghost" id="bkFile" data-t="save.file"></button>
+        <button class="btn sm ghost" id="bkRestore" data-t="save.restore"></button>
+        <label class="btn sm ghost" for="bkLoad"><span data-t="save.load"></span><input type="file" id="bkLoad" accept=".txt,text/plain" hidden></label>
+      </div>
+      <textarea id="bkCode" class="bk-code" rows="3" readonly hidden data-ta="save.copy"></textarea>
+      <textarea id="bkIn" class="bk-code" rows="3" hidden data-tp="save.pastePh" data-ta="save.restore"></textarea>
+      <p class="gmsg" id="bkMsg" aria-live="polite"></p>
+    </section>
     <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between">
       <button class="btn sm ghost danger" id="btnReset" data-t="set.reset"></button>
       <button class="btn primary" id="setClose" data-t="btn.close"></button>
