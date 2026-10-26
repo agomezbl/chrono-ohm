@@ -17,5 +17,5 @@ for f in files:
         out[f] = open(p, encoding='utf-8').read()
 os.makedirs(os.path.join(ROOT, 'dist', 'fuente'), exist_ok=True)
 dst = os.path.join(ROOT, 'dist', 'fuente', 'proyecto.json')
-json.dump({'proyecto': 'Chrono-Ohm', 'version': '1.4', 'archivos': out}, open(dst, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+json.dump({'proyecto': 'Chrono-Ohm', 'version': '1.5', 'archivos': out}, open(dst, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
 print(dst, len(out), 'archivos', round(os.path.getsize(dst) / 1024), 'KB')

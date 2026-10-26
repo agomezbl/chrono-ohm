@@ -3,6 +3,13 @@
 Todo es la **versión 1**, todavía en desarrollo y **sin pruebas con familias reales**.
 Cada evolución suma una cifra: v1.1, v1.2, v1.3…
 
+## v1.5 · beta (26/10/2026)
+- **Capítulo 5 · El Vórtice (final del juego):** pulsadores NA y NC, el relé (bobina y contactos), montaje marcha-paro con autorretención, pilotos verde y rojo, seta de paro de emergencia, tarjetas de seguridad de máquinas y duelo final contra el Barón. Nuevo escenario: la fortaleza del Barón fuera del tiempo.
+- **Simulador ampliado:** pulsadores que funcionan solo mientras se mantienen apretados, relés que hacen «clac» y mueven todos sus contactos a la vez, y aviso si un relé vibra porque su propio contacto lo desconecta.
+- **Final del juego:** diploma con el nombre y la fecha, y un adelanto muy breve del próximo juego (Chrono-Tesla · El misterio de los imanes). Nota histórica sobre Joseph Henry y el electroimán.
+- **Voces grabadas:** todo el juego narrado con voces de Kokoro (modelo abierto), cada personaje con su voz y cada idioma con las suyas. En Ajustes se elige entre voces grabadas y la voz del aparato. Las voces están en la versión de GitHub; si falta una frase, se usa la voz del aparato.
+- 2 medallas nuevas y una competencia nueva (automatismos).
+
 ## v1.4 · beta (25/10/2026)
 - **Capítulo 3 · Mánchester 1843 (Joule):** potencia P = U × I, potencia nominal, efecto Joule, energía E = P × t, kilovatio hora y factura. Nuevo juego «contador de energía» (organizar el día de la cervecería, cazar el derroche) y jefe final en Oxford 1847 con William Thomson.
 - **Capítulo 4 · Nueva York 1884 (Edison y Tesla):** seguridad eléctrica en modo juego: tarjetas rápidas «¿Peligro o no?» con cuenta atrás y combos, arcade «Pánico en Manhattan» (elegir la herramienta correcta para cada avería antes del apagón), fusible y cortocircuito en una casa, toma de tierra y diferencial, la dinamo de Pearl Street y el duelo final.

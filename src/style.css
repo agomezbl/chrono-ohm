@@ -546,3 +546,18 @@ svg[data-tool=select] .hit,svg[data-tool=erase] .hit{cursor:pointer}svg[data-too
   .shop-grid .dev:not(.gen) h3{font-size:14px}.shop-grid .dev:not(.gen) .mono{font-size:12px}
   .shop-grid .dev-q{grid-column:1/-1;text-align:left}
 }
+/* v1.4 · automatismos */
+.cp .pb-cap{stroke:#0b0d14;stroke-width:1.5;cursor:pointer;transition:transform .08s}
+.cp .body.coil{fill:#20283a;stroke:var(--wire);stroke-width:2.5}.cp .body.coil.on{fill:#5a3a12;stroke:var(--mid)}
+.cp .w.kact{stroke:var(--mid)}
+.spinrr{animation:spin 22s linear infinite reverse;transform-box:fill-box;transform-origin:center}
+.scene .blinkA{animation:pulseO 1.6s ease-in-out infinite}.scene .blinkB{animation:pulseO 2.3s ease-in-out infinite .4s}
+.scene .float-page{animation:floatP 6s ease-in-out infinite}@keyframes floatP{50%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.spinrr,.scene .blinkA,.scene .blinkB,.scene .float-page{animation:none}}
+/* v1.4 · final del juego: diploma y adelanto del próximo juego */
+.finale{display:grid;gap:14px;margin:18px 0 6px;text-align:left}
+.diploma{background:linear-gradient(180deg,#f6ecd2,#ead9b0);color:var(--paper-ink);border-radius:10px;padding:22px 24px;border:6px double #b08d57;box-shadow:0 14px 34px rgba(0,0,0,.45);text-align:center}
+.diploma h2{font:400 clamp(26px,5vw,38px) var(--f-era);color:#5a2a08;margin:4px 0 8px}.diploma p{margin:6px 0}.fin-date{font:14px var(--f-mono);color:#7a5a30}
+.teaser{display:flex;gap:14px;align-items:center;padding:14px;border-color:#6d5bb0;background:radial-gradient(circle at 10% 50%,rgba(185,167,255,.16),transparent 60%),var(--hull)}
+.teaser h3{margin:2px 0 4px;font:700 19px var(--f-display);color:#d8ccff}.teaser p{margin:0;color:var(--ink-dim)}.tz-p{width:84px;flex:none}.tz-p .portrait{width:100%;height:auto}
+.lab-board svg{-webkit-touch-callout:none}

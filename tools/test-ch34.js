@@ -16,7 +16,7 @@ const SHOTS = path.join(__dirname, '..', 'shots-ch34'); fs.mkdirSync(SHOTS, {rec
     page.on('pageerror', e => errors.push(`${lang}: ${e.message}`));
     page.on('console', m => { if (m.type() === 'error') errors.push(`${lang} consola: ${m.text()}`); });
     await page.goto(FILE); await page.waitForTimeout(300);
-    const steps = await page.evaluate(() => window.__CO.CHAPTERS.slice(2, 4).flatMap(ch => ch.missions.flatMap((m, mi) => m.steps.map((s, si) => ({c: ch.id, mi, si, type: s.type, title: s.title ? (s.title.fr || s.title) : ''})))));
+    const steps = await page.evaluate(() => window.__CO.CHAPTERS.slice(2, 5).flatMap(ch => ch.missions.flatMap((m, mi) => m.steps.map((s, si) => ({c: ch.id, mi, si, type: s.type, title: s.title ? (s.title.fr || s.title) : ''})))));
     for (const s of steps) {
       if (!['lab', 'meter', 'danger', 'blackout'].includes(s.type)) continue;
       const tag = `${lang} ${s.c} ${s.mi + 1}.${s.si} ${s.type} «${s.title}»`;
@@ -42,6 +42,28 @@ const SHOTS = path.join(__dirname, '..', 'shots-ch34'); fs.mkdirSync(SHOTS, {rec
               else if (gi === 2) by('K2').on = true;
               else { by('K2').on = false; f.burnt = 0; } }
             if (fr === 'La dynamo de Pearl Street') by('K1').on = true;
+            const P = (l, v) => { const c = by(l); if (c) c.pressed = v; }, add = c => B.comps.push(Object.assign({dir: 1, id: 920 + B.comps.length}, c));
+            const relAll = () => B.comps.forEach(c => { c.pressed = false; });
+            if (fr === 'Appuyer pour allumer') {
+              if (gi === 0) add({t: 'pbno', e: 'h:2,3', lab: 'S1'});
+              if (gi === 1) P('S1', true);
+              if (gi === 2) { relAll(); B.comps.splice(B.comps.findIndex(c => c.t === 'pbno'), 1); add({t: 'pbnc', e: 'h:2,3', lab: 'S1'}); }
+              if (gi === 3) B.comps.find(c => c.t === 'pbnc').pressed = true; }
+            if (fr === 'Petit courant, grand moteur') by('K1').on = gi === 0;
+            if (fr === "L'auto-maintien") {
+              if (gi === 0) P('S1', true);
+              if (gi === 1) { relAll(); lab.run(); add({t: 'kno', e: 'v:3,1', lab: 'KA1', rel: 'KA1'}); P('S1', true); lab.run(); P('S1', false); }
+              if (gi === 2) P('S2', true);
+              if (gi === 3) relAll(); }
+            if (fr === "Vert en marche, rouge à l'arrêt") {
+              if (gi === 0) { add({t: 'kno', e: 'v:6,1', lab: 'KA1', rel: 'KA1'}); add({t: 'knc', e: 'v:7,1', lab: 'KA1', rel: 'KA1'}); }
+              if (gi === 1) { P('S1', true); lab.run(); P('S1', false); }
+              if (gi === 2) { P('S2', true); lab.run(); P('S2', false); } }
+            if (fr === 'Le coup-de-poing') {
+              if (gi === 0) add({t: 'pbnc', e: 'h:1,0', lab: 'S3'});
+              if (gi === 1) { P('S1', true); lab.run(); P('S1', false); }
+              if (gi === 2) P('S3', true);
+              if (gi === 3) relAll(); }
             lab.run(); }, [s.title, await page.evaluate(() => [...document.querySelectorAll('#goals li')].findIndex(l => l.classList.contains('cur')))]);
           await page.waitForTimeout(450);
         }

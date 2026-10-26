@@ -1,6 +1,6 @@
 {
   "name": "chrono-ohm",
-  "version": "1.4.0-beta",
+  "version": "1.5.0-beta",
   "private": true,
   "description": "Chrono-Ohm: aventura para aprender electricidad (intensidad, resistencia, ley de Ohm, potencia, seguridad) en francés y español.",
   "scripts": {

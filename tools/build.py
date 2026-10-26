@@ -26,7 +26,7 @@ json.loads(i18n)
 
 TEST_EXPORT = ("\nwindow.__CO={get S(){return S},set S(v){S=v},CHAPTERS,NOTES,SKILLS,ACH,INTRO,CAST,RANKS,CTYPES,BANDN,LAMPS,"
                "startMission,openChapter,renderHub,openNotes,openSkills,openSandbox,openSettings,openCredits,setLang,renderTitle,"
-               "get RUN(){return RUN},setRun(v){RUN=v},next,simulate,makeQ,checkAch,T,ui,MISS,I18N,VO,dropName,setLangT:setLang,PUZZLES,simWith,board,cG,cL,cR,cA,openShop,openPuzzles,startPuzzle,startReview,revPool,DEVICES,get LASTLAB(){return LASTLAB},saveCode,readCode,portrait,scene};window.__CO_portrait=portrait;\n")
+               "get RUN(){return RUN},setRun(v){RUN=v},next,simulate,makeQ,checkAch,T,ui,MISS,I18N,VO,dropName,setLangT:setLang,PUZZLES,simWith,board,cG,cL,cR,cA,openShop,openPuzzles,startPuzzle,startReview,revPool,DEVICES,get LASTLAB(){return LASTLAB},saveCode,readCode,portrait,scene,voiceLines,VO};window.__CO_portrait=portrait;\n")
 
 def page(test=False):
     script = ("<script>\n(function(){'use strict';\nconst I18N=" + i18n + ";\n" + app +

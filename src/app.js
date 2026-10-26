@@ -24,7 +24,7 @@ const dayStr=d=>{d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+
 /* ================= Store ================= */
 const KEY='chrono-ohm-v1';
 const DEF={name:'',xp:0,cr:0,introSeen:false,ch:{},seenTravel:{},notes:{},skills:{},ach:{},
-  settings:{diff:'cadet',narr:true,music:true,sfx:true,lang:'',alt:false},
+  settings:{diff:'cadet',narr:true,music:true,sfx:true,lang:'',alt:false,voice:'rec'},
   stats:{answered:0,correct:0,time:0,bestStreak:0,burns:0,shorts:0,labs:0,hist:[]},days:[],v:2,
   lumiSkin:'cuivre',skins:{cuivre:1},shop:{gen:1,own:{},on:{},quiz:{},seen:0,v:2,ln:{},fu:{A:10,B:16,C:25},t:0,pend:{h:0,prod:0,kwh:0},earned:0},pz:{},rev:{days:[],n:0}};
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -67,7 +67,7 @@ const playerName=()=>S.name||'Alex';
 const dropName=s=>String(s).replace(/(^|[.!?…][\s\u00a0]+)\{N\},\s*/g,'$1').replace(/,\s*\{N\}([\s\u00a0\u202f]*[:?!.…]|$)/g,'$1');
 
 /* ================= Languages ================= */
-const VERSION='1.4';
+const VERSION='1.5';
 const LANGS={fr:'Français',es:'Español'};
 const MISS=new Set();
 const detectLang=()=>{try{return /^es\b/i.test(navigator.language||'')?'es':'fr'}catch(e){return 'fr'}};
@@ -159,15 +159,26 @@ const VO={ok:'speechSynthesis' in window,voices:[],
   v(l){const pref=l==='fr'?/fr[-_]fr/i:/es[-_]es/i;const sc=v=>(/natural|neural|online|premium|enhanced/i.test(v.name)?10:0)+(pref.test(v.lang)?4:0)+(/google/i.test(v.name)?2:0)+(/microsoft/i.test(v.name)?1:0);
     return this.voices.filter(v=>v.lang&&v.lang.toLowerCase().replace('_','-').startsWith(l)).sort((a,b)=>sc(b)-sc(a))[0]},
   has(l){return !!this.v(l||L)},
-  stop(){if(this.ok)try{speechSynthesis.cancel()}catch(e){}},
+  stop(){if(this.aud){try{this.aud.pause()}catch(e){}this.aud=null}if(this.ok)try{speechSynthesis.cancel()}catch(e){}},
   /* texto pensado para leer en voz alta: sin marcas, con símbolos y unidades dichos con palabras */
   prep(t,l){t=unmark(String(t).replace(/<[^>]+>/g,'')).replace(/[«»]/g,'').replace(/\b([UIR])(\d)\b/g,'$1 $2');
     const W=l==='fr'?{eq:' égale ',mi:' moins ',pl:' plus ',ti:' fois ',di:' divisé par ',dec:' virgule ',mA:' milliampères',A:' ampères',V:' volts',O:' ohms',kO:' kilo-ohms',W:' watts',mW:' milliwatts'}
       :{eq:' igual a ',mi:' menos ',pl:' más ',ti:' por ',di:' entre ',dec:' coma ',mA:' miliamperios',A:' amperios',V:' voltios',O:' ohmios',kO:' kiloohmios',W:' vatios',mW:' milivatios'};
+    const X=l==='fr'?{kwh:' kilowattheures',kwh1:' kilowattheure',kw:' kilowatts',eur:' euros',hz:' hertz',j:' joules',h:' heures',h1:' heure',mm:' millimètres carrés'}:{kwh:' kilovatios hora',kwh1:' kilovatio hora',kw:' kilovatios',eur:' euros',hz:' hercios',j:' julios',h:' horas',h1:' hora',mm:' milímetros cuadrados'};
+    t=t.replace(/\b1 ?kWh\b/g,'1'+X.kwh1).replace(/(\d) ?kWh\b/g,'$1'+X.kwh).replace(/\bkWh\b/g,X.kwh.trim()).replace(/(\d) ?kW\b/g,'$1'+X.kw).replace(/\b1 ?€/g,'1'+X.eur.slice(0,-1)).replace(/(\d) ?€/g,'$1'+X.eur).replace(/(\d) ?Hz\b/g,'$1'+X.hz).replace(/(\d) ?J\b/g,'$1'+X.j).replace(/(\d) ?mm²/g,'$1'+X.mm).replace(/\b1 h\b/g,'1'+X.h1).replace(/(\d) h\b/g,'$1'+X.h);
     return t.replace(/ = /g,W.eq).replace(/ − /g,W.mi).replace(/ \+ /g,W.pl).replace(/ × /g,W.ti).replace(/ ÷ /g,W.di)
       .replace(/(\d) ?mA\b/g,'$1'+W.mA).replace(/(\d) ?kΩ/g,'$1'+W.kO).replace(/(\d) ?Ω/g,'$1'+W.O).replace(/(\d) ?mW\b/g,'$1'+W.mW).replace(/(\d) ?A\b/g,'$1'+W.A).replace(/(\d) ?V\b/g,'$1'+W.V).replace(/(\d) ?W\b/g,'$1'+W.W)
       .replace(/\bmA\b/g,W.mA.trim()).replace(/ · /g,', ').replace(/(\d),(\d)/g,'$1'+W.dec+'$2').replace(/(\d)[\u00a0\u202f ](\d{3})\b/g,'$1$2').replace(/[\u00a0\u202f]/g,' ')},
-  say(text,force){return new Promise(res=>{
+  /* v1.4 · voces grabadas (Kokoro): un mp3 por frase en audio/<idioma>/<huella>.mp3; si falta, voz del aparato */
+  man:null,aud:null,
+  key(text,who,l){const s=(l||L)+'|'+(who||'lumi')+'|'+String(text).trim();let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0}return h.toString(16).padStart(8,'0')},
+  loadRec(){if(!/^https?:$/.test(location.protocol))return;try{fetch('audio/manifest.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.fr)this.man={fr:new Set(j.fr),es:new Set(j.es||[])}}).catch(()=>{})}catch(e){}},
+  recOn(){return S.settings.voice!=='device'&&!!this.man},
+  say(text,force,who){if(S.settings.voice==='off'&&!force)return Promise.resolve();if(this.recOn()&&(force||S.settings.narr)){const k=this.key(text,who);if(this.man[L]&&this.man[L].has(k))return this.play('audio/'+L+'/'+k+'.mp3')}
+    return this.sayTTS(text,force)},
+  play(url){return new Promise(res=>{this.stop();let done=false;const fin=()=>{if(!done){done=true;res()}};
+    try{const a=new Audio(url);this.aud=a;a.onended=fin;a.onerror=fin;a.play().catch(fin)}catch(e){fin()}})},
+  sayTTS(text,force){return new Promise(res=>{
     if(!this.ok||(!force&&!S.settings.narr)){res();return}
     this.stop();const p=this.prep(text,L).trim();if(!p||!/[\p{L}\d]/u.test(p)){res();return}
     let done=false;const fin=()=>{if(!done){done=true;res()}};
@@ -290,11 +301,19 @@ const CTYPES={
   volt:{n:'Voltmètre',es:'Voltímetro',pre:'V'},
   sw:{n:'Interrupteur',es:'Interruptor',pre:'K'},
   fuse:{n:'Fusible',es:'Fusible',pre:'F'},
-  motor:{n:'Moteur',es:'Motor',pre:'M'}};
+  motor:{n:'Moteur',es:'Motor',pre:'M'},
+  /* v1.4 · automatismos: pulsadores (momentáneos), bobina de relé y sus contactos */
+  pbno:{n:tx('Bouton marche (NO)','Pulsador de marcha (NA)'),pre:'S'},
+  pbnc:{n:tx('Bouton arrêt (NF)','Pulsador de paro (NC)'),pre:'S'},
+  coil:{n:tx('Bobine du relais','Bobina del relé'),pre:'KA'},
+  kno:{n:tx('Contact du relais (NO)','Contacto del relé (NA)'),pre:''},
+  knc:{n:tx('Contact du relais (NF)','Contacto del relé (NC)'),pre:''}};
+const WIRELIKE=t=>t==='wire'||t==='sw'||t==='pbno'||t==='pbnc'||t==='kno'||t==='knc';
+const COIL_R=120,COIL_ON=6;
 const G_WIRE=1000,R_INT=.1,I_SHORT=4,AMP_MAX=10;
 function edgeNodes(e){const t=e.split(':'),p=t[1].split(',').map(Number);return t[0]==='h'?[[p[0],p[1]],[p[0]+1,p[1]]]:[[p[0],p[1]],[p[0],p[1]+1]]}
-function compR(c){switch(c.t){case 'res':return c.R;case 'lamp':{const L=LAMPS[c.lt];return L.Un/L.In}case 'motor':return 6/.2;case 'amp':return .01;case 'fuse':return .02;case 'volt':return 1e7;default:return 1e-3}}
-function conducts(c){if(c.burnt)return false;if(c.t==='sw'&&!c.on)return false;return true}
+function compR(c){switch(c.t){case 'res':return c.R;case 'lamp':{const L=LAMPS[c.lt];return L.Un/L.In}case 'motor':return 6/.2;case 'coil':return COIL_R;case 'amp':return .01;case 'fuse':return .02;case 'volt':return 1e7;default:return 1e-3}}
+function conducts(c){if(c.burnt)return false;if(c.t==='sw'&&!c.on)return false;if(c.t==='pbno')return !!c.pressed;if(c.t==='pbnc')return !c.pressed;if(c.t==='kno')return !!c.act;if(c.t==='knc')return !c.act;return true}
 /* Solve G·V = J with partial pivoting */
 function gauss(A,b){const n=b.length;for(let c=0;c<n;c++){let p=c,m=Math.abs(A[c][c]);for(let r=c+1;r<n;r++){const v=Math.abs(A[r][c]);if(v>m){m=v;p=r}}
     if(m<1e-18)continue;if(p!==c){[A[p],A[c]]=[A[c],A[p]];[b[p],b[c]]=[b[c],b[p]]}
@@ -304,28 +323,31 @@ function solveOnce(B){const idx=new Map();const nid=(x,y)=>{const k=x+','+y;if(!
   const els=B.comps.map(c=>{const [a,b]=edgeNodes(c.e);const na=nid(a[0],a[1]),nb=nid(b[0],b[1]);const p=c.dir===-1?nb:na,q=c.dir===-1?na:nb;return {c,p,q}});
   const n=idx.size;const A=Array.from({length:n},()=>Array(n).fill(0)),J=Array(n).fill(0);
   const stamp=(p,q,g)=>{A[p][p]+=g;A[q][q]+=g;A[p][q]-=g;A[q][p]-=g};
-  els.forEach(({c,p,q})=>{if(!conducts(c))return;if(c.t==='gen'){const g=1/R_INT;stamp(p,q,g);J[p]+=c.E*g;J[q]-=c.E*g}else stamp(p,q,c.t==='wire'||c.t==='sw'?G_WIRE:1/compR(c))});
+  els.forEach(({c,p,q})=>{if(!conducts(c))return;if(c.t==='gen'){const g=1/R_INT;stamp(p,q,g);J[p]+=c.E*g;J[q]-=c.E*g}else stamp(p,q,WIRELIKE(c.t)?G_WIRE:1/compR(c))});
   for(let i=0;i<n;i++)A[i][i]+=1e-9;
   const V=gauss(A,J);
-  const res=new Map();els.forEach(({c,p,q})=>{const U=V[p]-V[q];let I=0;if(conducts(c)){if(c.t==='gen')I=(c.E-U)/R_INT;else I=U*(c.t==='wire'||c.t==='sw'?G_WIRE:1/compR(c))}
+  const res=new Map();els.forEach(({c,p,q})=>{const U=V[p]-V[q];let I=0;if(conducts(c)){if(c.t==='gen')I=(c.E-U)/R_INT;else I=U*(WIRELIKE(c.t)?G_WIRE:1/compR(c))}
     res.set(c.id,{U,I,P:Math.abs(U*I)})});
   return {res,V,idx}}
 /* Solve and apply instantaneous failures (lamp/resistor/motor burnout, fuses, ammeter fuse). */
+function relaySync(B){const co={};B.comps.forEach(c=>{if(c.t==='coil')co[c.lab]=!!c.act&&!c.burnt});B.comps.forEach(c=>{if(c.t==='kno'||c.t==='knc')c.act=!!co[c.rel||'KA1']})}
 function simulate(B){let out,events=[];
-  for(let it=0;it<8;it++){out=solveOnce(B);let changed=false;
+  for(let it=0;it<14;it++){relaySync(B);out=solveOnce(B);let changed=false;
+    for(const c of B.comps)if(c.t==='coil'){const e=!c.burnt&&Math.abs(out.res.get(c.id).U)>=COIL_ON;if(e!==!!c.act){c.act=e;changed=true}}
     for(const c of B.comps){if(c.burnt)continue;const r=out.res.get(c.id);const aI=Math.abs(r.I),aU=Math.abs(r.U);
       if(c.t==='lamp'){const L=LAMPS[c.lt];if(aU>L.Un*1.45){c.burnt=1;changed=true;events.push({k:'lamp',c})}}
       else if(c.t==='res'){if(r.P>(c.Pmax||5)*1.15){c.burnt=1;changed=true;events.push({k:'res',c})}}
       else if(c.t==='motor'){if(aI>.2*2.5){c.burnt=1;changed=true;events.push({k:'motor',c})}}
       else if(c.t==='fuse'){if(aI>c.Ir*1.0001){c.burnt=1;changed=true;events.push({k:'fuse',c})}}
       else if(c.t==='amp'){if(aI>AMP_MAX){c.burnt=1;changed=true;events.push({k:'amp',c})}}}
-    if(!changed)break}
+    if(!changed)break;
+    if(it===13){B.comps.forEach(c=>{if(c.t==='coil')c.act=false});relaySync(B);out=solveOnce(B);events.push({k:'buzz',c:B.comps.find(c=>c.t==='coil')})}}
   const shorts=B.comps.filter(c=>c.t==='gen'&&!c.burnt&&Math.abs(out.res.get(c.id).I)>I_SHORT);
   return {res:out.res,events,shorts}}
 /* nets joined by wires and closed switches only — used to check where meters are connected */
 function nets(B){const par={};const f=k=>{while(par[k]!==undefined&&par[k]!==k)k=par[k];return k};const key=p=>p[0]+','+p[1];
   B.comps.forEach(c=>edgeNodes(c.e).forEach(p=>{const k=key(p);if(par[k]===undefined)par[k]=k}));
-  B.comps.forEach(c=>{if((c.t==='wire'||(c.t==='sw'&&c.on))&&!c.burnt){const [a,b]=edgeNodes(c.e);const ra=f(key(a)),rb=f(key(b));if(ra!==rb)par[ra]=rb}});
+  B.comps.forEach(c=>{if(WIRELIKE(c.t)&&conducts(c)){const [a,b]=edgeNodes(c.e);const ra=f(key(a)),rb=f(key(b));if(ra!==rb)par[ra]=rb}});
   return c=>edgeNodes(c.e).map(p=>f(key(p)))}
 /* Query helpers for mission objectives */
 function makeQ(B,R){const N=nets(B);const byLab=l=>B.comps.find(c=>c.lab===l);const r=c=>c?R.res.get(c.id):{U:0,I:0,P:0};
@@ -338,8 +360,13 @@ function makeQ(B,R){const N=nets(B);const byLab=l=>B.comps.find(c=>c.lab===l);co
     /* ammeter in series with l: same (non-zero) current and sharing one net with l */
     series(l){const c=byLab(l);if(!c)return null;const ic=r(c).I,nc=N(c);return Q.of('amp').find(m=>{if(m.burnt)return false;const im=r(m).I;if(Math.abs(Math.abs(im)-Math.abs(ic))>1e-4*Math.max(1,Math.abs(ic))||Math.abs(ic)<1e-4)return false;return N(m).some(x=>nc.includes(x))})||null},
     read(m){if(!m||m.burnt)return null;const x=r(m);return m.t==='amp'?x.I:m.t==='volt'?x.U:null},
+    act:l=>{const c=byLab(l);return !!(c&&c.act)},
     shorts:R.shorts.length>0};
   return Q}
+
+/* secuencia de pulsaciones sobre una copia del montaje: [['S1'],[],['S2'],[]] → un Q por paso */
+function seqSim(B,seq){const B2={comps:B.comps.map(c=>Object.assign({},c,{pressed:false}))};B2.comps.forEach(c=>{if(c.t==='coil')c.act=false});simulate(B2);
+  return seq.map(ps=>{B2.comps.forEach(c=>{if(c.t==='pbno'||c.t==='pbnc')c.pressed=ps.includes(c.lab)});return makeQ(B2,simulate(B2))})}
 
 /* ================= Laboratory: editable circuit board ================= */
 const LM=56,LS=92;
@@ -372,11 +399,13 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
   const edgeBetween=(a,b)=>{if(a[1]===b[1]&&Math.abs(a[0]-b[0])===1)return `h:${Math.min(a[0],b[0])},${a[1]}`;if(a[0]===b[0]&&Math.abs(a[1]-b[1])===1)return `v:${a[0]},${Math.min(a[1],b[1])}`;return null};
   function label(t){const pre=CTYPES[t].pre;if(!pre)return '';let n=1;while(B.comps.some(c=>c.lab===pre+n))n++;return pre+n}
   function place(t,e){if(at(e))return null;if(left(t)<=0){toast(ui('lab.none'));AU.play('bad');return null}
-    const c={id:++uid,t,e,dir:1,lab:label(t)};if(t==='gen')c.E=o.genE||6;if(t==='lamp')c.lt=o.lampType||o.lampTypes[0];if(t==='res'){c.R=o.resDefault||o.resVals[Math.min(5,o.resVals.length-1)];c.Pmax=o.Pmax||5}if(t==='fuse')c.Ir=o.fuseDefault||1;if(t==='sw')c.on=true;
+    const c={id:++uid,t,e,dir:1,lab:label(t)};if(t==='gen')c.E=o.genE||6;if(t==='lamp')c.lt=o.lampType||o.lampTypes[0];if(t==='res'){c.R=o.resDefault||o.resVals[Math.min(5,o.resVals.length-1)];c.Pmax=o.Pmax||5}if(t==='fuse')c.Ir=o.fuseDefault||1;if(t==='sw')c.on=true;if(t==='kno'||t==='knc'){c.rel=(B.comps.find(x=>x.t==='coil')||{lab:'KA1'}).lab;c.lab=c.rel}
     B.comps.push(c);used[t]=(used[t]||0)+1;AU.play(t==='wire'?'select':'plug');return c}
   function remove(c){if(!c||c.lock){if(c)toast(ui('lab.locked'));return}B.comps=B.comps.filter(x=>x!==c);if(used[c.t])used[c.t]--;if(sel===c)sel=null;AU.play('click')}
   function click(e){const c=e&&at(e);
-    if(tool==='select'){if(c&&c.t==='sw'&&!c.burnt){c.on=!c.on;AU.play('plug')}sel=c||null}
+    if(tool==='select'){if(c&&c.t==='sw'&&!c.burnt){c.on=!c.on;AU.play('plug')}
+      if(c&&(c.t==='pbno'||c.t==='pbnc')&&!c.burnt){c.pressed=true;AU.play('click');const up=()=>{removeEventListener('pointerup',up);removeEventListener('pointercancel',up);c.pressed=false;run()};addEventListener('pointerup',up);addEventListener('pointercancel',up)}
+      sel=c||null}
     else if(tool==='erase'){if(c)remove(c)}
     else if(e){if(c)sel=c;else{const n=place(tool,e);if(n&&n.t!=='wire')sel=n}}
     run()}
@@ -389,14 +418,14 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     const P=(t,n)=>h?[cx+t,cy-n]:[cx+n,cy+t];return {h,cx,cy,P,x1,y1,x2,y2}}
   const pts=a=>a.map(p=>p.join(',')).join(' ');
   function flowAB(c,r){if(c.t==='gen')return c.dir===1?-r.I:r.I;return c.dir===1?r.I:-r.I}
-  function sym(c,r){const g=geom(c),P=g.P;let s='';const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18}[c.t];
+  function sym(c,r){const g=geom(c),P=g.P;let s='';const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20}[c.t];
     const lead=(t1,t2)=>`<line class="w" x1="${P(t1,0)[0]}" y1="${P(t1,0)[1]}" x2="${P(t2,0)[0]}" y2="${P(t2,0)[1]}"/>`;
     const hot=R&&R.shorts.length&&(c.t==='wire'||c.t==='gen')?' hot':'';
     if(c.t==='wire')return `<g class="cp wire${hot}${sel===c?' sel':''}${c.lock?' lock':''}${c.mark?' mark':''}">${lead(-LS/2,LS/2)}</g>`;
     s+=lead(-LS/2,-hw)+lead(hw,LS/2);
     const ab=r?Math.abs(flowAB(c,r)):0;
     if(c.t==='gen'){const pl=c.dir===1?-5:5,mi=-pl;s+=`<polyline class="w gp" points="${pts([P(pl,-20),P(pl,20)])}"/><polyline class="w gm" points="${pts([P(mi,-11),P(mi,11)])}"/>`;const pp=P(c.dir===1?-24:24,-22);s+=`<text class="pm" x="${pp[0]}" y="${pp[1]+5}" text-anchor="middle">+</text>`;const mm=P(c.dir===1?24:-24,-22);s+=`<text class="pm" x="${mm[0]}" y="${mm[1]+5}" text-anchor="middle">−</text>`}
-    else if(c.t==='lamp'){const L=LAMPS[c.lt],u=r?Math.abs(r.U):0;const br=c.burnt?0:Math.min(1.5,(u/L.Un)**2);s=`<circle class="glow" cx="${g.cx}" cy="${g.cy}" r="${30+br*22}" fill="url(#lGlow)" style="opacity:${Math.min(1,br)}"/>`+s+`<circle class="body ${c.burnt?'burnt':''}" cx="${g.cx}" cy="${g.cy}" r="17" style="fill:${c.burnt?'#111':`rgba(255,${190+br*40|0},${90+br*80|0},${Math.min(1,br*.9)})`}"/><path class="w" d="M${g.cx-11} ${g.cy-11}L${g.cx+11} ${g.cy+11}M${g.cx+11} ${g.cy-11}L${g.cx-11} ${g.cy+11}"/>${c.burnt?`<path class="crack" d="M${g.cx-4} ${g.cy-17}l7 9-8 6 6 11"/>`:''}`}
+    else if(c.t==='lamp'){const L=LAMPS[c.lt],u=r?Math.abs(r.U):0;const br=c.burnt?0:Math.min(1.5,(u/L.Un)**2);s=`<circle class="glow" cx="${g.cx}" cy="${g.cy}" r="${30+br*22}" fill="url(#lGlow)" style="opacity:${Math.min(1,br)}"/>`+s+`<circle class="body ${c.burnt?'burnt':''}" cx="${g.cx}" cy="${g.cy}" r="17" style="fill:${c.burnt?'#111':c.col==='g'?`rgba(${70+br*40|0},${200+br*40|0},${110+br*40|0},${Math.min(1,br*.95)})`:c.col==='r'?`rgba(255,${80+br*30|0},${70+br*20|0},${Math.min(1,br*.95)})`:`rgba(255,${190+br*40|0},${90+br*80|0},${Math.min(1,br*.9)})`}"/><path class="w" d="M${g.cx-11} ${g.cy-11}L${g.cx+11} ${g.cy+11}M${g.cx+11} ${g.cy-11}L${g.cx-11} ${g.cy+11}"/>${c.burnt?`<path class="crack" d="M${g.cx-4} ${g.cy-17}l7 9-8 6 6 11"/>`:''}`}
     else if(c.t==='res'||c.t==='fuse'){const w=c.t==='res'?20:17,hh=c.t==='res'?9:7;const heat=r&&c.t==='res'?Math.min(1,r.P/(c.Pmax||5)):0;
       s+=`<polygon class="body ${c.burnt?'burnt':''}" points="${pts([P(-w,-hh),P(w,-hh),P(w,hh),P(-w,hh)])}" style="${c.t==='res'&&!c.burnt?`fill:rgb(${40+heat*215|0},${44+heat*60|0},${52-heat*30|0})`:''}"/>`;
       if(c.t==='res'&&!c.burnt){const bd=bands(c.R);[[-12,BAND[bd[0]]],[-5,BAND[bd[1]]],[2,BAND[bd[2]]],[12,'#c9a227']].forEach(([t,col])=>{s+=`<polygon points="${pts([P(t-2.2,-hh),P(t+2.2,-hh),P(t+2.2,hh),P(t-2.2,hh)])}" fill="${col}"/>`})}
@@ -407,13 +436,19 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
       else{s+=`<text class="sym-l" x="${g.cx}" y="${g.cy+6}">${c.t==='amp'?'A':'V'}</text>`;const pp=P(c.dir===1?-30:30,0),cm=P(c.dir===1?30:-30,0);s+=`<circle cx="${pp[0]}" cy="${pp[1]}" r="5" class="tplus"/><circle cx="${cm[0]}" cy="${cm[1]}" r="5" class="tcom"/>`}
       if(c.burnt)s+=`<path class="crack" d="M${g.cx-4} ${g.cy-17}l7 9-8 6 6 11"/>`}
     else if(c.t==='sw'){s+=`<circle class="dotw" cx="${P(-20,0)[0]}" cy="${P(-20,0)[1]}" r="4"/><circle class="dotw" cx="${P(20,0)[0]}" cy="${P(20,0)[1]}" r="4"/>`+(c.on?`<polyline class="w" points="${pts([P(-20,0),P(20,0)])}"/>`:`<polyline class="w" points="${pts([P(-20,0),P(16,22)])}"/>`)}
+    else if(c.t==='pbno'||c.t==='pbnc'){const closed=conducts(c),y=closed?0:-11,cap=c.t==='pbno'?'#4fd18b':'#ff5a4f';
+      s+=`<circle class="dotw" cx="${P(-20,0)[0]}" cy="${P(-20,0)[1]}" r="4"/><circle class="dotw" cx="${P(20,0)[0]}" cy="${P(20,0)[1]}" r="4"/><polyline class="w" points="${pts([P(-20,y),P(20,y)])}"/><polyline class="w thin" points="${pts([P(0,y),P(0,y-14)])}"/>`+
+        `<rect class="pb-cap ${c.pressed?'down':''}" x="${P(0,y-21)[0]-9}" y="${P(0,y-21)[1]-6}" width="18" height="12" rx="5" fill="${cap}"/>`+(c.t==='pbnc'?`<polyline class="w thin" points="${pts([P(-24,6),P(-16,-4)])}"/>`:'')}
+    else if(c.t==='coil'){s+=`<polygon class="body coil ${c.act?'on':''}" points="${pts([P(-16,-12),P(16,-12),P(16,12),P(-16,12)])}"/><polyline class="w thin" points="${pts([P(-16,-12),P(16,12)])}" opacity=".35"/>`+(c.act?`<circle cx="${g.cx}" cy="${g.cy}" r="28" fill="url(#hGlow)" class="heat"/>`:'')}
+    else if(c.t==='kno'||c.t==='knc'){const cl=conducts(c);s+=`<circle class="dotw" cx="${P(-20,0)[0]}" cy="${P(-20,0)[1]}" r="4"/><circle class="dotw" cx="${P(20,0)[0]}" cy="${P(20,0)[1]}" r="4"/>`+
+        (cl?`<polyline class="w ${c.act?'kact':''}" points="${pts([P(-20,0),P(20,0)])}"/>`:`<polyline class="w" points="${pts([P(-20,0),P(14,-18)])}"/>`)+(c.t==='knc'?`<polyline class="w thin" points="${pts([P(18,-12),P(18,6)])}"/>`:'')}
     return `<g class="cp ${c.t}${sel===c?' sel':''}${c.lock?' lock':''}${hot}">${s}</g>`}
   function flow(c,r){if(!r||c.burnt)return '';const f=flowAB(c,r),a=Math.abs(f);if(a<2e-4)return '';const g=geom(c);const dur=Math.max(.18,1.6/(.3+Math.log10(1+a*100)));
-    const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18}[c.t];const seg=(t1,t2)=>{const p1=g.P(t1,0),p2=g.P(t2,0);return `<line class="flow${a>I_SHORT?' fast':''}" x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" style="animation-duration:${dur.toFixed(2)}s;animation-direction:${f>0?'normal':'reverse'}"/>`};
+    const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20}[c.t];const seg=(t1,t2)=>{const p1=g.P(t1,0),p2=g.P(t2,0);return `<line class="flow${a>I_SHORT?' fast':''}" x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" style="animation-duration:${dur.toFixed(2)}s;animation-direction:${f>0?'normal':'reverse'}"/>`};
     return c.t==='wire'?seg(-LS/2,LS/2):seg(-LS/2,-hw)+seg(hw,LS/2)}
   function tag(c,r){const g=geom(c);let t='',cls='lab-l';if(c.t==='wire')return '';
     const lx=g.h?g.cx:g.cx+30,ly=g.h?g.cy-30:g.cy-6,an=g.h?'middle':'start';
-    let sub='';if(c.t==='gen')sub=frs(c.E)+' V';else if(c.t==='lamp')sub=LAMPS[c.lt].n;else if(c.t==='res')sub=fmtR(c.R)+(o.showPmax?' · '+frs(c.Pmax)+' W':'');else if(c.t==='fuse')sub=frs(c.Ir)+' A';
+    let sub='';if(c.t==='gen')sub=frs(c.E)+' V';else if(c.t==='lamp')sub=c.col?'':LAMPS[c.lt].n;else if(c.t==='res')sub=fmtR(c.R)+(o.showPmax?' · '+frs(c.Pmax)+' W':'');else if(c.t==='fuse')sub=frs(c.Ir)+' A';
     t+=`<text class="${cls}" x="${lx}" y="${ly}" text-anchor="${an}">${esc(c.lab||'')}${sub?`<tspan class="lab-s"> ${esc(sub)}</tspan>`:''}</text>`;
     if((c.t==='amp'||c.t==='volt')&&r){const v=c.burnt?ui('lab.fuseHS'):c.t==='amp'?fmtA(r.I):fmtV(r.U);const bx=g.h?g.cx-46:g.cx+26,by=g.h?g.cy+24:g.cy+6;
       t+=`<g class="lcdb ${c.burnt?'dead':''}"><rect x="${bx}" y="${by}" width="92" height="26" rx="4"/><text x="${bx+86}" y="${by+19}" text-anchor="end">${esc(v)}</text></g>`}
@@ -438,6 +473,9 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
       const bd=bands(c.R);h+=`<p class="insp-bands">${bd.map((b,i)=>`<i style="background:${BAND[b]}"></i>${esc(T(BANDN[b]))}`).join(' · ')}</p>`}
     if(c.t==='lamp')h+=can&&o.lampTypes.length>1?chips('lt',o.lampTypes,k=>LAMPS[k].n,c.lt):`<p>${LAMPS[c.lt].n}<br><span class="insp-sub">${esc(ui('insp.lampNom',{u:frs(LAMPS[c.lt].Un),i:frs(LAMPS[c.lt].In)}))}</span></p>`;
     if(c.t==='fuse')h+=can?chips('Ir',o.fuseVals,v=>frs(v)+' A',c.Ir):`<p>${esc(ui('insp.rating',{v:frs(c.Ir)}))}</p>`;
+    if(c.t==='pbno'||c.t==='pbnc')h+=`<p class="insp-sub">${esc(ui('insp.push'))}</p><button class="btn sm" data-a="press">${esc(ui('btn.press'))}</button>`;
+    if(c.t==='coil')h+=`<p class="${c.act?'ok-t':'insp-sub'}">${esc(ui(c.act?'insp.coilOn':'insp.coilOff'))}</p>`;
+    if(c.t==='kno'||c.t==='knc')h+=`<p class="insp-sub">${esc(ui(conducts(c)?'insp.kClosed':'insp.kOpen',{r:c.rel||'KA1'}))}</p>`;
     if(c.t==='sw')h+=`<button class="btn sm" data-a="sw">${esc(ui(c.on?'btn.open':'btn.close'))}</button>`;
     if((c.t==='gen'||c.t==='amp'||c.t==='volt')&&!c.lockDir)h+=`<button class="btn sm ghost" data-a="flip">⇄ ${esc(ui('btn.flip'))}</button>`;
     if(r&&!c.burnt){if(c.t==='amp')h+=`<div class="insp-read">${fmtA(r.I)}</div><p class="insp-sub">${esc(ui('insp.ampTerm'))}</p>`;else if(c.t==='volt')h+=`<div class="insp-read">${fmtV(r.U)}</div><p class="insp-sub">${esc(ui('insp.voltTerm'))}</p>`;
@@ -446,10 +484,10 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     el.innerHTML=h;
     $$('[data-k]',el).forEach(b=>b.onclick=()=>{const k=b.dataset.k;let v=b.dataset.v;if(k!=='lt')v=+v;c[k]=v;if(c.burnt&&k!=='Pmax')c.burnt=0;AU.play('select');run()});
     const sl=$('#gSl',el);if(sl){sl.oninput=()=>{c.E=+sl.value;$('#gV',el).textContent=frs(c.E)+' V';run(true)}}
-    $$('[data-a]',el).forEach(b=>b.onclick=()=>{const a=b.dataset.a;if(a==='fix'){c.burnt=0;AU.play('build')}if(a==='sw'){c.on=!c.on;AU.play('plug')}if(a==='flip'){c.dir=-c.dir;AU.play('plug')}if(a==='del')remove(c);run()})}
+    $$('[data-a]',el).forEach(b=>b.onclick=()=>{const a=b.dataset.a;if(a==='fix'){c.burnt=0;AU.play('build')}if(a==='sw'){c.on=!c.on;AU.play('plug')}if(a==='press'){c.pressed=true;AU.play('click');setTimeout(()=>{c.pressed=false;run()},700)}if(a==='flip'){c.dir=-c.dir;AU.play('plug')}if(a==='del')remove(c);run()})}
   function chips(k,vals,f,cur){return `<div class="chips">${vals.map(v=>`<button class="chip ${v===cur?'cur':''}" data-k="${k}" data-v="${v}">${esc(f(v))}</button>`).join('')}</div>`}
   function alertMsg(html,cls){alertEl.innerHTML=html;alertEl.className='lab-alert '+(cls||'');alertEl.hidden=false;clearTimeout(alertEl._t);alertEl._t=setTimeout(()=>alertEl.hidden=true,3600)}
-  function run(noInsp){R=simulate(B);Q=makeQ(B,R);
+  function run(noInsp){const co0=B.comps.filter(c=>c.t==='coil').map(c=>!!c.act).join();R=simulate(B);Q=makeQ(B,R);if(B.comps.filter(c=>c.t==='coil').map(c=>!!c.act).join()!==co0)AU.play('plug');
     R.events.forEach(ev=>{const c=ev.c;S.stats.burns++;const g=geom(c);const rr=svg.getBoundingClientRect();const x=rr.left+g.cx/W*rr.width,y=rr.top+g.cy/H*rr.height;
       FX.burst(x,y,{n:34,speed:6,colors:['#fff3c2','#ffb347','#ff5a4f','#8a8f99']});AU.play(c.t==='fuse'?'smallboom':'zap');shakeEl($('.lab-board',host));
       alertMsg(md(ui('alert.'+ev.k,{lab:c.lab})),'bad');
@@ -468,7 +506,12 @@ function toolIcon(t){const m={select:'M7 3l11 9-5 1 3 6-2 1-3-6-4 4z',erase:'M15
     lamp:'<line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><circle cx="12" cy="12" r="7"/><path d="M7 7l10 10M17 7L7 17"/>',
     res:'<line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><rect x="5" y="8" width="14" height="8"/>',
     amp:'<circle cx="12" cy="12" r="8"/><text x="12" y="16" text-anchor="middle">A</text>',volt:'<circle cx="12" cy="12" r="8"/><text x="12" y="16" text-anchor="middle">V</text>',motor:'<circle cx="12" cy="12" r="8"/><text x="12" y="16" text-anchor="middle">M</text>',
-    sw:'<line x1="1" y1="14" x2="6" y2="14"/><line x1="18" y1="14" x2="23" y2="14"/><line x1="6" y1="14" x2="17" y2="6"/>',fuse:'<line x1="1" y1="12" x2="23" y2="12"/><rect x="6" y="8" width="12" height="8"/>'}[t];
+    sw:'<line x1="1" y1="14" x2="6" y2="14"/><line x1="18" y1="14" x2="23" y2="14"/><line x1="6" y1="14" x2="17" y2="6"/>',fuse:'<line x1="1" y1="12" x2="23" y2="12"/><rect x="6" y="8" width="12" height="8"/>',
+    pbno:'<line x1="1" y1="17" x2="6" y2="17"/><line x1="18" y1="17" x2="23" y2="17"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="12" y1="12" x2="12" y2="6"/><rect x="8" y="2" width="8" height="4" rx="2" style="fill:#4fd18b;stroke:none"/>',
+    pbnc:'<line x1="1" y1="15" x2="6" y2="15"/><line x1="18" y1="15" x2="23" y2="15"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="12" y1="15" x2="12" y2="8"/><rect x="8" y="3" width="8" height="5" rx="2" style="fill:#ff5a4f;stroke:none"/>',
+    coil:'<line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/><rect x="6" y="6" width="12" height="12"/><line x1="6" y1="6" x2="18" y2="18" style="opacity:.4"/>',
+    kno:'<line x1="1" y1="15" x2="6" y2="15"/><line x1="18" y1="15" x2="23" y2="15"/><line x1="6" y1="15" x2="17" y2="7"/>',
+    knc:'<line x1="1" y1="14" x2="6" y2="14"/><line x1="18" y1="14" x2="23" y2="14"/><line x1="6" y1="14" x2="19" y2="14"/><line x1="18" y1="8" x2="18" y2="14"/>'}[t];
   return `<svg viewBox="0 0 24 24" class="ti sym" aria-hidden="true">${inner}</svg>`}
 
 /* ================= Characters ================= */
@@ -670,6 +713,16 @@ function scene(id){const W=1000,H=560;const st=n=>Array.from({length:n},(_,i)=>`
       <rect x="${x+24}" y="${y-30}" width="74" height="60" rx="6" fill="#24282c" stroke="#6c767c" stroke-width="2"/><text x="${x+61}" y="${y+6}" text-anchor="middle" font-family="IM Fell English SC,serif" font-size="15" fill="#c9a227">JUMBO</text><path d="M${x+61} ${y-30} V${y-150}" stroke="#c9a227" stroke-width="6"/><path d="M${x+52} ${y-150} V${y-30}" stroke="#8a6a1a" stroke-width="2"/>`).join('')}
     <circle cx="880" cy="300" r="104" fill="none" stroke="url(#smet)" stroke-width="16"/><circle cx="880" cy="300" r="16" fill="#6c767c"/><g class="spinr">${[0,1,2,3,4,5].map(i=>`<path d="M880 300 L${880+Math.cos(i*Math.PI/3)*96} ${300+Math.sin(i*Math.PI/3)*96}" stroke="#5c666c" stroke-width="7"/>`).join('')}</g><path d="M560 326 L880 204 M560 390 L880 396" stroke="#2a1a10" stroke-width="5"/>
     <rect x="700" y="100" width="280" height="110" fill="#22282c" stroke="#6c767c" stroke-width="3"/>${[750,830,910].map(x=>`<circle cx="${x}" cy="140" r="24" fill="#efe6d0" stroke="#8a7350" stroke-width="2"/><path d="M${x} 140 l12 -14" stroke="#d1312b" stroke-width="3"/><circle cx="${x}" cy="140" r="3" fill="#2a2016"/>`).join('')}${[740,790,840,890,940].map(x=>`<rect x="${x-6}" y="178" width="12" height="22" fill="#c9a227"/><path d="M${x} 178 l10 -14" stroke="#e8c86a" stroke-width="3"/>`).join('')}`,
+  fortress:`<defs><radialGradient id="sfo" cx=".5" cy=".42" r=".75"><stop offset="0" stop-color="#3a1a5a"/><stop offset=".45" stop-color="#1a0f30"/><stop offset="1" stop-color="#07040f"/></radialGradient><radialGradient id="sfeye"><stop offset="0" stop-color="#ffe7ff" stop-opacity=".9"/><stop offset=".25" stop-color="#c77dff" stop-opacity=".6"/><stop offset="1" stop-color="#c77dff" stop-opacity="0"/></radialGradient><linearGradient id="sfp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3348"/><stop offset="1" stop-color="#15111d"/></linearGradient><linearGradient id="sfpan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2638"/><stop offset="1" stop-color="#191422"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#sfo)"/>${st(60)}
+    <g transform="translate(500 230)">${[260,200,150,105,65].map((r,i)=>`<g class="${i%2?'spinr':'spinrr'}"><circle r="${r}" fill="none" stroke="#c77dff" stroke-opacity="${.12+i*.07}" stroke-width="${2+i}" stroke-dasharray="${8+i*6} ${14+i*4}"/></g>`).join('')}<circle r="70" fill="url(#sfeye)"/></g>
+    ${[[130,110,34,10],[860,150,46,12],[250,330,26,8],[780,370,30,9]].map(([x,y,r,n],k)=>`<g transform="translate(${x} ${y})" opacity=".55"><g class="${k%2?'spinr':'spinrr'}"><circle r="${r}" fill="none" stroke="#8a7aa8" stroke-width="${r*.32}" stroke-dasharray="${(r*.25).toFixed(1)} ${(r*.25).toFixed(1)}"/><circle r="${r*.75}" fill="#2a2238"/><circle r="${r*.25}" fill="#8a7aa8"/></g></g>`).join('')}
+    ${[[330,80,30],[690,70,24],[90,250,20]].map(([x,y,r],k)=>`<g transform="translate(${x} ${y}) rotate(${k*25})" opacity=".6"><circle r="${r}" fill="#efe6d0" stroke="#c9a227" stroke-width="3"/><path d="M0 0 V${-r*.7} M0 0 L${r*.5} 0" stroke="#2a2016" stroke-width="2.5"/></g>`).join('')}
+    <path d="M0 410 L120 380 H880 L1000 410 V560 H0Z" fill="url(#sfp)"/><path d="M120 380 H880" stroke="#c77dff" stroke-opacity=".5" stroke-width="2"/>${Array.from({length:9},(_,i)=>`<path d="M${120+i*95} 380 L${60+i*110} 560" stroke="#000" stroke-opacity=".25" stroke-width="2"/>`).join('')}
+    <g transform="translate(560 220)"><rect x="0" y="0" width="300" height="165" rx="8" fill="url(#sfpan)" stroke="#5a4a78" stroke-width="3"/>${[0,1,2,3].map(i=>`<g transform="translate(${30+i*70} 34)"><rect x="-18" y="-16" width="36" height="32" rx="4" fill="#20283a" stroke="#8a7aa8"/><rect x="-14" y="-12" width="28" height="12" fill="${i%2?'#5a3a12':'#3a2a12'}"/><text y="14" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="9" fill="#c9d3e3">KA${i+1}</text></g>`).join('')}
+      ${[0,1,2,3,4].map(i=>`<circle cx="${40+i*55}" cy="92" r="9" fill="${['#4fd18b','#ff5a4f','#ffd27a','#4fd18b','#ff5a4f'][i]}" class="${i%2?'blinkA':'blinkB'}"/>`).join('')}<circle cx="70" cy="135" r="14" fill="#4fd18b" stroke="#0b0d14" stroke-width="2"/><circle cx="130" cy="135" r="14" fill="#ff5a4f" stroke="#0b0d14" stroke-width="2"/><circle cx="240" cy="135" r="20" fill="#d1312b" stroke="#ffd27a" stroke-width="3"/><rect x="226" y="153" width="28" height="8" fill="#ffd27a"/></g>
+    <path d="M560 380 L580 385 M860 380 L840 385" stroke="#5a4a78" stroke-width="6"/><path d="M710 220 Q700 120 640 60 M760 220 Q780 120 860 40" stroke="#c77dff" stroke-width="2" fill="none" stroke-opacity=".5" class="blinkA"/>
+    ${[[180,300,-12],[330,250,8],[440,330,-6],[870,300,14],[930,220,-8]].map(([x,y,a])=>`<g transform="translate(${x} ${y}) rotate(${a})"><g class="float-page"><rect x="-16" y="-21" width="32" height="42" rx="2" fill="#f1e4c7" opacity=".85"/><path d="M-10 -10h20M-10 -2h20M-10 6h14" stroke="#a8743e" stroke-width="1.5"/></g></g>`).join('')}`,
   vortex:`<rect width="${W}" height="${H}" fill="rgba(6,8,16,.2)"/>`};
   /* v1.4: capa de ambiente común — haces de luz desde las ventanas, polvo en suspensión, bruma en el suelo y viñeta */
   const WIN={paris:[600,60,300,230,'#ffd9a8'],cologne:[640,70,280,250,'#ffe2b8'],manchester:[620,56,300,220,'#ffb98a'],museum:[520,120,200,200,'#5ee0ff'],academie:[330,40,340,260,'#ffe08a'],berlin:[420,70,160,200,'#e8dcc0'],pearl:[90,40,820,200,'#fff3c2'],newyork:[200,250,600,170,'#ffd27a']};
@@ -696,7 +749,7 @@ function talk(lines,o){o=o||{};return new Promise(res=>{show('talk');const box=$
     $('#tkName').innerHTML=who==='nar'?'':`<b style="color:${c.col}">${esc(T(c.n))}</b><span>${esc(T(c.role))}</span>`;$('#tkName').hidden=who==='nar';$('#tkBox').classList.toggle('nar',who==='nar');
     full=T(L.t||'').replace(/\{N\}/g,playerName());const el=$('#tkText');el.innerHTML='';typing=true;$('#tkBox').classList.remove('ready');let k=0;const plainT=unmark(full);
     const alt=S.settings.alt?TO(L.t||'').replace(/\{N\}/g,playerName()):'';const ae=$('#tkAlt');ae.hidden=!alt;ae.lang=other();ae.innerHTML=alt?hl(alt):'';
-    VO.say(dropName(T(L.t||'')));
+    VO.say(dropName(T(L.t||'')),false,L.w||'nar');
     const tick=()=>{if(!typing)return;k+=RM?9999:2;if(k%6===0)AU.play('type');if(k>=plainT.length){typing=false;el.innerHTML=hl(full);$('#tkBox').classList.add('ready');return}el.textContent=plainT.slice(0,k);timer=setTimeout(tick,16)};tick()}
   function adv(){if(ended)return;if(typing){typing=false;clearTimeout(timer);$('#tkText').innerHTML=hl(full);$('#tkBox').classList.add('ready');return}AU.play('click');step()}
   function finish(){if(ended)return;ended=true;if(ro)ro.disconnect();VO.stop();removeEventListener('keydown',kd);res()}
@@ -706,7 +759,7 @@ function talk(lines,o){o=o||{};return new Promise(res=>{show('talk');const box=$
 /* time travel cinematic */
 function travel(era,year,place){return new Promise(res=>{show('travel');const el=$('#scr-travel');el.innerHTML=`<div class="tr-wrap"><p class="kicker">${esc(ui('travel.k'))}</p><h1 class="tr-year" id="trY">2026</h1><p class="tr-place">${esc(place)}</p><p class="tr-era">${esc(era)}</p></div>`;
   AU.play('whoosh');AU.play('power');STAR.warp=14;let y=2026;const target=year;const t0=performance.now();const dur=RM?100:2600;
-  const f=now=>{const k=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-k,3);y=Math.round(2026+(target-2026)*e);const yy=$('#trY');if(yy)yy.textContent=y;if(k<1)requestAnimationFrame(f);else{STAR.warp=0;const fl=document.createElement('div');fl.className='white-flash';document.body.append(fl);AU.play('boom');setTimeout(()=>{fl.remove();res()},700)}};requestAnimationFrame(f)})}
+  const f=now=>{const k=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-k,3);y=Math.round(2026+(target-2026)*e);const yy=$('#trY');if(yy)yy.textContent=k>=1&&!target?'∞':y;if(k<1)requestAnimationFrame(f);else{STAR.warp=0;const fl=document.createElement('div');fl.className='white-flash';document.body.append(fl);AU.play('boom');setTimeout(()=>{fl.remove();res()},700)}};requestAnimationFrame(f)})}
 
 /* ================= Shared content: skills, notebook ================= */
 const SKILLS=[
@@ -722,6 +775,7 @@ const SKILLS=[
   {id:'energie',fr:"L'énergie : E = P × t (joule, kWh)",es:'La energía'},
   {id:'joule',fr:"L'effet Joule",es:'El efecto Joule'},
   {id:'securite',fr:"Court-circuit, fusible et sécurité électrique",es:'Seguridad eléctrica'}];
+SKILLS.push({id:'auto',fr:tx('Relais, boutons-poussoirs et marche-arrêt','Relés, pulsadores y marcha-paro'),es:tx('Automatismos','Automatismos')});
 const SK=Object.fromEntries(SKILLS.map(s=>[s.id,s]));
 /* notebook: cat = loi | astuce | hist */
 const NOTES={
@@ -1182,8 +1236,139 @@ missions:[
   {type:'tip',id:'h_tesla'},{type:'page'}]}]};
 
 
-const CHAPTERS=[CH1,CH2,CH3,CH4,
-  {id:'c5',n:5,place:'Le Vortex',year:0,vortex:1,era:'Fuera del tiempo',sci:'baron',title:'Le Baron',es:'El duelo final',color:'#c77dff',soon:true,missions:[]}];
+/* ================= Chapter 5 · Le Vortex · relés y marcha-paro (v1.4) ================= */
+Object.assign(NOTES,{
+  n_poussoir:{cat:'loi',fr:tx('Interrupteur ou bouton-poussoir ?','¿Interruptor o pulsador?'),es:tx('Pulsador','Pulsador'),
+    b:tx("Un **interrupteur** reste dans la position où on le laisse. Un **bouton-poussoir** revient tout seul au repos quand on le lâche. Un bouton **NO** (normalement ouvert) ferme le circuit tant qu'on appuie ; un bouton **NF** (normalement fermé) l'ouvre tant qu'on appuie.","Un **interruptor** se queda en la posición en que lo dejas. Un **pulsador** vuelve solo a su posición de reposo al soltarlo. Un pulsador **NA** (normalmente abierto) cierra el circuito mientras lo pulsas; uno **NC** (normalmente cerrado) lo abre mientras lo pulsas."),
+    bes:tx("Exemples : la sonnette est un bouton NO ; le bouton d'arrêt d'une machine est un bouton NF.","Ejemplos: el timbre es un pulsador NA; el botón de paro de una máquina es un pulsador NC.")},
+  n_relais:{cat:'loi',fr:tx('Le relais','El relé'),es:tx('El relé','El relé'),
+    b:tx("Un **relais** est un interrupteur commandé par l'électricité. Quand sa **bobine** est alimentée, elle devient un aimant et fait basculer ses **contacts** : les contacts NO se ferment, les contacts NF s'ouvrent.","Un **relé** es un interruptor accionado por electricidad. Cuando su **bobina** recibe corriente se convierte en un imán y mueve sus **contactos**: los NA se cierran y los NC se abren."),
+    bes:tx("Grâce au relais, un petit courant de commande (le bouton) pilote un grand courant de puissance (le moteur). Les deux circuits sont séparés : c'est plus sûr.","Gracias al relé, una corriente pequeña de mando (el pulsador) controla una corriente grande de potencia (el motor). Los dos circuitos están separados: es más seguro.")},
+  n_maintien:{cat:'loi',fr:tx("L'auto-maintien (marche-arrêt)",'La autorretención (marcha-paro)'),es:tx('Marcha-paro','Marcha-paro'),
+    b:tx("Pour qu'une machine continue à tourner après avoir lâché le bouton MARCHE, on branche un **contact NO du relais en dérivation** sur ce bouton : le relais se tient lui-même. C'est l'**auto-maintien**. Le bouton ARRÊT (NF), en série, coupe la bobine et tout s'arrête.","Para que una máquina siga en marcha al soltar el pulsador de MARCHA, se conecta un **contacto NA del relé en paralelo** con ese pulsador: el relé se mantiene solo. Es la **autorretención**. El pulsador de PARO (NC), en serie, corta la bobina y todo se para."),
+    bes:tx("C'est le montage de base de presque toutes les machines industrielles : tapis roulants, pompes, ascenseurs…","Es el montaje básico de casi todas las máquinas industriales: cintas transportadoras, bombas, ascensores…")},
+  n_voyants:{cat:'astuce',fr:tx('Les voyants','Los pilotos de señalización'),es:tx('Pilotos','Pilotos'),
+    b:tx("Un **voyant vert** indique que la machine est en marche, un **voyant rouge** qu'elle est à l'arrêt. On les commande avec les contacts du relais : un contact NO pour le vert, un contact NF pour le rouge.","Un **piloto verde** indica que la máquina está en marcha y uno **rojo** que está parada. Se controlan con los contactos del relé: un contacto NA para el verde y uno NC para el rojo."),
+    bes:tx("Astuce : un contact NF fait toujours le contraire d'un contact NO du même relais.","Truco: un contacto NC siempre hace lo contrario que un contacto NA del mismo relé.")},
+  n_urgence:{cat:'loi',fr:tx("L'arrêt d'urgence",'El paro de emergencia'),es:tx('Paro de emergencia','Paro de emergencia'),
+    b:tx("Le bouton **coup-de-poing** rouge est un bouton NF placé sur la **ligne principale** : quand on frappe dessus, il coupe l'alimentation de toute la machine. Après l'urgence, la machine ne doit pas redémarrer toute seule.","La **seta** de emergencia es un pulsador NC rojo colocado en la **línea principal**: al golpearla, corta la alimentación de toda la máquina. Después de la emergencia, la máquina no debe volver a arrancar sola."),
+    bes:tx("Grâce à l'auto-maintien, il faut appuyer de nouveau sur MARCHE : c'est une sécurité.","Gracias a la autorretención, hay que volver a pulsar MARCHA: es una medida de seguridad.")},
+  h_henry:{cat:'hist',who:'tesla',fr:tx("Joseph Henry et l'électroaimant",'Joseph Henry y el electroimán'),es:tx('Henry','Henry'),
+    b:tx("Vers 1831, le physicien américain Joseph Henry construit des électroaimants capables de soulever des centaines de kilos, puis invente le principe du relais pour le télégraphe (1835). Dans chaque relais se cache un **électroaimant** : une bobine de fil qui devient un aimant quand le courant passe.","Hacia 1831, el físico estadounidense Joseph Henry construye electroimanes capaces de levantar cientos de kilos y después inventa el principio del relé para el telégrafo (1835). En cada relé se esconde un **electroimán**: una bobina de hilo que se convierte en imán cuando pasa la corriente."),
+    bes:tx("Le courant crée du magnétisme… et le magnétisme peut créer du courant. Tesla t'emmènera bientôt explorer ce mystère.","La corriente crea magnetismo… y el magnetismo puede crear corriente. Tesla te llevará pronto a explorar ese misterio.")}});
+
+/* tablero en escalera: raíl + arriba, raíl − abajo, generador de 12 V a la izquierda */
+const LAD=(n)=>[cG('v:0,1',12,{E:12}),...['v:0,0','v:0,2','v:0,3'].map(e=>({t:'wire',e,lock:1})),...Array.from({length:n},(_,x)=>[{t:'wire',e:`h:${x},0`,lock:1},{t:'wire',e:`h:${x},4`,lock:1}]).flat()];
+const PB=(t,e,lab)=>({t,e,lab,lock:1});const W=e=>({t:'wire',e,lock:1});
+const KA=(t,e)=>({t,e,lab:'KA1',rel:'KA1',lock:1});
+/* marcha-paro: S2 paro (NC), S1 marcha (NA), bobina KA1; hueco en paralelo con S1; motor M1 por un contacto NA de KA1 */
+const MP=(hold)=>[...LAD(5),PB('pbnc','v:2,0','S2'),PB('pbno','v:2,1','S1'),W('v:2,2'),{t:'coil',e:'v:2,3',lab:'KA1',lock:1},W('h:2,1'),W('h:2,2'),...(hold?[KA('kno','v:3,1')]:[]),
+  W('v:5,0'),KA('kno','v:5,1'),W('v:5,2'),{t:'motor',e:'v:5,3',lab:'M1',lock:1}];
+const noPress=Q=>!Q.B.comps.some(c=>c.pressed);
+const pressed=(Q,l)=>{const c=Q.c(l);return !!(c&&c.pressed)};
+const running=Q=>Q.I('M1')>.15;
+
+const CH5={id:'c5',n:5,place:tx('Le Vortex','El Vórtice'),year:0,vortex:1,era:tx('Hors du temps','Fuera del tiempo'),sci:'baron',scene:'fortress',title:tx("L'automate",'El autómata'),es:tx('Relais, marche-arrêt et duel final','Relés, marcha-paro y duelo final'),color:'#c77dff',page:tx('Page 5 · Les automatismes','Página 5 · Los automatismos'),
+missions:[
+ {id:'5-1',t:tx('Le bouton-poussoir','El pulsador'),steps:[
+  {type:'travel'},
+  {type:'talk',scene:'fortress',lines:[
+    {w:'nar',t:tx("Hors du temps. Des engrenages flottent dans le vide, des horloges tournent à l'envers. Au centre, la forteresse du Baron.","Fuera del tiempo. Engranajes que flotan en el vacío, relojes que giran al revés. En el centro, la fortaleza del Barón.")},
+    {w:'baron',m:'evil',t:tx("Bienvenue dans mon Vortex ! Ici, mes machines travaillent toutes seules, jour et nuit. Personne ne peut les arrêter… pas même vous !","¡Bienvenidos a mi Vórtice! Aquí mis máquinas trabajan solas, día y noche. Nadie puede pararlas… ¡ni siquiera vosotros!")},
+    {w:'tesla',m:'neutral',t:tx("Des machines automatiques… Pour les comprendre, commençons par le plus simple : le bouton-poussoir.","Máquinas automáticas… Para entenderlas, empecemos por lo más sencillo: el pulsador.")},
+    {w:'lumi',m:'happy',t:tx("Comme une sonnette : ça marche seulement tant qu'on appuie. {N}, essaie !","Como un timbre: solo funciona mientras lo pulsas. {N}, ¡pruébalo!")}]},
+  {type:'tip',id:'n_poussoir'},
+  {type:'lab',title:tx('Appuyer pour allumer','Pulsar para encender'),board:{comps:board([cG('v:1,1',12,{E:12}),cL('h:3,0','l12','L1')],{gaps:['h:2,3']})},palette:{pbno:1,pbnc:1},tool:'pbno',
+   goals:[{t:tx('Place le bouton MARCHE (NO) dans le trou','Coloca el pulsador de MARCHA (NA) en el hueco'),es:tx('Le trou est en bas du circuit','El hueco está abajo del circuito'),check:Q=>Q.of('pbno').length>0&&!Q.lit('L1')},
+     {t:tx('Choisis la « Main » et maintiens S1 appuyé : L1 s\'allume','Elige la «Mano» y mantén pulsado S1: L1 se enciende'),es:tx('Lâche-le : la lampe s\'éteint','Al soltarlo, la lámpara se apaga'),check:Q=>Q.of('pbno').some(c=>c.pressed)&&Q.lit('L1')},
+     {t:tx('Remplace-le par le bouton ARRÊT (NF) : L1 s\'allume sans rien toucher','Cámbialo por el pulsador de PARO (NC): L1 se enciende sin tocar nada'),es:tx('Gomme le bouton NO, puis place le bouton NF','Borra el pulsador NA y coloca el NC'),check:Q=>!Q.of('pbno').length&&Q.of('pbnc').length>0&&noPress(Q)&&Q.lit('L1')},
+     {t:tx("Appuie sur le bouton ARRÊT : L1 s'éteint",'Pulsa el pulsador de PARO: L1 se apaga'),es:tx('Il ouvre le circuit tant que tu appuies','Abre el circuito mientras lo pulsas'),check:Q=>Q.of('pbnc').some(c=>c.pressed)&&!Q.lit('L1')}],
+   hints:[tx('Pour appuyer, choisis l\'outil « Main » et garde le doigt sur le bouton vert.','Para pulsar, elige la herramienta «Mano» y mantén el dedo sobre el botón verde.'),tx('Avec la « Gomme », retire le bouton NO, puis choisis le bouton NF et touche le trou.','Con la «Goma», quita el pulsador NA; luego elige el NC y toca el hueco.')],skill:'auto'},
+  {type:'qcm',skill:'auto',q:tx("Quelle est la différence entre un interrupteur et un bouton-poussoir ?",'¿Qué diferencia hay entre un interruptor y un pulsador?'),o:[tx("Le bouton-poussoir revient seul au repos quand on le lâche",'El pulsador vuelve solo al reposo al soltarlo'),tx("L'interrupteur ne peut pas ouvrir un circuit",'El interruptor no puede abrir un circuito'),tx('Le bouton-poussoir laisse passer plus de courant','El pulsador deja pasar más corriente'),tx("Il n'y a aucune différence",'No hay ninguna diferencia')],ex:tx("Un [[bouton-poussoir]] ne garde pas sa position : il revient au repos dès qu'on le lâche.","Un [[pulsador]] no mantiene su posición: vuelve al reposo en cuanto lo sueltas.")}]},
+ {id:'5-2',t:tx('Le relais','El relé'),steps:[
+  {type:'talk',scene:'fortress',lines:[
+    {w:'tesla',m:'happy',t:tx("Regarde cette boîte : un [[relais]]. Un petit courant dans sa bobine… et clac ! Ses contacts se ferment et commandent un gros moteur.","Mira esta caja: un [[relé]]. Una corriente pequeña en su bobina… ¡y clac! Sus contactos se cierran y controlan un motor grande.")},
+    {w:'lumi',m:'wow',t:tx("C'est un interrupteur qui obéit à l'électricité !","¡Es un interruptor que obedece a la electricidad!")},
+    {w:'tesla',m:'neutral',t:tx("Exactement. Mesure les deux courants, {N} : celui de la commande et celui du moteur.","Exacto. Mide las dos corrientes, {N}: la del mando y la del motor.")}]},
+  {type:'tip',id:'n_relais'},
+  {type:'lab',title:tx('Petit courant, grand moteur','Corriente pequeña, motor grande'),board:{rows:5,cols:7,comps:[...LAD(5),{t:'sw',e:'v:2,0',lab:'K1',lock:1,on:false},cA('v:2,1','A1',{lockDir:1}),W('v:2,2'),{t:'coil',e:'v:2,3',lab:'KA1',lock:1},
+     W('v:5,0'),cA('v:5,1','A2',{lockDir:1}),KA('kno','v:5,2'),{t:'motor',e:'v:5,3',lab:'M1',lock:1}]},palette:{},tool:'select',
+   goals:[{t:tx('Ferme K1 : le relais colle et le moteur démarre','Cierra K1: el relé se acciona y el motor arranca'),es:tx('Avec la « Main », touche K1','Con la «Mano», toca K1'),check:Q=>Q.act('KA1')&&running(Q)},
+     {t:tx('Courant de commande (bobine) : I1 = ? A','Corriente de mando (bobina): I1 = ? A'),es:tx("Lis l'ampèremètre A1",'Lee el amperímetro A1'),input:{unit:'A',ans:Q=>Q.I('A1'),tol:.006}},
+     {t:tx('Courant de puissance (moteur) : I2 = ? A','Corriente de potencia (motor): I2 = ? A'),es:tx("Lis l'ampèremètre A2",'Lee el amperímetro A2'),input:{unit:'A',ans:Q=>Q.I('A2'),tol:.008}},
+     {t:tx("Ouvre K1 : le relais retombe et tout s'arrête",'Abre K1: el relé se desactiva y todo se para'),es:tx('Écoute le « clac » du relais','Escucha el «clac» del relé'),check:Q=>!Q.act('KA1')&&!running(Q)}],
+   hints:[tx('K1 est en haut du premier barreau, au-dessus de A1.','K1 está arriba del primer escalón, encima de A1.'),tx('La bobine consomme environ 0,1 A, le moteur environ 0,4 A : 4 fois plus !','La bobina consume unos 0,1 A y el motor unos 0,4 A: ¡4 veces más!')],skill:'auto'},
+  {type:'qcm',skill:'auto',q:tx('À quoi sert un [[relais]] ?','¿Para qué sirve un [[relé]]?'),o:[tx("À commander un grand courant avec un petit courant",'Para controlar una corriente grande con una corriente pequeña'),tx('À produire de l\'électricité','Para producir electricidad'),tx('À mesurer la tension','Para medir la tensión'),tx('À remplacer un fusible','Para sustituir un fusible')],ex:tx("La bobine du relais consomme peu ; ses contacts peuvent commander un moteur puissant, sur un circuit séparé.","La bobina del relé consume poco; sus contactos pueden controlar un motor potente, en un circuito separado.")},
+  {type:'qcm',skill:'auto',q:tx("Quand la bobine est alimentée, un contact NF du relais…",'Cuando la bobina recibe corriente, un contacto NC del relé…'),o:[tx("s'ouvre",'se abre'),tx('se ferme','se cierra'),tx('ne bouge pas','no se mueve'),tx('fond','se funde')],ex:tx("Le relais fait basculer tous ses contacts : les NO se ferment, les NF s'ouvrent.","El relé mueve todos sus contactos a la vez: los NA se cierran y los NC se abren.")},
+  {type:'tip',id:'h_henry'}]},
+ {id:'5-3',t:tx('Marche-arrêt','Marcha-paro'),steps:[
+  {type:'talk',scene:'fortress',lines:[
+    {w:'baron',m:'evil',t:tx("Ha ! Votre moteur s'arrête dès qu'on lâche le bouton. Mes machines, elles, tournent toutes seules !","¡Ja! Vuestro motor se para en cuanto se suelta el botón. ¡Las mías funcionan solas!")},
+    {w:'tesla',m:'neutral',t:tx("Son secret est simple : le relais se tient lui-même. On appelle ça l'[[auto-maintien]].","Su secreto es sencillo: el relé se sujeta a sí mismo. Se llama [[autorretención]].")},
+    {w:'lumi',m:'happy',t:tx("{N}, ajoute un contact du relais au bon endroit et ta machine aussi tournera toute seule !","{N}, añade un contacto del relé en el sitio correcto y tu máquina también funcionará sola.")}]},
+  {type:'tip',id:'n_maintien'},
+  {type:'lab',title:tx("L'auto-maintien",'La autorretención'),board:{rows:5,cols:7,comps:MP(false)},palette:{kno:1,knc:1},tool:'select',
+   goals:[{t:tx('Appuie sur MARCHE (S1) : le moteur démarre','Pulsa MARCHA (S1): el motor arranca'),es:tx('Maintiens le bouton vert','Mantén pulsado el botón verde'),check:Q=>pressed(Q,'S1')&&running(Q)},
+     {t:tx('Fais en sorte que le moteur continue quand tu lâches S1','Consigue que el motor siga al soltar S1'),es:tx('Place un contact du relais dans le trou, puis appuie et lâche S1','Coloca un contacto del relé en el hueco; luego pulsa y suelta S1'),check:Q=>noPress(Q)&&running(Q)},
+     {t:tx('Appuie sur ARRÊT (S2) : le moteur s\'arrête','Pulsa PARO (S2): el motor se para'),es:tx('Le bouton rouge','El botón rojo'),check:Q=>pressed(Q,'S2')&&!running(Q)},
+     {t:tx('Lâche S2 : le moteur reste arrêté','Suelta S2: el motor sigue parado'),es:tx('Il faudra appuyer de nouveau sur MARCHE','Habrá que volver a pulsar MARCHA'),check:Q=>noPress(Q)&&!running(Q)&&!Q.act('KA1')}],
+   hints:[tx('Le trou est à droite de S1 : un contact là-dedans est branché en dérivation sur S1.','El hueco está a la derecha de S1: un contacto ahí queda en paralelo con S1.'),tx("Choisis le contact NO du relais. Quand KA1 colle, il remplace ton doigt sur S1.","Elige el contacto NA del relé. Cuando KA1 se acciona, sustituye a tu dedo sobre S1.")],skill:'auto'},
+  {type:'qcm',skill:'auto',q:tx("Dans un montage marche-arrêt, le contact d'auto-maintien est…",'En un montaje marcha-paro, el contacto de autorretención es…'),o:[tx('un contact NO du relais, en dérivation sur le bouton MARCHE','un contacto NA del relé, en paralelo con el pulsador de MARCHA'),tx('un contact NF du relais, en série avec le moteur','un contacto NC del relé, en serie con el motor'),tx('un deuxième bouton ARRÊT','un segundo pulsador de PARO'),tx('un fusible','un fusible')],ex:tx("Le contact NO se ferme quand le relais colle et « remplace » le bouton MARCHE une fois lâché.","El contacto NA se cierra cuando el relé se acciona y «sustituye» al pulsador de MARCHA una vez soltado.")}]},
+ {id:'5-4',t:tx('Les voyants','Los pilotos'),steps:[
+  {type:'talk',scene:'fortress',lines:[
+    {w:'lumi',m:'neutral',t:tx("Sur un vrai tableau, on voit d'un coup d'œil si la machine tourne : voyant vert en marche, voyant rouge à l'arrêt.","En un cuadro de verdad se ve de un vistazo si la máquina funciona: piloto verde en marcha, rojo parada.")},
+    {w:'tesla',m:'happy',t:tx("Le même relais peut tout commander. Choisis bien tes contacts : NO ou NF ?","El mismo relé puede controlarlo todo. Elige bien tus contactos: ¿NA o NC?")}]},
+  {type:'tip',id:'n_voyants'},
+  {type:'lab',title:tx('Vert en marche, rouge à l\'arrêt','Verde en marcha, rojo parada'),board:{rows:5,cols:8,comps:[...MP(true),W('h:5,0'),W('h:6,0'),W('h:5,4'),W('h:6,4'),
+     W('v:6,0'),W('v:6,2'),cL('v:6,3','l12','H1',{col:'g'}),W('v:7,0'),W('v:7,2'),cL('v:7,3','l12','H2',{col:'r'})]},palette:{kno:2,knc:2},tool:'kno',
+   goals:[{t:tx("Branche les voyants : à l'arrêt, seul le rouge H2 s'allume ; en marche, seul le vert H1",'Conecta los pilotos: parada, solo el rojo H2; en marcha, solo el verde H1'),es:tx('Deux trous, au-dessus de H1 et de H2','Dos huecos, encima de H1 y de H2'),
+      check:Q=>{const [a,b]=seqSim(Q.B,[[],['S1']]);return a.lit('H2')&&!a.lit('H1')&&b.lit('H1')&&!b.lit('H2')}},
+     {t:tx('Démarre la machine : le voyant vert s\'allume','Arranca la máquina: se enciende el piloto verde'),es:tx('Appuie sur S1 puis lâche-le','Pulsa S1 y suéltalo'),check:Q=>noPress(Q)&&running(Q)&&Q.lit('H1')&&!Q.lit('H2')},
+     {t:tx('Arrête-la : le rouge revient','Párala: vuelve el rojo'),es:tx('Appuie sur S2 puis lâche-le','Pulsa S2 y suéltalo'),check:Q=>noPress(Q)&&!running(Q)&&Q.lit('H2')&&!Q.lit('H1')}],
+   hints:[tx('Le voyant vert doit s\'allumer quand le relais colle : contact NO.','El piloto verde debe encenderse cuando el relé se acciona: contacto NA.'),tx('Le rouge fait le contraire : contact NF au-dessus de H2.','El rojo hace lo contrario: contacto NC encima de H2.')],skill:'auto'},
+  {type:'num',skill:'puissance',q:tx('Le moteur (0,4 A) et un voyant (0,1 A) sous 12 V. Puissance totale = ? W','El motor (0,4 A) y un piloto (0,1 A) a 12 V. Potencia total = ? W'),ans:6,unit:'W',tol:.05,ex:tx('I = 0,4 + 0,1 = 0,5 A, donc P = 12 × 0,5 = [[6 W]].','I = 0,4 + 0,1 = 0,5 A, así que P = 12 × 0,5 = [[6 W]].')}]},
+ {id:'5-5',t:tx("L'arrêt d'urgence",'El paro de emergencia'),steps:[
+  {type:'talk',scene:'fortress',lines:[
+    {fx:'thunder'},{w:'baron',m:'angry',t:tx("Assez ! Je vais lancer toutes mes machines en même temps !","¡Basta! ¡Voy a poner en marcha todas mis máquinas a la vez!")},
+    {w:'tesla',m:'worried',t:tx("Une machine sans arrêt d'urgence est une machine dangereuse. {N}, installe le bouton coup-de-poing, vite !","Una máquina sin paro de emergencia es una máquina peligrosa. {N}, instala la seta de emergencia, ¡rápido!")}]},
+  {type:'tip',id:'n_urgence'},
+  {type:'lab',title:tx("Le coup-de-poing",'La seta de emergencia'),board:{rows:5,cols:7,comps:MP(true).filter(c=>c.e!=='h:1,0')},palette:{pbnc:1,pbno:1},tool:'pbnc',
+   goals:[{t:tx("Place l'arrêt d'urgence sur la ligne principale",'Coloca el paro de emergencia en la línea principal'),es:tx('Le trou est sur le fil du haut, juste après le générateur','El hueco está en el cable de arriba, justo después del generador'),
+      check:Q=>{const e=Q.of('pbnc').find(c=>!c.lock);if(!e)return false;const [,b,c,d]=seqSim(Q.B,[[],['S1'],['S1',e.lab],[]]);return b.I('M1')>.15&&c.I('M1')<.01&&d.I('M1')<.01}},
+     {t:tx('Démarre la machine','Arranca la máquina'),es:tx('S1, puis lâche','S1 y suelta'),check:Q=>noPress(Q)&&running(Q)},
+     {t:tx("Frappe l'arrêt d'urgence : tout s'arrête",'Golpea la seta: todo se para'),es:tx('Le bouton rouge que tu viens de placer','El botón rojo que acabas de colocar'),check:Q=>Q.of('pbnc').some(c=>!c.lock&&c.pressed)&&!running(Q)},
+     {t:tx('Lâche-le : la machine ne redémarre pas toute seule','Suéltala: la máquina no vuelve a arrancar sola'),es:tx("Grâce à l'auto-maintien",'Gracias a la autorretención'),check:Q=>noPress(Q)&&!running(Q)}],
+   hints:[tx('Le trou est entre le générateur et les barreaux : un bouton là coupe tout.','El hueco está entre el generador y los escalones: un pulsador ahí lo corta todo.'),tx("Il faut un bouton NF (rouge) : il laisse passer le courant… sauf quand on frappe dessus.",'Hace falta un pulsador NC (rojo): deja pasar la corriente… salvo cuando lo golpeas.')],skill:'auto'},
+  {type:'danger',title:tx("Sécurité des machines",'Seguridad de las máquinas'),sec:8,skill:'securite',cards:[
+    {t:tx("Une machine redémarre toute seule après une coupure de courant",'Una máquina vuelve a arrancar sola después de un corte de corriente'),danger:1,why:tx("Quelqu'un pourrait avoir les mains dedans : on exige un nouvel appui sur MARCHE.",'Alguien podría tener las manos dentro: hay que exigir pulsar MARCHA de nuevo.')},
+    {t:tx("Un arrêt d'urgence rouge, bien visible, près de la machine",'Una seta de emergencia roja, bien visible, junto a la máquina'),danger:0,why:tx("C'est obligatoire et ça sauve des vies.",'Es obligatorio y salva vidas.')},
+    {t:tx("Bloquer le bouton ARRÊT avec du scotch pour aller plus vite",'Bloquear el pulsador de PARO con cinta para ir más rápido'),danger:1,why:tx("On ne pourrait plus arrêter la machine en cas de problème.",'Ya no se podría parar la máquina si hay un problema.')},
+    {t:tx("Couper l'alimentation avant de débloquer un tapis roulant",'Cortar la alimentación antes de desatascar una cinta transportadora'),danger:0,why:tx("On ne met jamais les mains dans une machine sous tension.",'Nunca se meten las manos en una máquina con tensión.')},
+    {t:tx("Un voyant vert allumé alors que la machine est arrêtée",'Un piloto verde encendido con la máquina parada'),danger:1,why:tx("Le voyant ment : quelqu'un pourrait croire la machine en marche… ou l'inverse. On répare le câblage.",'El piloto miente: alguien podría equivocarse sobre el estado de la máquina. Hay que reparar el cableado.')},
+    {t:tx("Commander un moteur puissant avec un relais et un petit bouton",'Controlar un motor potente con un relé y un pulsador pequeño'),danger:0,why:tx("Le bouton ne voit passer qu'un petit courant : c'est plus sûr.",'Por el pulsador solo pasa una corriente pequeña: es más seguro.')}]}]},
+ {id:'5-6',t:tx('Le duel final','El duelo final'),boss:true,steps:[
+  {type:'talk',scene:'fortress',lines:[
+    {w:'nar',t:tx("Le cœur du Vortex. Le Baron se tient devant son tableau de commande géant. Toutes les pages volées flottent autour de lui.","El corazón del Vórtice. El Barón está ante su gigantesco cuadro de mando. Todas las páginas robadas flotan a su alrededor.")},
+    {w:'baron',m:'evil',t:tx("Dernière chance ! Réponds à mes questions… ou le temps restera brisé à jamais !","¡Última oportunidad! Responde a mis preguntas… ¡o el tiempo quedará roto para siempre!")},
+    {w:'tesla',m:'neutral',t:tx("Tout ce que tu as appris depuis Paris te servira. Courage, {N}.","Todo lo que has aprendido desde París te servirá. Ánimo, {N}.")}]},
+  {type:'boss',title:tx('Le duel final','El duelo final'),hearts:3,qs:[
+    {skill:'unicite',q:tx("Dans un circuit en série, l'intensité est…",'En un circuito en serie, la intensidad es…'),o:[tx('la même partout','la misma en todas partes'),tx('plus forte près du générateur','mayor cerca del generador'),tx('nulle après la lampe','nula después de la lámpara'),tx('différente dans chaque fil','distinta en cada cable')],ex:tx("Loi d'unicité : en série, I est la même en tout point.","Ley de unicidad: en serie, I es la misma en todos los puntos.")},
+    {skill:'ohm',type:'num',q:tx('R = 100 Ω, I = 0,06 A. U = ? V','R = 100 Ω, I = 0,06 A. U = ? V'),ans:6,unit:'V',tol:.01,ex:tx('U = R × I = 100 × 0,06 = 6 V.','U = R × I = 100 × 0,06 = 6 V.')},
+    {skill:'puissance',type:'num',q:tx('Un moteur de 12 V consomme 0,5 A. P = ? W','Un motor de 12 V consume 0,5 A. P = ? W'),ans:6,unit:'W',tol:.01,ex:tx('P = U × I = 12 × 0,5 = 6 W.','P = U × I = 12 × 0,5 = 6 W.')},
+    {skill:'securite',q:tx("Le fusible protège surtout…",'El fusible protege sobre todo…'),o:[tx('les fils et les appareils','los cables y los aparatos'),tx('les personnes contre toute électrocution','a las personas de cualquier electrocución'),tx('le compteur','el contador'),tx('la lampe contre la lumière','la lámpara de la luz')],ex:tx("Il coupe quand l'intensité dépasse son calibre.",'Corta cuando la intensidad supera su calibre.')},
+    {skill:'auto',q:tx('Un bouton NF…','Un pulsador NC…'),o:[tx("ouvre le circuit quand on appuie",'abre el circuito al pulsarlo'),tx('ferme le circuit quand on appuie','cierra el circuito al pulsarlo'),tx('reste enfoncé','se queda hundido'),tx('produit du courant','produce corriente')],ex:tx("Normalement fermé : il laisse passer le courant au repos et l'ouvre quand on appuie.",'Normalmente cerrado: deja pasar la corriente en reposo y la corta al pulsarlo.')},
+    {skill:'auto',q:tx("Sans contact d'auto-maintien, quand on lâche MARCHE, le moteur…",'Sin contacto de autorretención, al soltar MARCHA, el motor…'),o:[tx("s'arrête",'se para'),tx('continue','sigue'),tx('accélère','acelera'),tx('grille','se quema')],ex:tx("Le relais ne se tient plus : la bobine n'est plus alimentée.",'El relé ya no se sujeta: la bobina deja de recibir corriente.')},
+    {skill:'energie',type:'num',q:tx('La machine (6 W) tourne 10 h. E = ? kWh','La máquina (6 W) funciona 10 h. E = ? kWh'),ans:.06,unit:'kWh',tol:.001,ex:tx('E = 0,006 kW × 10 h = 0,06 kWh.','E = 0,006 kW × 10 h = 0,06 kWh.')},
+    {skill:'auto',q:tx("Où place-t-on l'arrêt d'urgence ?",'¿Dónde se coloca el paro de emergencia?'),o:[tx("Sur la ligne principale, pour tout couper",'En la línea principal, para cortarlo todo'),tx('En dérivation sur le moteur','En paralelo con el motor'),tx('Après le voyant vert','Después del piloto verde'),tx('Nulle part','En ningún sitio')],ex:tx("En série sur l'alimentation principale : un seul coup et toute la machine s'arrête.",'En serie con la alimentación principal: un solo golpe y se para toda la máquina.')}]},
+  {type:'talk',scene:'fortress',lines:[
+    {fx:'ok'},{w:'baron',m:'worried',t:tx("Non… mes machines s'arrêtent… mes pages s'envolent…","No… mis máquinas se paran… mis páginas se escapan…")},{fx:'flash'},
+    {w:'lumi',m:'happy',t:tx("Le Livre des Lois est complet ! L'électricité est de nouveau à tout le monde.","¡El Libro de las Leyes está completo! La electricidad vuelve a ser de todos.")},
+    {w:'baron',m:'sad',t:tx("Je voulais seulement… qu'on se souvienne de moi, comme Ampère ou Ohm.","Yo solo quería… que me recordaran, como a Ampère o a Ohm.")},
+    {w:'tesla',m:'happy',t:tx("On se souvient de ceux qui partagent leurs découvertes, Baron. Il n'est pas trop tard pour apprendre.","Se recuerda a quienes comparten sus descubrimientos, Barón. No es tarde para aprender.")},
+    {w:'tesla',m:'neutral',t:tx("Et toi, {N}… as-tu remarqué ? Dans chaque relais se cache un aimant qui naît du courant. Les aimants, les bobines, les moteurs… ce sera notre prochain voyage.","Y tú, {N}… ¿te has fijado? En cada relé se esconde un imán que nace de la corriente. Imanes, bobinas, motores… será nuestro próximo viaje.")}]},
+  {type:'page'}]}]};
+
+const CHAPTERS=[CH1,CH2,CH3,CH4,CH5];
 
 /* ================= Learning tracker ================= */
 function trackSkill(id,ok){if(!id)return;const k=S.skills[id]||(S.skills[id]={n:0,ok:0,h:[]});k.n++;if(ok)k.ok++;k.h.push(ok?1:0);if(k.h.length>10)k.h=k.h.slice(-10);S.stats.answered++;if(ok)S.stats.correct++}
@@ -1214,6 +1399,8 @@ function missionEnd(){const r=RUN,ch=r.ch,cs=chState(ch.id);const stars=r.err===
   $('#stage').className='stage';$('#stage').innerHTML=`<div class="panel end"><p class="kicker">${esc(ui(last?'end.chapter':'end.mission'))}</p><div class="end-big ok">${esc(T(r.m.t))}</div>${altC(r.m.t,'es end-alt')}
     <div class="end-stars">${starsHTML(stars).replace(/^<span class="stars"[^>]*>|<\/span>$/g,'')}</div>
     <div class="end-stats"><span><b>+${r.xp}</b>XP</span><span><b class="cry">${ICON('crystal')} +${cr}</b>${esc(uiN('end.crystals',cr))}</span><span><b>${fmtErr(r.err)}</b>${esc(uiN('end.errors',r.err))}</span>${r.hints?`<span><b>${r.hints}</b>${esc(uiN('end.hints',r.hints))}</span>`:''}</div>
+    ${ch.vortex&&last?`<div class="finale"><div class="diploma"><p class="pp-k">${esc(ui('fin.k'))}</p><h2>${esc(ui('fin.title'))}</h2><p>${esc(ui('fin.text',{n:playerName()}))}</p><p class="fin-date">${esc(new Date().toLocaleDateString(L==='fr'?'fr-FR':'es-ES',{day:'numeric',month:'long',year:'numeric'}))} · Lumi · N. Tesla</p></div>
+      <div class="teaser panel"><div class="tz-p">${portrait('tesla','happy')}</div><div><p class="kicker">${esc(ui('fin.nextK'))}</p><h3>${esc(ui('fin.nextT'))}</h3><p>${esc(ui('fin.nextD'))}</p></div></div></div>`:''}
     <div class="end-actions">${nx?`<button class="btn primary" id="eNext">${ICON('play')} ${esc(T(nx.t))}</button>`:''}<button class="btn ${nx?'ghost':'primary'}" id="eBack">${esc(ui(last?'end.backTimeline':'end.backList'))}</button></div></div>`;
   AU.play(last?'levelup':'unlock');FX.confetti(last?220:90);
   const nb=$('#eNext');if(nb){nb.onclick=()=>startMission(ch,r.mi+1);nb.focus()}$('#eBack').onclick=()=>{RUN=null;last?renderHub():openChapter(ch)};
@@ -1223,7 +1410,7 @@ function rankCheck(r0){const r=rankOf(S.xp);if(r.i>r0){AU.play('levelup');FX.con
 /* ---------- tip card ---------- */
 function renderTip(st,stage){const n=NOTES[st.id];const isNew=!S.notes[st.id];S.notes[st.id]=Date.now();save();
   const ico={loi:'book',astuce:'bulb',hist:'clock'}[n.cat];
-  stage.innerHTML=`<div class="tipcard ${n.cat}"><div class="tc-h">${ICON(ico)}<span>${esc(ui('note.cat.'+n.cat))}${altU('note.cat.'+n.cat,'tc-alt')}</span>${isNew?`<em>${esc(ui('note.new'))}</em>`:''}</div><h2>${esc(T(n.fr))}${altC(n.fr,'es tc-alt')}</h2><p class="tc-b">${md(T(n.b))}</p>${altC(n.b,'es tc-alt tc-alt-b')}<p class="tc-es"><b>${esc(ui('note.x.'+n.cat))} ›</b> ${md(T(n.bes))}</p>${n.cat==='astuce'?`<div class="tc-p">${portrait('lumi','happy')}</div>`:n.cat==='hist'&&RUN?`<div class="tc-p">${portrait(RUN.ch.sci,'happy')}</div>`:''}<div class="tc-f" id="tcF"><button class="tool" id="tcRead">${esc(ui('btn.listen'))}</button></div></div>`;
+  stage.innerHTML=`<div class="tipcard ${n.cat}"><div class="tc-h">${ICON(ico)}<span>${esc(ui('note.cat.'+n.cat))}${altU('note.cat.'+n.cat,'tc-alt')}</span>${isNew?`<em>${esc(ui('note.new'))}</em>`:''}</div><h2>${esc(T(n.fr))}${altC(n.fr,'es tc-alt')}</h2><p class="tc-b">${md(T(n.b))}</p>${altC(n.b,'es tc-alt tc-alt-b')}<p class="tc-es"><b>${esc(ui('note.x.'+n.cat))} ›</b> ${md(T(n.bes))}</p>${n.cat==='astuce'?`<div class="tc-p">${portrait('lumi','happy')}</div>`:n.cat==='hist'&&RUN?`<div class="tc-p">${portrait(n.who||RUN.ch.sci,'happy')}</div>`:''}<div class="tc-f" id="tcF"><button class="tool" id="tcRead">${esc(ui('btn.listen'))}</button></div></div>`;
   $('#tcRead').onclick=()=>VO.say(noteSpeech(n),true);if(S.settings.narr)VO.say(T(n.fr)+'. '+T(n.b));if(isNew){AU.play('ach')}nextBtn($('#tcF'),ui('btn.noted'))}
 const noteSpeech=n=>T(n.fr)+'. '+T(n.b)+' '+T(n.bes);
 
@@ -1417,6 +1604,21 @@ function renderBlackout(st,stage){const dur=st.time||60,maxDark=st.maxDark||4,N=
     else{const b=document.createElement('button');b.className='btn primary';b.textContent=ui('btn.retry');$('#qFoot').append(b);b.focus();KEYS.next=()=>b.click();b.onclick=()=>{RUN.err++;brief()}}}
   brief()}
 
+/* v1.4 · todas las frases que el juego puede decir, con quién las dice (para tools/voces.py) */
+function voiceLines(){const out=[],add=(t,who)=>{if(t&&String(t).trim())out.push({who:who||'lumi',text:String(t).trim(),say:VO.prep(String(t).trim(),L).trim()})};
+  const steps=st=>{if(st.type==='talk')st.lines.forEach(l=>{if(l.t)add(dropName(T(l.t)),l.w||'nar')});
+    if(st.type==='tip'){const n=NOTES[st.id];add(T(n.fr)+'. '+T(n.b))}
+    (st.hints||[]).forEach(h=>add(T(h)));
+    if(st.q){add(T(st.q));if(st.ex)add(T(st.ex))}
+    (st.qs||[]).forEach(q=>{add(T(q.q));add(T(q.ex))});
+    (st.cards||[]).forEach(c=>add(T(c.t)))};
+  INTRO.forEach(l=>{if(l.t)add(dropName(T(l.t)),l.w||'nar')});
+  CHAPTERS.forEach(ch=>ch.missions.forEach(m=>m.steps.forEach(steps)));
+  Object.values(NOTES).forEach(n=>add(noteSpeech(n)));
+  add(ui('set.voice.test'));
+  PUZZLES.forEach(P=>{const w=P.master?'tesla':'lumi';['w','h1','h2'].forEach(k=>add(ui('pz.'+P.id+'.'+k),w))});
+  const seen=new Set();return out.filter(x=>{const k=VO.key(x.text,x.who);if(seen.has(k))return false;seen.add(k);x.key=k;return !!x.say})}
+
 /* ================= Achievements ================= */
 const ACH=[
   ['lab1','bolt',1,'Premier circuit','Encender la primera lámpara',()=>S.stats.labs>=1],
@@ -1437,6 +1639,7 @@ const ACH=[
   ['anom5','repeat',2,()=>S.rev.n>=5],
   ['c3','trophy',2,()=>chState('c3').complete],['c4','trophy',2,()=>chState('c4').complete],
   ['safe','shield',2,()=>!!S.stats.dangerPerfect],['blackout','bolt',3,()=>!!S.stats.blackoutPerfect],
+  ['c5','trophy',3,()=>chState('c5').complete],['auto','gear',2,()=>(S.skills.auto&&S.skills.auto.ok||0)>=5],
   ['master','trophy',3,()=>PUZZLES.filter(p=>p.master).every(p=>S.pz[p.id])]].map(([id,g,t,test])=>({id,g,t,k:'ach.'+id,test})));
 const achName=a=>a.k?ui(a.k+'.n'):T(a.fr), achDesc=a=>a.k?ui(a.k+'.d'):T(a.es);
 const ACH_CR=[0,10,25,60];let achQ=[],achBusy=false;
@@ -1688,11 +1891,11 @@ function startPuzzle(i){const P=PUZZLES[i];AU.init();markDay();VO.stop();RUN=nul
     $('#pzEnd').innerHTML=`<div class="pz-end"><div class="end-stars">${starsHTML(stars).replace(/^<span class="stars"[^>]*>|<\/span>$/g,'')}</div>${won?`<p class="cry">${ICON('crystal')} +${won}</p>`:''}<p class="pz-why"><b>${P.master?'Tesla':'Lumi'} ›</b> ${hl(ui('pz.'+P.id+'.w'))}</p>
       <div class="end-actions">${stars<3?`<button class="btn ghost" id="pzAgain">${esc(ui('pz.again'))}</button>`:''}${nx&&pzUnlocked(i+1)?`<button class="btn primary" id="pzNext">${esc(ui('pz.next'))} ›</button>`:''}<button class="btn ${nx&&pzUnlocked(i+1)?'ghost':'primary'}" id="pzList">${esc(ui('pz.list'))}</button></div></div>`;
     const a=$('#pzAgain');if(a)a.onclick=()=>startPuzzle(i);const n=$('#pzNext');if(n){n.onclick=()=>startPuzzle(i+1);n.focus()}$('#pzList').onclick=()=>{BACK=null;openPuzzles()};
-    VO.say(ui('pz.'+P.id+'.w'));setTimeout(checkAch,900)};
+    VO.say(ui('pz.'+P.id+'.w'),false,P.master?'tesla':'lumi');setTimeout(checkAch,900)};
   lab=createLab($('#lsMain'),{comps:P.board(),palette:P.pal,tool:P.tool,inspector:$('#insp'),resVals:P.resVals,resDefault:P.resDefault,fuseVals:P.fuseVals,fuseDefault:P.fuseDefault,Pmax:P.Pmax,showPmax:!!P.Pmax,fixPmax:!!P.Pmax,showAll:!!P.Pmax,
     onChange:()=>{crit();setTimeout(evalP,0)},onEvent:ev=>{if(ev.k!=='fuse'&&!st.solved){st.burn=true;crit()}}});
   LASTLAB=lab;crit();
-  $('#lsHint').onclick=()=>{const k=Math.min(st.hi,1);st.hi++;st.hint=true;crit();const t=ui('pz.'+P.id+'.h'+(k+1));const el=$('#lsHintT');el.hidden=false;el.innerHTML=`<b>${P.master?'Tesla':'Lumi'} ›</b> ${hl(t)}`;AU.play('select');VO.say(t,true)};
+  $('#lsHint').onclick=()=>{const k=Math.min(st.hi,1);st.hi++;st.hint=true;crit();const t=ui('pz.'+P.id+'.h'+(k+1));const el=$('#lsHintT');el.hidden=false;el.innerHTML=`<b>${P.master?'Tesla':'Lumi'} ›</b> ${hl(t)}`;AU.play('select');VO.say(t,true,P.master?'tesla':'lumi')};
   $('#lsReset').onclick=()=>{lab.setComps(P.board());st.burn=false;AU.play('click');crit()}}
 
 /* ---------- Anomalías temporales: repaso de lo que más cuesta ---------- */
@@ -1719,7 +1922,7 @@ function startReview(){AU.init();markDay();VO.stop();RUN=null;BACK=renderHub;sho
   draw()}
 
 /* ================= Title & intro ================= */
-function paintLangButtons(){$$('.lang-btn').forEach(b=>{const on=b.dataset.lang===L;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))})}
+function paintLangButtons(){$$('.lang-btn[data-lang]').forEach(b=>{const on=b.dataset.lang===L;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))})}
 function renderTitle(){applyStatic();paintLangButtons();const known=!!S.name;$('#titleLumi').innerHTML=portrait('lumi','happy');$('#storeWarn').hidden=STORE_OK;$('#nameRow').hidden=known;$('#whoLine').hidden=!known;$('#nameIn').value=S.name||'';
   if(known)$('#whoLine').innerHTML=`${esc(ui('title.player'))} <b>${esc(S.name)}</b> · <button class="linkbtn" id="chgName">${esc(ui('btn.change'))}</button>`;const c=$('#chgName');if(c)c.onclick=()=>{$('#nameRow').hidden=false;$('#whoLine').hidden=true;$('#nameIn').focus()};show('title')}
 const INTRO=[
@@ -1739,15 +1942,17 @@ const INTRO=[
 async function playIntro(){AU.init();AU.startMusic();await talk(INTRO,{scene:'museum'});S.introSeen=true;save();renderHub();checkAch()}
 
 /* ================= Settings ================= */
-function openSettings(){const m=$('#settings');applyStatic();paintLangButtons();$('#setName').value=S.name;$('#tNarr').checked=S.settings.narr;$('#tMusic').checked=S.settings.music;$('#tSfx').checked=S.settings.sfx;$('#tAlt').checked=!!S.settings.alt;
+function openSettings(){const m=$('#settings');applyStatic();paintLangButtons();$('#setName').value=S.name;$('#tNarr').checked=S.settings.narr;$('#tMusic').checked=S.settings.music;$('#tSfx').checked=S.settings.sfx;$('#tAlt').checked=!!S.settings.alt;paintVoice();
   $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;m.hidden=false;$('#setClose').focus()}
 function closeSettings(){S.name=($('#setName').value||'').trim()||S.name;save();$('#settings').hidden=true;refreshAfterChange()}
 /* repinta lo que se ve detrás (menús, o el título); durante una misión los cambios se ven en la siguiente pantalla */
 function refreshAfterChange(){applyStatic();paintLangButtons();if(!$('#scr-hub').hidden)rerender();else if(!$('#scr-title').hidden)renderTitle()}
 
 /* ================= Wiring ================= */
-$$('.lang-btn').forEach(b=>b.onclick=()=>{AU.play('select');setLang(b.dataset.lang);paintLangButtons();if($('#settings').hidden)renderTitle();else openSettings()});
+$$('.lang-btn[data-lang]').forEach(b=>b.onclick=()=>{AU.play('select');setLang(b.dataset.lang);paintLangButtons();if($('#settings').hidden)renderTitle();else openSettings()});
 $('#tNarr').onchange=e=>{S.settings.narr=e.target.checked;if(!S.settings.narr)VO.stop();save()};
+function paintVoice(){$$('[data-voice]').forEach(b=>{const on=(S.settings.voice||'rec')===b.dataset.voice;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});const h=$('#voiceHelp');if(h)h.textContent=ui(VO.man?'set.voice.help':'set.voice.noRec')}
+$$('[data-voice]').forEach(b=>b.onclick=()=>{S.settings.voice=b.dataset.voice;save();paintVoice();VO.say(ui('set.voice.test'),true,'lumi')});
 $('#tMusic').onchange=e=>{AU.init();AU.setMusic(e.target.checked);save()};
 $('#tSfx').onchange=e=>{AU.init();AU.setSfx(e.target.checked);save()};
 $('#tAlt').onchange=e=>{S.settings.alt=e.target.checked;save()};
@@ -1777,4 +1982,4 @@ document.addEventListener('keydown',e=>{if(!$('#settings').hidden){if(e.key==='E
   if(k!=null&&KEYS.opt){KEYS.opt(k);return}
   if(e.key==='Enter'&&KEYS.next&&tag!=='button'){e.preventDefault();KEYS.next()}});
 setInterval(()=>{if(document.visibilityState!=='visible')return;const sc=document.body.dataset.scr;if(sc==='play'||sc==='talk'){S.stats.time+=5;if(S.stats.time%30===0)save()}},5000);
-VO.load();FX.init();renderTitle();
+VO.load();VO.loadRec();FX.init();renderTitle();
