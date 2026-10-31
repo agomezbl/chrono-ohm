@@ -67,7 +67,7 @@ const playerName=()=>S.name||'Alex';
 const dropName=s=>String(s).replace(/(^|[.!?…][\s\u00a0]+)\{N\},\s*/g,'$1').replace(/,\s*\{N\}([\s\u00a0\u202f]*[:?!.…]|$)/g,'$1');
 
 /* ================= Languages ================= */
-const VERSION='1.5';
+const VERSION='1.6';
 const LANGS={fr:'Français',es:'Español'};
 const MISS=new Set();
 const detectLang=()=>{try{return /^es\b/i.test(navigator.language||'')?'es':'fr'}catch(e){return 'fr'}};
@@ -1943,7 +1943,7 @@ async function playIntro(){AU.init();AU.startMusic();await talk(INTRO,{scene:'mu
 
 /* ================= Settings ================= */
 function openSettings(){const m=$('#settings');applyStatic();paintLangButtons();$('#setName').value=S.name;$('#tNarr').checked=S.settings.narr;$('#tMusic').checked=S.settings.music;$('#tSfx').checked=S.settings.sfx;$('#tAlt').checked=!!S.settings.alt;paintVoice();
-  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;m.hidden=false;$('#setClose').focus()}
+  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;offPaint();m.hidden=false;$('#setClose').focus()}
 function closeSettings(){S.name=($('#setName').value||'').trim()||S.name;save();$('#settings').hidden=true;refreshAfterChange()}
 /* repinta lo que se ve detrás (menús, o el título); durante una misión los cambios se ven en la siguiente pantalla */
 function refreshAfterChange(){applyStatic();paintLangButtons();if(!$('#scr-hub').hidden)rerender();else if(!$('#scr-title').hidden)renderTitle()}
@@ -1982,4 +1982,21 @@ document.addEventListener('keydown',e=>{if(!$('#settings').hidden){if(e.key==='E
   if(k!=null&&KEYS.opt){KEYS.opt(k);return}
   if(e.key==='Enter'&&KEYS.next&&tag!=='button'){e.preventDefault();KEYS.next()}});
 setInterval(()=>{if(document.visibilityState!=='visible')return;const sc=document.body.dataset.scr;if(sc==='play'||sc==='talk'){S.stats.time+=5;if(S.stats.time%30===0)save()}},5000);
+
+/* ================= App instalable: service worker y voces para jugar sin internet ================= */
+const OFF={cache:'chrono-audio',flag:'chrono-offline-ok',busy:false,done:0,total:0};const trO=(fr,es)=>L==='fr'?fr:es;
+const standalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
+async function offList(){const r=await fetch('audio/manifest.json',{cache:'no-cache'});const j=await r.json();return ['fr','es'].flatMap(l=>(j[l]||[]).map(k=>new URL(`audio/${l}/${k}.mp3`,location.href).href))}
+async function offStatus(){if(!('caches' in window)||!/^https?:$/.test(location.protocol))return null;try{const urls=await offList(),c=await caches.open(OFF.cache),have=new Set((await c.keys()).map(r=>r.url));return {have:urls.filter(u=>have.has(u)).length,total:urls.length}}catch(e){return null}}
+async function offDownload(onProg){if(OFF.busy)return;OFF.busy=true;try{const urls=await offList(),c=await caches.open(OFF.cache),have=new Set((await c.keys()).map(r=>r.url));const todo=urls.filter(u=>!have.has(u));OFF.total=urls.length;OFF.done=urls.length-todo.length;onProg&&onProg();
+  let i=0;const worker=async()=>{while(i<todo.length){const u=todo[i++];try{const r=await fetch(u);if(r.ok&&r.status===200)await c.put(u,r)}catch(e){}OFF.done++;onProg&&onProg()}};
+  await Promise.all([worker(),worker(),worker(),worker(),worker()]);try{localStorage.setItem(OFF.flag,'1')}catch(e){}}finally{OFF.busy=false;onProg&&onProg()}}
+function offPaint(){const b=$('#offBox');if(!b)return;$('#offTitle').textContent=trO('Jouer sans internet','Jugar sin internet');
+  if(!/^https?:$/.test(location.protocol)||!('caches' in window)){b.innerHTML=`<p class="small">${trO('Disponible quand le jeu est ouvert depuis son site ou installé comme app.','Disponible cuando el juego se abre desde su web o instalado como app.')}</p>`;return}
+  if(OFF.busy){const pc=OFF.total?Math.round(OFF.done/OFF.total*100):0;b.innerHTML=`<p class="small">${trO('Téléchargement des voix…','Descargando las voces…')} ${pc} %</p><div class="off-bar"><i style="width:${pc}%"></i></div>`;return}
+  offStatus().then(s=>{if(!b.isConnected)return;if(!s){b.innerHTML='';return}const full=s.have>=s.total;
+    b.innerHTML=full?`<p class="small off-ok">${trO('Prêt : tout le jeu, voix comprises, marche sans internet.','Listo: todo el juego, voces incluidas, funciona sin internet.')}</p>`
+      :`<p class="small">${trO(`Voix enregistrées sur cet appareil : ${s.have} sur ${s.total}. Télécharge-les une fois (environ 30 Mo, mieux en wifi) pour jouer sans internet.`,`Voces guardadas en este aparato: ${s.have} de ${s.total}. Descárgalas una vez (unos 30 MB, mejor con wifi) para jugar sin internet.`)}</p><button class="btn sm" id="offGet">${trO('Préparer pour jouer sans internet','Preparar para jugar sin internet')}</button>`;const g=$('#offGet');if(g)g.onclick=()=>{offDownload(offPaint);offPaint()}})}
+setTimeout(()=>{let ok=false;try{ok=localStorage.getItem(OFF.flag)==='1'}catch(e){}const cn=navigator.connection||{};if(standalone()&&!ok&&!cn.saveData&&cn.type!=='cellular'&&location.protocol==='https:')offDownload(()=>{if(!$('#settings').hidden)offPaint()})},4000);
 VO.load();VO.loadRec();FX.init();renderTitle();

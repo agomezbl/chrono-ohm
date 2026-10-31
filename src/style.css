@@ -561,3 +561,5 @@ svg[data-tool=select] .hit,svg[data-tool=erase] .hit{cursor:pointer}svg[data-too
 .teaser{display:flex;gap:14px;align-items:center;padding:14px;border-color:#6d5bb0;background:radial-gradient(circle at 10% 50%,rgba(185,167,255,.16),transparent 60%),var(--hull)}
 .teaser h3{margin:2px 0 4px;font:700 19px var(--f-display);color:#d8ccff}.teaser p{margin:0;color:var(--ink-dim)}.tz-p{width:84px;flex:none}.tz-p .portrait{width:100%;height:auto}
 .lab-board svg{-webkit-touch-callout:none}
+
+.off-bar{height:10px;border-radius:99px;background:var(--hull-3);overflow:hidden}.off-bar i{display:block;height:100%;background:var(--ok,#45d38b)}.off-ok{color:var(--ok,#45d38b)!important}

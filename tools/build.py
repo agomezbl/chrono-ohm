@@ -36,6 +36,7 @@ def page(test=False):
 def full(test=False):
     return ('<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
+            '<meta name="theme-color" content="#090b12">\n<link rel="manifest" href="manifest.webmanifest">\n<link rel="icon" href="icon-192.png">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-title" content="Chrono-Ohm">\n'
             '<meta name="description" content="Chrono-Ohm : aventure scientifique pour apprendre l\'intensité, la résistance et la loi d\'Ohm.">\n'
             + page(test).replace('<title>Chrono-Ohm</title>\n', '<title>Chrono-Ohm</title>\n</head>\n<body>\n', 1) + '</body>\n</html>\n')
 
