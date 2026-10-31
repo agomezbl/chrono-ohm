@@ -19,14 +19,17 @@ css = read('src', 'style.css')
 fonts = read('src', 'fonts.css') if os.path.exists(P('src', 'fonts.css')) else ''
 body = read('src', 'body.html')
 app = read('src', 'app.js')
+# v1.7: contenido nuevo en src/v17/*.js (en orden); el arranque va en el último archivo
+import glob
+app += '\n' + '\n'.join(open(f, encoding='utf-8').read() for f in sorted(glob.glob(P('src', 'v17', '*.js'))))
 dict_path = P('i18n', 'dict.json')
 i18n = read('i18n', 'dict.json') if os.path.exists(dict_path) else '{}'
 # valida el JSON antes de inyectarlo
 json.loads(i18n)
 
 TEST_EXPORT = ("\nwindow.__CO={get S(){return S},set S(v){S=v},CHAPTERS,NOTES,SKILLS,ACH,INTRO,CAST,RANKS,CTYPES,BANDN,LAMPS,"
-               "startMission,openChapter,renderHub,openNotes,openSkills,openSandbox,openSettings,openCredits,setLang,renderTitle,"
-               "get RUN(){return RUN},setRun(v){RUN=v},next,simulate,makeQ,checkAch,T,ui,MISS,I18N,VO,dropName,setLangT:setLang,PUZZLES,simWith,board,cG,cL,cR,cA,openShop,openPuzzles,startPuzzle,startReview,revPool,DEVICES,get LASTLAB(){return LASTLAB},saveCode,readCode,portrait,scene,voiceLines,VO};window.__CO_portrait=portrait;\n")
+               "startMission,missionEnd,openChapter,renderHub,openNotes,openSkills,openSandbox,openSettings,openCredits,setLang,renderTitle,"
+               "get RUN(){return RUN},setRun(v){RUN=v},next,simulate,makeQ,checkAch,T,ui,MISS,I18N,VO,dropName,setLangT:setLang,PUZZLES,simWith,board,cG,cL,cR,cA,openShop,openPuzzles,startPuzzle,startReview,revPool,DEVICES,get LASTLAB(){return LASTLAB},saveCode,readCode,portrait,scene,voiceLines,VO,EXPERTS,GENS,GPOOL,genSet,startDaily,openExpert,openTycoon,tySim,tyStartEra,tyNew,tyRun,TY_ERAS,TY_SITES,TY_CORR,TY_PL,TY_OBJ,TY_RES,lineR,lineImax,lineCost,plantCost,tyStartMoney,pacePaint,paceWall,STEP2,lineCalc};window.__CO_portrait=portrait;\n")
 
 def page(test=False):
     script = ("<script>\n(function(){'use strict';\nconst I18N=" + i18n + ";\n" + app +

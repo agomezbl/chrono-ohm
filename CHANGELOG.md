@@ -3,6 +3,18 @@
 Todo es la **versión 1**, todavía en desarrollo y **sin pruebas con familias reales**.
 Cada evolución suma una cifra: v1.1, v1.2, v1.3…
 
+## v1.7 · beta (31/10/2026) · Tomo II «La guerra de las corrientes»
+- **4 capítulos nuevos, nivel progresivo hasta bachillerato (23 misiones):** Königsberg 1845 con Kirchhoff (resistencia equivalente en serie y en paralelo, reducir redes, ley de los nudos con varias ramas, ley de las mallas, dos generadores enfrentados), Londres 1843 con Wheatstone (divisor de tensión, reóstato, divisor cargado, puente de Wheatstone con resistencia oculta, resistividad R = ρL/S), Múnich 1882 con Deprez (rendimiento, pérdidas R·I², transporte en alta tensión, la línea real Miesbach–Múnich, factura con término fijo y horas valle, sección del cable y calibre) y el Niágara 1896 con Westinghouse y Tesla (corriente alterna, transformador, averías escondidas, red con dos centrales, sabotaje y duelo final). Nueva villana: la Condesa Entropía, que quiere convertir toda la energía en calor.
+- **3 tipos de reto nuevos:** reducir una red de resistencias paso a paso, diseñar una línea de transporte (tensión, sección y metal, con pérdidas, caída de tensión y coste) y diagnosticar averías ocultas midiendo con el voltímetro. Nuevo componente en el laboratorio: el reóstato.
+- **Modo experto** para los capítulos 1 a 5: problemas generados que cambian en cada partida, un laboratorio difícil por capítulo y una prueba final con solo 2 corazones.
+- **Desafío del día:** 6 problemas (los mismos para todo el mundo ese día), una sola oportunidad, racha de días y premio.
+- **La compañía eléctrica (tycoon final):** mapa con barrios y emplazamientos, 5 eras de 1882 a 2026 (continua a 110 V, alterna y transformadores, red regional con hospital, nuclear y 400 kV, transición con eólica, solar, baterías y bombeo). Cada simulación es un mes: demanda hora a hora según el tipo de barrio y la estación, despacho por orden de mérito, flujo de potencia calculado con las leyes de Kirchhoff, pérdidas, caída de tensión, líneas que saltan por sobrecarga, tormentas, sequías, huelgas y olas de frío, economía, reputación, CO₂ e impuesto al carbono. La investigación se desbloquea resolviendo problemas de ingeniería. 15 estrellas de objetivos.
+- **Ritmo diario (para padres):** 3 misiones nuevas y 4 meses de compañía al día, para que el juego dure semanas y se aprenda poco a poco. Repetir, repasar y el desafío del día siempre están abiertos. Se puede desactivar o desbloquear con un código parental de 4 cifras.
+- 6 personajes nuevos (Kirchhoff, Wheatstone, Deprez, Westinghouse, Hertha Ayrton y la Condesa Entropía) y 5 escenarios (Königsberg, Londres, Múnich, Niágara y la sala de control), 9 competencias nuevas, 4 rangos nuevos y 13 medallas nuevas. Voces grabadas para todo el contenido nuevo.
+
+## v1.6 · beta (30/10/2026)
+- Instalable como aplicación (Android, iPhone y ordenador) y voces descargables para jugar sin conexión.
+
 ## v1.5 · beta (26/10/2026)
 - **Capítulo 5 · El Vórtice (final del juego):** pulsadores NA y NC, el relé (bobina y contactos), montaje marcha-paro con autorretención, pilotos verde y rojo, seta de paro de emergencia, tarjetas de seguridad de máquinas y duelo final contra el Barón. Nuevo escenario: la fortaleza del Barón fuera del tiempo.
 - **Simulador ampliado:** pulsadores que funcionan solo mientras se mantienen apretados, relés que hacen «clac» y mueven todos sus contactos a la vez, y aviso si un relé vibra porque su propio contacto lo desconecta.

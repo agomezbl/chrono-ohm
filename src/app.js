@@ -67,7 +67,7 @@ const playerName=()=>S.name||'Alex';
 const dropName=s=>String(s).replace(/(^|[.!?…][\s\u00a0]+)\{N\},\s*/g,'$1').replace(/,\s*\{N\}([\s\u00a0\u202f]*[:?!.…]|$)/g,'$1');
 
 /* ================= Languages ================= */
-const VERSION='1.6';
+const VERSION='1.7';
 const LANGS={fr:'Français',es:'Español'};
 const MISS=new Set();
 const detectLang=()=>{try{return /^es\b/i.test(navigator.language||'')?'es':'fr'}catch(e){return 'fr'}};
@@ -307,13 +307,15 @@ const CTYPES={
   pbnc:{n:tx('Bouton arrêt (NF)','Pulsador de paro (NC)'),pre:'S'},
   coil:{n:tx('Bobine du relais','Bobina del relé'),pre:'KA'},
   kno:{n:tx('Contact du relais (NO)','Contacto del relé (NA)'),pre:''},
-  knc:{n:tx('Contact du relais (NF)','Contacto del relé (NC)'),pre:''}};
+  knc:{n:tx('Contact du relais (NF)','Contacto del relé (NC)'),pre:''},
+  /* v1.7 · rhéostat: resistencia variable con un cursor */
+  var:{n:tx('Rhéostat','Reóstato'),pre:'Rh'}};
 const WIRELIKE=t=>t==='wire'||t==='sw'||t==='pbno'||t==='pbnc'||t==='kno'||t==='knc';
 const COIL_R=120,COIL_ON=6;
 const G_WIRE=1000,R_INT=.1,I_SHORT=4,AMP_MAX=10;
 function edgeNodes(e){const t=e.split(':'),p=t[1].split(',').map(Number);return t[0]==='h'?[[p[0],p[1]],[p[0]+1,p[1]]]:[[p[0],p[1]],[p[0],p[1]+1]]}
-function compR(c){switch(c.t){case 'res':return c.R;case 'lamp':{const L=LAMPS[c.lt];return L.Un/L.In}case 'motor':return 6/.2;case 'coil':return COIL_R;case 'amp':return .01;case 'fuse':return .02;case 'volt':return 1e7;default:return 1e-3}}
-function conducts(c){if(c.burnt)return false;if(c.t==='sw'&&!c.on)return false;if(c.t==='pbno')return !!c.pressed;if(c.t==='pbnc')return !c.pressed;if(c.t==='kno')return !!c.act;if(c.t==='knc')return !c.act;return true}
+function compR(c){if(c.fault==='short')return .01;switch(c.t){case 'res':return c.R;case 'var':return Math.max(.5,c.R);case 'lamp':{const L=LAMPS[c.lt];return L.Un/L.In}case 'motor':return 6/.2;case 'coil':return COIL_R;case 'amp':return .01;case 'fuse':return .02;case 'volt':return 1e7;default:return 1e-3}}
+function conducts(c){if(c.burnt||c.fault==='open')return false;if(c.t==='sw'&&!c.on)return false;if(c.t==='pbno')return !!c.pressed;if(c.t==='pbnc')return !c.pressed;if(c.t==='kno')return !!c.act;if(c.t==='knc')return !c.act;return true}
 /* Solve G·V = J with partial pivoting */
 function gauss(A,b){const n=b.length;for(let c=0;c<n;c++){let p=c,m=Math.abs(A[c][c]);for(let r=c+1;r<n;r++){const v=Math.abs(A[r][c]);if(v>m){m=v;p=r}}
     if(m<1e-18)continue;if(p!==c){[A[p],A[c]]=[A[c],A[p]];[b[p],b[c]]=[b[c],b[p]]}
@@ -336,7 +338,7 @@ function simulate(B){let out,events=[];
     for(const c of B.comps)if(c.t==='coil'){const e=!c.burnt&&Math.abs(out.res.get(c.id).U)>=COIL_ON;if(e!==!!c.act){c.act=e;changed=true}}
     for(const c of B.comps){if(c.burnt)continue;const r=out.res.get(c.id);const aI=Math.abs(r.I),aU=Math.abs(r.U);
       if(c.t==='lamp'){const L=LAMPS[c.lt];if(aU>L.Un*1.45){c.burnt=1;changed=true;events.push({k:'lamp',c})}}
-      else if(c.t==='res'){if(r.P>(c.Pmax||5)*1.15){c.burnt=1;changed=true;events.push({k:'res',c})}}
+      else if(c.t==='res'||c.t==='var'){if(r.P>(c.Pmax||5)*1.15){c.burnt=1;changed=true;events.push({k:'res',c})}}
       else if(c.t==='motor'){if(aI>.2*2.5){c.burnt=1;changed=true;events.push({k:'motor',c})}}
       else if(c.t==='fuse'){if(aI>c.Ir*1.0001){c.burnt=1;changed=true;events.push({k:'fuse',c})}}
       else if(c.t==='amp'){if(aI>AMP_MAX){c.burnt=1;changed=true;events.push({k:'amp',c})}}}
@@ -399,7 +401,7 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
   const edgeBetween=(a,b)=>{if(a[1]===b[1]&&Math.abs(a[0]-b[0])===1)return `h:${Math.min(a[0],b[0])},${a[1]}`;if(a[0]===b[0]&&Math.abs(a[1]-b[1])===1)return `v:${a[0]},${Math.min(a[1],b[1])}`;return null};
   function label(t){const pre=CTYPES[t].pre;if(!pre)return '';let n=1;while(B.comps.some(c=>c.lab===pre+n))n++;return pre+n}
   function place(t,e){if(at(e))return null;if(left(t)<=0){toast(ui('lab.none'));AU.play('bad');return null}
-    const c={id:++uid,t,e,dir:1,lab:label(t)};if(t==='gen')c.E=o.genE||6;if(t==='lamp')c.lt=o.lampType||o.lampTypes[0];if(t==='res'){c.R=o.resDefault||o.resVals[Math.min(5,o.resVals.length-1)];c.Pmax=o.Pmax||5}if(t==='fuse')c.Ir=o.fuseDefault||1;if(t==='sw')c.on=true;if(t==='kno'||t==='knc'){c.rel=(B.comps.find(x=>x.t==='coil')||{lab:'KA1'}).lab;c.lab=c.rel}
+    const c={id:++uid,t,e,dir:1,lab:label(t)};if(t==='gen')c.E=o.genE||6;if(t==='lamp')c.lt=o.lampType||o.lampTypes[0];if(t==='res'){c.R=o.resDefault||o.resVals[Math.min(5,o.resVals.length-1)];c.Pmax=o.Pmax||5}if(t==='var'){c.R=o.varDefault||100;c.Rmax=o.varMax||1000;c.Pmax=o.Pmax||5}if(t==='fuse')c.Ir=o.fuseDefault||1;if(t==='sw')c.on=true;if(t==='kno'||t==='knc'){c.rel=(B.comps.find(x=>x.t==='coil')||{lab:'KA1'}).lab;c.lab=c.rel}
     B.comps.push(c);used[t]=(used[t]||0)+1;AU.play(t==='wire'?'select':'plug');return c}
   function remove(c){if(!c||c.lock){if(c)toast(ui('lab.locked'));return}B.comps=B.comps.filter(x=>x!==c);if(used[c.t])used[c.t]--;if(sel===c)sel=null;AU.play('click')}
   function click(e){const c=e&&at(e);
@@ -418,7 +420,7 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     const P=(t,n)=>h?[cx+t,cy-n]:[cx+n,cy+t];return {h,cx,cy,P,x1,y1,x2,y2}}
   const pts=a=>a.map(p=>p.join(',')).join(' ');
   function flowAB(c,r){if(c.t==='gen')return c.dir===1?-r.I:r.I;return c.dir===1?r.I:-r.I}
-  function sym(c,r){const g=geom(c),P=g.P;let s='';const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20}[c.t];
+  function sym(c,r){const g=geom(c),P=g.P;let s='';const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20,var:22}[c.t];
     const lead=(t1,t2)=>`<line class="w" x1="${P(t1,0)[0]}" y1="${P(t1,0)[1]}" x2="${P(t2,0)[0]}" y2="${P(t2,0)[1]}"/>`;
     const hot=R&&R.shorts.length&&(c.t==='wire'||c.t==='gen')?' hot':'';
     if(c.t==='wire')return `<g class="cp wire${hot}${sel===c?' sel':''}${c.lock?' lock':''}${c.mark?' mark':''}">${lead(-LS/2,LS/2)}</g>`;
@@ -428,9 +430,10 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     else if(c.t==='lamp'){const L=LAMPS[c.lt],u=r?Math.abs(r.U):0;const br=c.burnt?0:Math.min(1.5,(u/L.Un)**2);s=`<circle class="glow" cx="${g.cx}" cy="${g.cy}" r="${30+br*22}" fill="url(#lGlow)" style="opacity:${Math.min(1,br)}"/>`+s+`<circle class="body ${c.burnt?'burnt':''}" cx="${g.cx}" cy="${g.cy}" r="17" style="fill:${c.burnt?'#111':c.col==='g'?`rgba(${70+br*40|0},${200+br*40|0},${110+br*40|0},${Math.min(1,br*.95)})`:c.col==='r'?`rgba(255,${80+br*30|0},${70+br*20|0},${Math.min(1,br*.95)})`:`rgba(255,${190+br*40|0},${90+br*80|0},${Math.min(1,br*.9)})`}"/><path class="w" d="M${g.cx-11} ${g.cy-11}L${g.cx+11} ${g.cy+11}M${g.cx+11} ${g.cy-11}L${g.cx-11} ${g.cy+11}"/>${c.burnt?`<path class="crack" d="M${g.cx-4} ${g.cy-17}l7 9-8 6 6 11"/>`:''}`}
     else if(c.t==='res'||c.t==='fuse'){const w=c.t==='res'?20:17,hh=c.t==='res'?9:7;const heat=r&&c.t==='res'?Math.min(1,r.P/(c.Pmax||5)):0;
       s+=`<polygon class="body ${c.burnt?'burnt':''}" points="${pts([P(-w,-hh),P(w,-hh),P(w,hh),P(-w,hh)])}" style="${c.t==='res'&&!c.burnt?`fill:rgb(${40+heat*215|0},${44+heat*60|0},${52-heat*30|0})`:''}"/>`;
-      if(c.t==='res'&&!c.burnt){const bd=bands(c.R);[[-12,BAND[bd[0]]],[-5,BAND[bd[1]]],[2,BAND[bd[2]]],[12,'#c9a227']].forEach(([t,col])=>{s+=`<polygon points="${pts([P(t-2.2,-hh),P(t+2.2,-hh),P(t+2.2,hh),P(t-2.2,hh)])}" fill="${col}"/>`})}
+      if(c.t==='res'&&!c.burnt&&!c.hideR){const bd=bands(c.R);[[-12,BAND[bd[0]]],[-5,BAND[bd[1]]],[2,BAND[bd[2]]],[12,'#c9a227']].forEach(([t,col])=>{s+=`<polygon points="${pts([P(t-2.2,-hh),P(t+2.2,-hh),P(t+2.2,hh),P(t-2.2,hh)])}" fill="${col}"/>`})}
       if(c.t==='fuse')s+=c.burnt?`<polyline class="w" points="${pts([P(-17,0),P(-5,0)])}"/><polyline class="w" points="${pts([P(5,0),P(17,0)])}"/>`:`<polyline class="w" points="${pts([P(-17,0),P(17,0)])}"/>`;
       if(heat>.7&&!c.burnt)s+=`<circle cx="${g.cx}" cy="${g.cy}" r="26" fill="url(#hGlow)" class="heat"/>`}
+    else if(c.t==='var'){const w=20,hh=9,k=Math.min(1,c.R/(c.Rmax||1000));s+=`<polygon class="body ${c.burnt?'burnt':''}" points="${pts([P(-w,-hh),P(w,-hh),P(w,hh),P(-w,hh)])}"/><polyline class="w thin var-arrow" points="${pts([P(-24,16),P(24,-16)])}"/><polygon class="var-tip" points="${pts([P(24,-16),P(15,-15),P(21,-8)])}"/><polygon points="${pts([P(-w+2,hh-4),P(-w+2+(2*w-4)*k,hh-4),P(-w+2+(2*w-4)*k,hh-1),P(-w+2,hh-1)])}" fill="#f2a65a"/>`}
     else if(c.t==='amp'||c.t==='volt'||c.t==='motor'){s+=`<circle class="body meter ${c.t} ${c.burnt?'burnt':''}" cx="${g.cx}" cy="${g.cy}" r="17"/>`;
       if(c.t==='motor'){const sp=c.burnt||!r?0:Math.abs(r.I)/.2;s+=`<g class="rotor" style="animation-duration:${sp>.05?(1.2/sp).toFixed(2):0}s;${sp>.05?'':'animation-name:none'}"><path d="M${g.cx} ${g.cy-12}V${g.cy+12}M${g.cx-12} ${g.cy}H${g.cx+12}" class="w thin"/></g><text class="sym-l" x="${g.cx}" y="${g.cy+6}">M</text>`}
       else{s+=`<text class="sym-l" x="${g.cx}" y="${g.cy+6}">${c.t==='amp'?'A':'V'}</text>`;const pp=P(c.dir===1?-30:30,0),cm=P(c.dir===1?30:-30,0);s+=`<circle cx="${pp[0]}" cy="${pp[1]}" r="5" class="tplus"/><circle cx="${cm[0]}" cy="${cm[1]}" r="5" class="tcom"/>`}
@@ -444,15 +447,15 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
         (cl?`<polyline class="w ${c.act?'kact':''}" points="${pts([P(-20,0),P(20,0)])}"/>`:`<polyline class="w" points="${pts([P(-20,0),P(14,-18)])}"/>`)+(c.t==='knc'?`<polyline class="w thin" points="${pts([P(18,-12),P(18,6)])}"/>`:'')}
     return `<g class="cp ${c.t}${sel===c?' sel':''}${c.lock?' lock':''}${hot}">${s}</g>`}
   function flow(c,r){if(!r||c.burnt)return '';const f=flowAB(c,r),a=Math.abs(f);if(a<2e-4)return '';const g=geom(c);const dur=Math.max(.18,1.6/(.3+Math.log10(1+a*100)));
-    const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20}[c.t];const seg=(t1,t2)=>{const p1=g.P(t1,0),p2=g.P(t2,0);return `<line class="flow${a>I_SHORT?' fast':''}" x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" style="animation-duration:${dur.toFixed(2)}s;animation-direction:${f>0?'normal':'reverse'}"/>`};
+    const hw={wire:0,gen:8,lamp:18,res:22,amp:18,volt:18,sw:20,fuse:18,motor:18,pbno:20,pbnc:20,coil:17,kno:20,knc:20,var:22}[c.t];const seg=(t1,t2)=>{const p1=g.P(t1,0),p2=g.P(t2,0);return `<line class="flow${a>I_SHORT?' fast':''}" x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" style="animation-duration:${dur.toFixed(2)}s;animation-direction:${f>0?'normal':'reverse'}"/>`};
     return c.t==='wire'?seg(-LS/2,LS/2):seg(-LS/2,-hw)+seg(hw,LS/2)}
   function tag(c,r){const g=geom(c);let t='',cls='lab-l';if(c.t==='wire')return '';
     const lx=g.h?g.cx:g.cx+30,ly=g.h?g.cy-30:g.cy-6,an=g.h?'middle':'start';
-    let sub='';if(c.t==='gen')sub=frs(c.E)+' V';else if(c.t==='lamp')sub=c.col?'':LAMPS[c.lt].n;else if(c.t==='res')sub=fmtR(c.R)+(o.showPmax?' · '+frs(c.Pmax)+' W':'');else if(c.t==='fuse')sub=frs(c.Ir)+' A';
+    let sub='';if(c.t==='gen')sub=frs(c.E)+' V';else if(c.t==='lamp')sub=c.col?'':LAMPS[c.lt].n;else if(c.t==='res'||c.t==='var')sub=(c.hideR?'? Ω':fmtR(c.R))+(o.showPmax?' · '+frs(c.Pmax)+' W':'');else if(c.t==='fuse')sub=frs(c.Ir)+' A';
     t+=`<text class="${cls}" x="${lx}" y="${ly}" text-anchor="${an}">${esc(c.lab||'')}${sub?`<tspan class="lab-s"> ${esc(sub)}</tspan>`:''}</text>`;
     if((c.t==='amp'||c.t==='volt')&&r){const v=c.burnt?ui('lab.fuseHS'):c.t==='amp'?fmtA(r.I):fmtV(r.U);const bx=g.h?g.cx-46:g.cx+26,by=g.h?g.cy+24:g.cy+6;
       t+=`<g class="lcdb ${c.burnt?'dead':''}"><rect x="${bx}" y="${by}" width="92" height="26" rx="4"/><text x="${bx+86}" y="${by+19}" text-anchor="end">${esc(v)}</text></g>`}
-    if(o.showAll&&r&&!c.burnt&&(c.t==='lamp'||c.t==='res'||c.t==='motor')){t+=`<text class="lab-v" x="${lx}" y="${g.h?g.cy+40:g.cy+14}" text-anchor="${an}">${fmtV(Math.abs(r.U))} · ${fmtA(Math.abs(r.I))}</text>`}
+    if(o.showAll&&r&&!c.burnt&&(c.t==='lamp'||c.t==='res'||c.t==='var'||c.t==='motor')){t+=`<text class="lab-v" x="${lx}" y="${g.h?g.cy+40:g.cy+14}" text-anchor="${an}">${fmtV(Math.abs(r.U))} · ${fmtA(Math.abs(r.I))}</text>`}
     return t}
   function render(noInsp){let s=`<defs><radialGradient id="lGlow"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".95"/><stop offset=".5" stop-color="#ffb347" stop-opacity=".35"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
       <radialGradient id="hGlow"><stop offset="0" stop-color="#ff6a3d" stop-opacity=".7"/><stop offset="1" stop-color="#ff6a3d" stop-opacity="0"/></radialGradient></defs>
@@ -469,8 +472,9 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     const c=sel,r=R&&R.res.get(c.id),CT=CTYPES[c.t];const can=!c.lockVal;let h=`<div class="insp-h"><b>${esc(c.lab||T(CT.n))}</b><span>${esc(T(CT.n))}${altC(CT.n)}</span></div>`;
     if(c.burnt)h+=`<p class="insp-burnt">${esc(ui(c.t==='fuse'?'insp.fuseBlown':c.t==='amp'?'insp.ampFuse':'insp.burnt'))}</p><button class="btn sm" data-a="fix">${ICON('gear')} ${esc(ui('btn.replace'))}</button>`;
     if(c.t==='gen'){h+=o.genAdj&&can?`<label class="insp-l" for="gSl">${esc(ui('insp.tension'))} U = <b id="gV">${frs(c.E)} V</b></label><input type="range" id="gSl" min="0" max="12" step="0.5" value="${c.E}">`:can?chips('E',GVALS,v=>frs(v)+' V',c.E):`<p>U = ${frs(c.E)} V</p>`}
-    if(c.t==='res'){h+=can?chips('R',o.resVals,fmtR,c.R):`<p>R = ${fmtR(c.R)}</p>`;if(o.showPmax)h+=can&&!o.fixPmax?`<span class="insp-l">${esc(ui('insp.pmax'))}</span>`+chips('Pmax',PVALS,v=>frs(v)+' W',c.Pmax):`<p>Pmax = ${frs(c.Pmax)} W</p>`;
-      const bd=bands(c.R);h+=`<p class="insp-bands">${bd.map((b,i)=>`<i style="background:${BAND[b]}"></i>${esc(T(BANDN[b]))}`).join(' · ')}</p>`}
+    if(c.t==='res'){h+=can?chips('R',o.resVals,fmtR,c.R):`<p>R = ${c.hideR?'?':fmtR(c.R)}</p>`;if(o.showPmax)h+=can&&!o.fixPmax?`<span class="insp-l">${esc(ui('insp.pmax'))}</span>`+chips('Pmax',PVALS,v=>frs(v)+' W',c.Pmax):`<p>Pmax = ${frs(c.Pmax)} W</p>`;
+      const bd=bands(c.R);if(!c.hideR)h+=`<p class="insp-bands">${bd.map((b,i)=>`<i style="background:${BAND[b]}"></i>${esc(T(BANDN[b]))}`).join(' · ')}</p>`}
+    if(c.t==='var'){h+=can?`<label class="insp-l" for="vSl">R = <b id="vV">${fmtR(c.R)}</b></label><input type="range" id="vSl" min="0" max="${c.Rmax||1000}" step="${(c.Rmax||1000)>=2000?10:1}" value="${c.R}"><div class="var-step"><button class="btn sm ghost" data-vs="-1">−1 Ω</button><button class="btn sm ghost" data-vs="1">+1 Ω</button></div>`:`<p>R = ${fmtR(c.R)}</p>`}
     if(c.t==='lamp')h+=can&&o.lampTypes.length>1?chips('lt',o.lampTypes,k=>LAMPS[k].n,c.lt):`<p>${LAMPS[c.lt].n}<br><span class="insp-sub">${esc(ui('insp.lampNom',{u:frs(LAMPS[c.lt].Un),i:frs(LAMPS[c.lt].In)}))}</span></p>`;
     if(c.t==='fuse')h+=can?chips('Ir',o.fuseVals,v=>frs(v)+' A',c.Ir):`<p>${esc(ui('insp.rating',{v:frs(c.Ir)}))}</p>`;
     if(c.t==='pbno'||c.t==='pbnc')h+=`<p class="insp-sub">${esc(ui('insp.push'))}</p><button class="btn sm" data-a="press">${esc(ui('btn.press'))}</button>`;
@@ -484,6 +488,7 @@ function createLab(host,o){o=Object.assign({cols:7,rows:4,comps:[],palette:{wire
     el.innerHTML=h;
     $$('[data-k]',el).forEach(b=>b.onclick=()=>{const k=b.dataset.k;let v=b.dataset.v;if(k!=='lt')v=+v;c[k]=v;if(c.burnt&&k!=='Pmax')c.burnt=0;AU.play('select');run()});
     const sl=$('#gSl',el);if(sl){sl.oninput=()=>{c.E=+sl.value;$('#gV',el).textContent=frs(c.E)+' V';run(true)}}
+    const vs=$('#vSl',el);if(vs){vs.oninput=()=>{c.R=+vs.value;if(c.burnt)c.burnt=0;$('#vV',el).textContent=fmtR(c.R);run(true)};$$('[data-vs]',el).forEach(b=>b.onclick=()=>{c.R=clamp(c.R+ +b.dataset.vs,0,c.Rmax||1000);vs.value=c.R;$('#vV',el).textContent=fmtR(c.R);AU.play('select');run(true)})}
     $$('[data-a]',el).forEach(b=>b.onclick=()=>{const a=b.dataset.a;if(a==='fix'){c.burnt=0;AU.play('build')}if(a==='sw'){c.on=!c.on;AU.play('plug')}if(a==='press'){c.pressed=true;AU.play('click');setTimeout(()=>{c.pressed=false;run()},700)}if(a==='flip'){c.dir=-c.dir;AU.play('plug')}if(a==='del')remove(c);run()})}
   function chips(k,vals,f,cur){return `<div class="chips">${vals.map(v=>`<button class="chip ${v===cur?'cur':''}" data-k="${k}" data-v="${v}">${esc(f(v))}</button>`).join('')}</div>`}
   function alertMsg(html,cls){alertEl.innerHTML=html;alertEl.className='lab-alert '+(cls||'');alertEl.hidden=false;clearTimeout(alertEl._t);alertEl._t=setTimeout(()=>alertEl.hidden=true,3600)}
@@ -509,6 +514,7 @@ function toolIcon(t){const m={select:'M7 3l11 9-5 1 3 6-2 1-3-6-4 4z',erase:'M15
     sw:'<line x1="1" y1="14" x2="6" y2="14"/><line x1="18" y1="14" x2="23" y2="14"/><line x1="6" y1="14" x2="17" y2="6"/>',fuse:'<line x1="1" y1="12" x2="23" y2="12"/><rect x="6" y="8" width="12" height="8"/>',
     pbno:'<line x1="1" y1="17" x2="6" y2="17"/><line x1="18" y1="17" x2="23" y2="17"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="12" y1="12" x2="12" y2="6"/><rect x="8" y="2" width="8" height="4" rx="2" style="fill:#4fd18b;stroke:none"/>',
     pbnc:'<line x1="1" y1="15" x2="6" y2="15"/><line x1="18" y1="15" x2="23" y2="15"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="12" y1="15" x2="12" y2="8"/><rect x="8" y="3" width="8" height="5" rx="2" style="fill:#ff5a4f;stroke:none"/>',
+    var:'<line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><rect x="5" y="8" width="14" height="8"/><line x1="4" y1="20" x2="20" y2="4"/>',
     coil:'<line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/><rect x="6" y="6" width="12" height="12"/><line x1="6" y1="6" x2="18" y2="18" style="opacity:.4"/>',
     kno:'<line x1="1" y1="15" x2="6" y2="15"/><line x1="18" y1="15" x2="23" y2="15"/><line x1="6" y1="15" x2="17" y2="7"/>',
     knc:'<line x1="1" y1="14" x2="6" y2="14"/><line x1="18" y1="14" x2="23" y2="14"/><line x1="6" y1="14" x2="19" y2="14"/><line x1="18" y1="8" x2="18" y2="14"/>'}[t];
@@ -588,6 +594,8 @@ function hairHTML(C,u){const h=C.hair,d=shade(h,-.35),l=shade(h,.28),g=`url(#${u
   case 'middle':return [`<path d="M64 98 C58 58 82 44 100 46 C118 44 142 58 136 98 L138 108 L62 108Z" fill="${d}"/>`,
       `<path d="M64 96 C58 54 84 42 100 46 C116 42 142 54 136 96 C132 74 120 62 104 62 L100 54 L96 62 C80 62 68 74 64 96Z" fill="${g}"/>`+st(['M96 58 Q82 60 70 80','M92 62 Q78 68 68 88','M104 58 Q118 60 130 80','M108 62 Q122 68 132 88'],l,1.4)+`<path d="M100 50 V60" stroke="${shade(h,.5)}" stroke-width="1.2" opacity=".6"/>`];
   case 'bald':return [``,`<path d="M62 96 C58 80 62 66 70 60 C66 74 68 86 70 98Z M138 96 C142 80 138 66 130 60 C134 74 132 86 130 98Z" fill="${g}"/>`+st(['M64 90 Q64 76 70 66','M136 90 Q136 76 130 66'],l)+`<ellipse cx="88" cy="62" rx="14" ry="6" fill="#fff" opacity=".22" transform="rotate(-18 88 62)"/>`];
+  case 'bun':return [`<path d="M58 112 C50 60 76 40 100 42 C124 40 150 60 142 112 L136 120 L130 100 L70 100 L64 120Z" fill="${d}"/><circle cx="100" cy="30" r="20" fill="${g}"/><path d="M86 26 q14 -12 28 0" stroke="${l}" stroke-width="1.8" fill="none" opacity=".7"/>`,
+      `<path d="M60 98 C56 58 80 44 100 46 C120 44 144 58 140 98 C134 76 122 64 100 62 C80 64 66 76 60 98Z" fill="${g}"/>`+st(['M100 50 Q80 54 68 82','M100 50 Q120 54 132 82','M92 52 Q76 62 66 90','M108 52 Q124 62 134 90'],l,1.4)];
   default:return ['',''];}}
 function facialHTML(C,u){const h=C.hair,g=`url(#${u}hr)`,l=shade(h,.28);
   switch(C.fh){
@@ -726,11 +734,11 @@ function scene(id){const W=1000,H=560;const st=n=>Array.from({length:n},(_,i)=>`
   vortex:`<rect width="${W}" height="${H}" fill="rgba(6,8,16,.2)"/>`};
   /* v1.4: capa de ambiente común — haces de luz desde las ventanas, polvo en suspensión, bruma en el suelo y viñeta */
   const WIN={paris:[600,60,300,230,'#ffd9a8'],cologne:[640,70,280,250,'#ffe2b8'],manchester:[620,56,300,220,'#ffb98a'],museum:[520,120,200,200,'#5ee0ff'],academie:[330,40,340,260,'#ffe08a'],berlin:[420,70,160,200,'#e8dcc0'],pearl:[90,40,820,200,'#fff3c2'],newyork:[200,250,600,170,'#ffd27a']};
-  const w=WIN[id];const motes=w?Array.from({length:22},(_,i)=>`<circle class="mote" cx="${(w[0]+(i*97)%Math.max(60,w[2]))-((i*53)%140)}" cy="${w[1]+40+(i*61)%(H-w[1]-80)}" r="${1+(i%3)*.7}" fill="${w[4]}" opacity="${.25+(i%4)*.12}" style="animation-delay:-${(i*.7).toFixed(1)}s"/>`).join(''):'';
+  const w=WIN[id]||SCENEWIN[id];const motes=w?Array.from({length:22},(_,i)=>`<circle class="mote" cx="${(w[0]+(i*97)%Math.max(60,w[2]))-((i*53)%140)}" cy="${w[1]+40+(i*61)%(H-w[1]-80)}" r="${1+(i%3)*.7}" fill="${w[4]}" opacity="${.25+(i%4)*.12}" style="animation-delay:-${(i*.7).toFixed(1)}s"/>`).join(''):'';
   const fxl=`<defs><radialGradient id="sfxV" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient><linearGradient id="sfxF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>${w?`<linearGradient id="sfxS${id}" x1="0" y1="0" x2="-.3" y2="1"><stop offset="0" stop-color="${w[4]}" stop-opacity=".3"/><stop offset="1" stop-color="${w[4]}" stop-opacity="0"/></linearGradient>`:''}</defs>
     ${w&&id!=='newyork'&&id!=='pearl'?`<polygon points="${w[0]},${w[1]+w[3]} ${w[0]+w[2]},${w[1]+w[3]} ${w[0]+w[2]-140},${H} ${w[0]-300},${H}" fill="url(#sfxS${id})" class="shaft"/>`:''}${motes}
     <rect y="${H*.72}" width="${W}" height="${H*.28}" fill="url(#sfxF)"/><rect width="${W}" height="${H}" fill="url(#sfxV)"/>`;
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" class="scene" aria-hidden="true">${S[id]||S.vortex}${id==='vortex'?'':fxl}</svg>`}
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" class="scene" aria-hidden="true">${S[id]||(SCENES2[id]?SCENES2[id](W,H,st):S.vortex)}${id==='vortex'?'':fxl}</svg>`}
 
 /* ================= Dialogue engine ================= */
 function talk(lines,o){o=o||{};return new Promise(res=>{show('talk');const box=$('#scr-talk');let i=0,typing=false,full='',sceneId=o.scene||'vortex',left=null,right=null,timer=null,ended=false;
@@ -1380,7 +1388,7 @@ const md=s=>hl(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
 let RUN=null;const KEYS={};
 function chState(id){return S.ch[id]||(S.ch[id]={done:0,stars:{},complete:false})}
 function chUnlocked(ch){const i=CHAPTERS.indexOf(ch);if(ch.soon)return false;return i===0||chState(CHAPTERS[i-1].id).complete}
-function startMission(ch,mi){BACK=null;AU.init();markDay();VO.stop();RUN={ch,mi,m:ch.missions[mi],i:0,err:0,hints:0,xp:0,cr:0,streak:0,r0:rankOf(S.xp).i};next()}
+function startMission(ch,mi){if(ch.t2&&mi>=chState(ch.id).done&&!paceOK())return paceWall(()=>startMission(ch,mi));const m0=ch.missions[mi];if(m0.gen)m0.steps=m0.gen();BACK=null;AU.init();markDay();VO.stop();RUN={ch,mi,m:m0,i:0,err:0,hints:0,xp:0,cr:0,streak:0,r0:rankOf(S.xp).i};next()}
 function playHead(){const m=RUN.m,ch=RUN.ch;const n=m.steps.length;
   $('#phTitle').innerHTML=`${esc(T(ch.place))} ${ch.year||''} · ${esc(T(m.t))} ${altC(m.t)}`;
   $('#phRight').innerHTML=`<span class="dots">${m.steps.map((s,k)=>`<i class="${k<RUN.i-1?'on':k===RUN.i-1?'cur':''}"></i>`).join('')}</span><span class="xpc" id="phXp">+${RUN.xp} XP</span>`}
@@ -1388,18 +1396,18 @@ async function next(){if(!RUN)return;VO.stop();KEYS.opt=null;KEYS.next=null;cons
   if(st.type==='travel'){await travel(T(RUN.ch.era),RUN.ch.year,T(RUN.ch.place).toLocaleUpperCase(L));S.seenTravel[RUN.ch.id]=1;save();return next()}
   if(st.type==='talk'){await talk(st.lines,{scene:st.scene||RUN.ch.scene});return next()}
   show('play');playHead();const stage=$('#stage');stage.className='stage';
-  ({tip:renderTip,lab:renderLab,qcm:renderQcm,num:renderNum,calc:renderCalc,colors:renderColors,boss:renderBoss,page:renderPage,meter:renderMeter,danger:renderDanger,blackout:renderBlackout})[st.type](st,stage)}
+  (STEP2[st.type]||({tip:renderTip,lab:renderLab,qcm:renderQcm,num:renderNum,calc:renderCalc,colors:renderColors,boss:renderBoss,page:renderPage,meter:renderMeter,danger:renderDanger,blackout:renderBlackout})[st.type])(st,stage)}
 function gain(xp,el){RUN.xp+=xp;const x=$('#phXp');if(el&&x)FX.orbs(el,x,Math.min(7,Math.max(3,xp/5|0)),{done:()=>{const y=$('#phXp');if(y)y.textContent=`+${RUN.xp} XP`}});else if(x)x.textContent=`+${RUN.xp} XP`}
 function nextBtn(host,label){const b=document.createElement('button');b.className='btn primary';b.id='nextBtn';b.innerHTML=`${esc(label||ui('btn.continue'))} ›`;host.append(b);b.focus({preventScroll:true});KEYS.next=()=>b.click();b.onclick=()=>{AU.play('click');next()}}
 const fmtErr=n=>Number.isInteger(n)?String(n):fr(n,1);
-function missionEnd(){const r=RUN,ch=r.ch,cs=chState(ch.id);const stars=r.err===0?3:r.err<=2?2:1;const first=cs.done<=r.mi;
+function missionEnd(){const r=RUN,ch=r.ch,cs=chState(ch.id);const stars=r.err===0?3:r.err<=2?2:1;const first=cs.done<=r.mi;if(first&&ch.t2)paceUse();
   cs.stars[r.m.id]=Math.max(cs.stars[r.m.id]||0,stars);if(first)cs.done=r.mi+1;const last=r.mi===ch.missions.length-1;if(last)cs.complete=true;
   const bonus=(first?(r.m.boss?60:30):10);r.xp+=bonus;S.xp+=r.xp;const cr=stars*(r.m.boss?5:2);S.cr+=cr;S.stats.hist.push({d:dayStr(),a:Math.max(0,100-r.err*12),m:r.m.id});if(S.stats.hist.length>40)S.stats.hist=S.stats.hist.slice(-40);save();
   show('play');$('#phRight').innerHTML='';const nx=ch.missions[r.mi+1];
   $('#stage').className='stage';$('#stage').innerHTML=`<div class="panel end"><p class="kicker">${esc(ui(last?'end.chapter':'end.mission'))}</p><div class="end-big ok">${esc(T(r.m.t))}</div>${altC(r.m.t,'es end-alt')}
     <div class="end-stars">${starsHTML(stars).replace(/^<span class="stars"[^>]*>|<\/span>$/g,'')}</div>
     <div class="end-stats"><span><b>+${r.xp}</b>XP</span><span><b class="cry">${ICON('crystal')} +${cr}</b>${esc(uiN('end.crystals',cr))}</span><span><b>${fmtErr(r.err)}</b>${esc(uiN('end.errors',r.err))}</span>${r.hints?`<span><b>${r.hints}</b>${esc(uiN('end.hints',r.hints))}</span>`:''}</div>
-    ${ch.vortex&&last?`<div class="finale"><div class="diploma"><p class="pp-k">${esc(ui('fin.k'))}</p><h2>${esc(ui('fin.title'))}</h2><p>${esc(ui('fin.text',{n:playerName()}))}</p><p class="fin-date">${esc(new Date().toLocaleDateString(L==='fr'?'fr-FR':'es-ES',{day:'numeric',month:'long',year:'numeric'}))} · Lumi · N. Tesla</p></div>
+    ${last&&ch.finHTML?ch.finHTML():''}${ch.vortex&&last?`<div class="finale"><div class="diploma"><p class="pp-k">${esc(ui('fin.k'))}</p><h2>${esc(ui('fin.title'))}</h2><p>${esc(ui('fin.text',{n:playerName()}))}</p><p class="fin-date">${esc(new Date().toLocaleDateString(L==='fr'?'fr-FR':'es-ES',{day:'numeric',month:'long',year:'numeric'}))} · Lumi · N. Tesla</p></div>
       <div class="teaser panel"><div class="tz-p">${portrait('tesla','happy')}</div><div><p class="kicker">${esc(ui('fin.nextK'))}</p><h3>${esc(ui('fin.nextT'))}</h3><p>${esc(ui('fin.nextD'))}</p></div></div></div>`:''}
     <div class="end-actions">${nx?`<button class="btn primary" id="eNext">${ICON('play')} ${esc(T(nx.t))}</button>`:''}<button class="btn ${nx?'ghost':'primary'}" id="eBack">${esc(ui(last?'end.backTimeline':'end.backList'))}</button></div></div>`;
   AU.play(last?'levelup':'unlock');FX.confetti(last?220:90);
@@ -1427,7 +1435,7 @@ function renderLab(st,stage){const state={pts:[]};let gi=0,done=false,hintI=0,la
   function advance(){const li=$$('#goals li')[gi];if(li)FX.burstEl(li,{n:16,speed:3,colors:[FX.C.ok,FX.C.volt]});gi++;if(gi>=st.goals.length)return finish();drawGoals();evalGoals()}
   let pend=false;function evalGoals(){if(done||pend||!lab||!lab.Q)return;const g=st.goals[gi];if(!g||g.input)return;let ok=false;try{ok=g.check(lab.Q,state)}catch(e){ok=false}if(ok){pend=true;AU.play('ok');gain(6,$$('#goals li')[gi]);setTimeout(()=>{pend=false;advance()},250)}}
   function finish(){done=true;drawGoals();S.stats.labs++;save();const ft=$('#lsFoot');ft.innerHTML=`<p class="ls-done">${ICON('check')} ${esc(ui('lab.done'))}</p>`;gain(15,$('#goals'));nextBtn(ft);$('.lab-board',stage).classList.add('good')}
-  lab=createLab($('#lsMain'),{comps:st.board.comps,cols:st.board.cols||7,rows:st.board.rows||4,palette:st.palette,tool:st.tool,inspector:$('#insp'),genAdj:st.genAdj,resVals:st.resVals,resDefault:st.resDefault,lampTypes:st.lampTypes,showPmax:st.showPmax,showAll:st.showAll,fixPmax:st.fixPmax,Pmax:st.Pmax,fuseVals:st.fuseVals,fuseDefault:st.fuseDefault,
+  lab=createLab($('#lsMain'),{comps:st.board.comps,cols:st.board.cols||7,rows:st.board.rows||4,palette:st.palette,tool:st.tool,inspector:$('#insp'),genAdj:st.genAdj,resVals:st.resVals,resDefault:st.resDefault,lampTypes:st.lampTypes,showPmax:st.showPmax,showAll:st.showAll,fixPmax:st.fixPmax,Pmax:st.Pmax,fuseVals:st.fuseVals,fuseDefault:st.fuseDefault,varDefault:st.varDefault,varMax:st.varMax,
     onChange:()=>{if(st.graph)drawGraph();setTimeout(evalGoals,0)},onEvent:ev=>{if(st.onEvent)st.onEvent(ev,state)}});
   if(RUN)RUN.lab=lab;drawGoals();evalGoals();
   $('#lsHint').onclick=()=>{const h=st.hints||[];if(!h.length)return;const t=h[Math.min(hintI,h.length-1)];hintI++;RUN.hints++;const el=$('#lsHintT');el.hidden=false;el.innerHTML=`<b>Lumi ›</b> ${hl(T(t))}${altC(t,'es g-alt')}`;AU.play('select');VO.say(T(t),true)};
@@ -1611,9 +1619,10 @@ function voiceLines(){const out=[],add=(t,who)=>{if(t&&String(t).trim())out.push
     (st.hints||[]).forEach(h=>add(T(h)));
     if(st.q){add(T(st.q));if(st.ex)add(T(st.ex))}
     (st.qs||[]).forEach(q=>{add(T(q.q));add(T(q.ex))});
-    (st.cards||[]).forEach(c=>add(T(c.t)))};
+    (st.cards||[]).forEach(c=>add(T(c.t)));if(st.brief)add(T(st.brief));if(st.type==='diag'&&st.ex)add(T(st.ex))};
   INTRO.forEach(l=>{if(l.t)add(dropName(T(l.t)),l.w||'nar')});
   CHAPTERS.forEach(ch=>ch.missions.forEach(m=>m.steps.forEach(steps)));
+  Object.values(EXPERT_LAB).forEach(steps);Object.values(TY_INTRO).forEach(ls=>ls.forEach(l=>add(dropName(T(l.t)),l.w)));
   Object.values(NOTES).forEach(n=>add(noteSpeech(n)));
   add(ui('set.voice.test'));
   PUZZLES.forEach(P=>{const w=P.master?'tesla':'lumi';['w','h1','h2'].forEach(k=>add(ui('pz.'+P.id+'.'+k),w))});
@@ -1657,28 +1666,9 @@ function wireTop(){$('#btnSound').onclick=()=>{AU.init();const on=!(S.settings.m
 /* vuelve a pintar la pantalla de menú en la que estamos (tras cambiar idioma o sonido) */
 let VIEW={f:'hub'};
 let BACK=null;
-function rerender(){const v=VIEW;if(v.f==='shop')openShop();else if(v.f==='pz')openPuzzles();else if(v.f==='chapter')openChapter(v.ch);else if(v.f==='notes')openNotes();else if(v.f==='skills')openSkills();else if(v.f==='credits')openCredits();else renderHub()}
+function rerender(){const v=VIEW;if(v.f==='shop')openShop();else if(v.f==='pz')openPuzzles();else if(v.f==='chapter')openChapter(v.ch);else if(v.f==='notes')openNotes();else if(v.f==='skills')openSkills();else if(v.f==='credits')openCredits();else if(v.f==='tyc')openTycoon();else if(v.f==='exp')openExpert();else renderHub()}
 function nextTarget(){for(const ch of CHAPTERS){if(ch.soon)return {ch,soon:true};const cs=chState(ch.id);if(!cs.complete)return {ch,mi:cs.done}}return null}
-function renderHub(){VIEW={f:'hub'};show('hub');const nt=nextTarget();const h=$('#scr-hub');
-  const msg=!nt?esc(ui('hub.allDone')):nt.soon?esc(nt.ch.vortex?ui('hub.soonVortex'):ui('hub.soon',{place:T(nt.ch.place),year:nt.ch.year})):`${esc(ui('hub.next'))} <span class="frw">${esc(T(nt.ch.place))} ${nt.ch.year}</span> · ${esc(T(nt.ch.missions[nt.mi].t))}`;
-  const tm=chState('c4').complete,mLeft=PUZZLES.filter(p=>p.master&&!S.pz[p.id]).length;
-  h.innerHTML=headHTML()+`<section class="hero panel ${tm?'tesla':''}"><div class="hero-art">${portrait(tm?'tesla':'lumi','happy')}</div><div class="hero-txt"><p class="kicker">${esc(ui('hub.k'))}</p><h1 class="hero-h">${nt&&!nt.soon?esc(T(nt.ch.place))+' <span>'+nt.ch.year+'</span>':esc(ui('hub.chronotron'))}</h1><p class="bubble">${tm?`<b>Tesla ›</b> ${esc(mLeft?uiN('hub.tesla',mLeft):ui('hub.teslaDone'))}`:`<b>Lumi ›</b> ${msg}`}</p>
-      ${tm?`<button class="btn primary lg" id="goMaster">${ICON('trophy')} ${esc(ui('master.title'))}</button>`:''}${nt&&!nt.soon?`<button class="btn primary lg" id="goNext">${ICON('play')} ${esc(ui(chState(nt.ch.id).done?'btn.continue':'hub.travel'))}</button>`:''}</div></section>
-    <h2 class="sec">${esc(ui('hub.timeline'))} ${altU('hub.timeline')}</h2>
-    <div class="timeline">${CHAPTERS.map(ch=>{const cs=chState(ch.id),un=chUnlocked(ch),n=ch.missions.length;const stars=Object.values(cs.stars).reduce((a,b)=>a+b,0);
-      return `<button class="era ${un?'':'locked'} ${cs.complete?'done':''} ${ch.soon?'soon':''}" data-c="${ch.id}" style="--ec:${ch.color}"><span class="era-y">${ch.year||'∞'}</span><span class="era-m">${portrait(ch.sci,cs.complete?'happy':'neutral')}</span><span class="era-p">${esc(T(ch.place))}</span><span class="era-t">${esc(T(ch.title))}<small>${esc(T(ch.es))}</small></span>
-        <span class="era-s">${ch.soon?esc(ui('hub.soonTag')):!un?ICON('lock')+' '+esc(ui('hub.locked')):cs.complete?`${ICON('check')} ${stars}/${n*3} ★`:esc(ui('hub.missions',{d:cs.done,n}))}</span></button>`}).join('<i class="tl-link"></i>')}</div>
-    <div class="cards">
-      <button class="panel card act" id="goNotes"><h3>${ICON('book')} ${esc(ui('notes.title'))}<small>${esc(ui('hub.notesSub'))}</small></h3><p>${esc(ui('hub.pages',{n:Object.keys(S.notes).length,t:Object.keys(NOTES).length}))}</p></button>
-      <button class="panel card act" id="goSand"><h3>${ICON('gear')} ${esc(ui('sand.title'))}<small>${esc(ui('hub.sandSub'))}</small></h3><p>${esc(ui('hub.sandText'))}</p></button>
-      <button class="panel card act" id="goShop"><h3>${ICON('hangar')} ${esc(ui('shop.title'))}<small>${esc(ui('hub.shopSub'))}</small></h3><p>${esc(ui('hub.shopText',{w:shopLoad(),c:GEN_LEVELS[S.shop.gen-1].w}))}</p></button>
-      <button class="panel card act ${pzOpenCount()?'':'dimmed'}" id="goPz"><h3>${ICON('puzzle')} ${esc(ui('pz.title'))}<small>${esc(ui('hub.pzSub'))}</small></h3><p>${esc(ui('hub.pzText',{s:Object.values(S.pz).reduce((a,b)=>a+b,0),t:PUZZLES.length*3}))}</p></button>
-      <button class="panel card act ${revPool().length>=5?'':'dimmed'}" id="goRev"><h3>${ICON('repeat')} ${esc(ui('rev.title'))}<small>${esc(ui('hub.revSub'))}</small></h3><p>${esc(revDoneToday()?ui('hub.revDone'):revPool().length>=5?ui('hub.revReady'):ui('hub.revLocked'))}</p></button>
-      <button class="panel card act" id="goSkills"><h3>${ICON('chart')} ${esc(ui('skills.title'))}<small>${esc(ui('hub.skillsSub'))}</small></h3><p>${esc(ui('hub.skillsText',{ok:SKILLS.filter(s=>mastery(s.id).st==='ok').length,n:SKILLS.length,m:Object.keys(S.ach).length}))}</p></button></div>
-    <p class="hub-foot"><button class="linkbtn" id="goCredits">${esc(ui('credits.link'))}</button></p>`;
-  wireTop();const g=$('#goNext');if(g)g.onclick=()=>{AU.play('click');openChapter(nt.ch,true)};const gm=$('#goMaster');if(gm)gm.onclick=()=>{AU.play('click');openPuzzles();const mh=$('#masterHead');if(mh)mh.scrollIntoView({block:'start'})};
-  $$('.era',h).forEach(b=>b.onclick=()=>{const ch=CHAPTERS.find(c=>c.id===b.dataset.c);if(ch.soon){toast(ui('toast.soon'));return}if(!chUnlocked(ch)){AU.play('bad');toast(ui('toast.prevChapter'));return}AU.play('click');openChapter(ch)});
-  $('#goNotes').onclick=()=>openNotes();$('#goSand').onclick=()=>openSandbox();$('#goShop').onclick=()=>openShop();$('#goPz').onclick=()=>openPuzzles();$('#goRev').onclick=()=>{if(revPool().length<5){AU.play('bad');toast(ui('hub.revLocked'));return}startReview()};$('#goSkills').onclick=()=>openSkills();$('#goCredits').onclick=()=>openCredits()}
+/* renderHub: ahora en src/v17/60_hub.js (tomo I + tomo II) */
 function openChapter(ch,autoplay){const cs=chState(ch.id);if(autoplay&&cs.done<ch.missions.length&&cs.done===0)return startMission(ch,0);VIEW={f:'chapter',ch};show('hub');const h=$('#scr-hub');
   h.innerHTML=headHTML()+`<button class="btn sm ghost" id="back">‹ ${esc(ui('hub.timeline'))}</button><section class="chap panel" style="--ec:${ch.color}">${portrait(ch.sci,cs.complete?'happy':'neutral')}<div><p class="kicker">${esc(ui('chap.k',{n:ch.n,era:T(ch.era)}))}</p><h1>${esc(T(ch.title))}</h1><p class="es">${esc(T(ch.es))}</p></div></section>
     <div class="mlist">${ch.missions.map((m,i)=>{const un=i<=cs.done,st=cs.stars[m.id]||0;return `<button class="panel mi ${un?'':'locked'} ${m.boss?'boss':''}" data-i="${i}"><span class="mi-n">${m.boss?ICON('trophy'):'0'+(i+1)}</span><span class="mi-t">${esc(T(m.t))}${S.settings.alt?`<small lang="${other()}">${esc(TO(m.t))}</small>`:''}</span><span class="mi-s">${un?(st?starsHTML(st):`<span class="btn sm primary">${ICON('play')} ${esc(ui('btn.play'))}</span>`):ICON('lock')}</span></button>`}).join('')}</div>`;
@@ -1943,7 +1933,7 @@ async function playIntro(){AU.init();AU.startMusic();await talk(INTRO,{scene:'mu
 
 /* ================= Settings ================= */
 function openSettings(){const m=$('#settings');applyStatic();paintLangButtons();$('#setName').value=S.name;$('#tNarr').checked=S.settings.narr;$('#tMusic').checked=S.settings.music;$('#tSfx').checked=S.settings.sfx;$('#tAlt').checked=!!S.settings.alt;paintVoice();
-  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;offPaint();m.hidden=false;$('#setClose').focus()}
+  $('#narrHelp').textContent=ui(VO.ok&&VO.has(L)?'set.narrHelp':'set.noVoice');paintSaveInfo();$('#bkCode').hidden=true;$('#bkIn').hidden=true;$('#bkIn').value='';$('#bkMsg').textContent='';$('#bkRestore').textContent=ui('save.restore');restoreArm=null;offPaint();pacePaint();m.hidden=false;$('#setClose').focus()}
 function closeSettings(){S.name=($('#setName').value||'').trim()||S.name;save();$('#settings').hidden=true;refreshAfterChange()}
 /* repinta lo que se ve detrás (menús, o el título); durante una misión los cambios se ven en la siguiente pantalla */
 function refreshAfterChange(){applyStatic();paintLangButtons();if(!$('#scr-hub').hidden)rerender();else if(!$('#scr-title').hidden)renderTitle()}
@@ -1999,4 +1989,4 @@ function offPaint(){const b=$('#offBox');if(!b)return;$('#offTitle').textContent
     b.innerHTML=full?`<p class="small off-ok">${trO('Prêt : tout le jeu, voix comprises, marche sans internet.','Listo: todo el juego, voces incluidas, funciona sin internet.')}</p>`
       :`<p class="small">${trO(`Voix enregistrées sur cet appareil : ${s.have} sur ${s.total}. Télécharge-les une fois (environ 30 Mo, mieux en wifi) pour jouer sans internet.`,`Voces guardadas en este aparato: ${s.have} de ${s.total}. Descárgalas una vez (unos 30 MB, mejor con wifi) para jugar sin internet.`)}</p><button class="btn sm" id="offGet">${trO('Préparer pour jouer sans internet','Preparar para jugar sin internet')}</button>`;const g=$('#offGet');if(g)g.onclick=()=>{offDownload(offPaint);offPaint()}})}
 setTimeout(()=>{let ok=false;try{ok=localStorage.getItem(OFF.flag)==='1'}catch(e){}const cn=navigator.connection||{};if(standalone()&&!ok&&!cn.saveData&&cn.type!=='cellular'&&location.protocol==='https:')offDownload(()=>{if(!$('#settings').hidden)offPaint()})},4000);
-VO.load();VO.loadRec();FX.init();renderTitle();
+/* v1.7 · el arranque está en src/v17/99_init.js (después de cargar el contenido nuevo) */

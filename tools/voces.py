@@ -16,10 +16,14 @@ V = os.path.join(ROOT, 'voz')
 CAST = {
  'fr': {'lumi': ('ff_siwis', 1.0, 1.0), 'nar': ('ff_siwis', .92, .94), 'baron': ('ff_siwis', .9, .72),
         'ampere': ('ff_siwis', .97, .8), 'ohm': ('ff_siwis', .95, .78), 'arago': ('ff_siwis', .95, .76), 'minister': ('ff_siwis', .9, .74),
-        'joule': ('ff_siwis', .97, .8), 'thomson': ('ff_siwis', 1.0, .84), 'edison': ('ff_siwis', .97, .77), 'tesla': ('ff_siwis', .95, .82)},
+        'joule': ('ff_siwis', .97, .8), 'thomson': ('ff_siwis', 1.0, .84), 'edison': ('ff_siwis', .97, .77), 'tesla': ('ff_siwis', .95, .82),
+        'kirchhoff': ('ff_siwis', 1.0, .83), 'wheatstone': ('ff_siwis', .95, .79), 'deprez': ('ff_siwis', .97, .78), 'westinghouse': ('ff_siwis', .94, .74),
+        'ayrton': ('ff_siwis', .98, .96), 'entropie': ('ff_siwis', .9, .88)},
  'es': {'lumi': ('ef_dora', 1.0, 1.0), 'nar': ('ef_dora', .92, .95), 'baron': ('em_alex', .9, .85),
         'ampere': ('em_santa', .97, 1.0), 'ohm': ('em_alex', .95, .95), 'arago': ('em_santa', .95, .95), 'minister': ('em_santa', .9, .9),
-        'joule': ('em_alex', .97, 1.0), 'thomson': ('em_alex', 1.0, 1.05), 'edison': ('em_santa', .97, 1.0), 'tesla': ('em_alex', .95, 1.0)}}
+        'joule': ('em_alex', .97, 1.0), 'thomson': ('em_alex', 1.0, 1.05), 'edison': ('em_santa', .97, 1.0), 'tesla': ('em_alex', .95, 1.0),
+        'kirchhoff': ('em_alex', 1.0, 1.08), 'wheatstone': ('em_santa', .95, 1.02), 'deprez': ('em_santa', .97, .96), 'westinghouse': ('em_alex', .94, .9),
+        'ayrton': ('ef_dora', .98, 1.04), 'entropie': ('ef_dora', .9, .88)}}
 CODE = {'fr': 'fr-fr', 'es': 'es'}
 
 def main():
